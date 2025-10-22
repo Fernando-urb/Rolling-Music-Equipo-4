@@ -1,5 +1,5 @@
 import "preline/preline.js";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import About from "./pages/About";
@@ -14,6 +14,7 @@ function App() {
       <Sidebar />
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/about" element={<About />} />
         <Route path="/songDetail" element={<SongDetail />} />
         <Route path="*" element={<NotFound />} />

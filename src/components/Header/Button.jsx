@@ -9,7 +9,7 @@ const Button = ({ children, onClick, type = "button", className = "" }) => {
           bg-linear-to-r from-purple-600 via-purple-700 to-purple-800 
           hover:from-purple-700 hover:via-purple-800 hover:to-purple-900 
           transition duration-500 ease-in-out
-          ${className} // Aquí se añaden clases externas
+          ${className} 
         `}
       >
         {children}
