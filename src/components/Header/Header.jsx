@@ -1,18 +1,23 @@
 import { LOGO_VMUSIC } from "../../constants/imagenes";
 import Buscador from "./Buscador";
 import Button from "./Button";
+import { useModals } from "../../hook/useAuth";
+import { useAuth } from "../../hook/useAuth"; // 1. IMPORTAR useAuth
 
 const logoPrincipal = LOGO_VMUSIC[0];
 const INICIO_SESION = "Iniciar Sesión";
+const REGISTRARSE = "Registrarse";
+const CERRAR_SESION = "Cerrar Sesión"; // 2. Nueva constante
 
 function Header() {
-  const handleLogin = () => {
-    alert("¡Iniciando Sesión!");
-  };
+  const { openLogin, openRegister } = useModals();
+  const { isAuthenticated, user, logout } = useAuth(); // 3. OBTENER ESTADO DE AUTH
+
   return (
     <header className="fixed top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-48 lg:z-61 w-full bg-zinc-100 text-sm py-4 dark:bg-neutral-900">
       <nav className="px-4 sm:px-5.5 flex basis-full items-center w-full mx-auto">
         <div className="w-full flex items-center gap-x-1.5">
+          {/* ... (Tu código de logo y buscador) ... */}
           <ul className="flex items-center gap-1.5">
             <li className="inline-flex items-center relative text-gray-200 pe-1.5 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
               <div className="hidden sm:block ms-1"></div>
@@ -28,7 +33,6 @@ function Header() {
                 <span className="sr-only">Sidebar Toggle</span>
               </button>
             </li>
-
             <li className="inline-flex items-center relative text-gray-200 pe-1.5 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
               <div className="inline-flex justify-center w-full">
                 <div className="hs-dropdown relative [--strategy:absolute] [--placement:bottom-left] inline-flex">
@@ -39,10 +43,33 @@ function Header() {
           </ul>
 
           <ul className="flex flex-row items-center gap-x-3 ms-auto">
-            <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
-              <Button onClick={handleLogin}>{INICIO_SESION}</Button>
-            </li>
+            {/* 4. RENDERIZADO CONDICIONAL */}
+            {!isAuthenticated ? (
+              // FRAGMENTO: Si NO está autenticado
+              <>
+                <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
+                  <Button onClick={openLogin}>{INICIO_SESION}</Button>
+                </li>
+                <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
+                  <Button onClick={openRegister}>{REGISTRARSE}</Button>
+                </li>
+              </>
+            ) : (
+              // FRAGMENTO: Si SÍ está autenticado
+              <>
+                <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-400 pe-3">
+                  Hola, {user.userName}
+                </li>
+                <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
+                  {/* Botón de Logout usa un color rojo (ajusta 'bg-red-600' como prefieras) */}
+                  <Button onClick={logout} className="bg-red-600 hover:bg-red-500">
+                    {CERRAR_SESION}
+                  </Button>
+                </li>
+              </>
+            )}
 
+            {/* ... (Tu código del botón de modo oscuro) ... */}
             <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
               <div className="px-4 py-2  dark:border-neutral-800">
                 <div className="flex flex-wrap justify-between items-center gap-2">

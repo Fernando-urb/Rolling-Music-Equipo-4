@@ -13,13 +13,17 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/vite": "^4.1.15",
+    "bcryptjs": "^3.0.2",
+    "firebase": "^12.4.0",
     "lucide-react": "^0.546.0",
     "preline": "^3.2.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.65.0",
     "react-router-dom": "^7.9.4",
+    "react-toastify": "^11.0.5",
     "zod": "^4.1.12"
   },
   "devDependencies": {

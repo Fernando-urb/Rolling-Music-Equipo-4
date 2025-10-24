@@ -23,6 +23,7 @@ export const PAGES_NAVIGATE = [
   },
 ];
 
+//no se tiene que mostrar hasta que el usuario inicie sesion
 export const PAGES_MUSICA = [
   {
     name: "Canciones",
