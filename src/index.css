@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-/* src/index.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import "../node_modules/preline/variants.css";
 @layer base {
   button:not(:disabled),
