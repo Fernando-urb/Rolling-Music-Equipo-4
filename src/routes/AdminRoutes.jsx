@@ -1,32 +1,46 @@
 import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import ProtectedAdminRoute from "./ProtectedAdminRoute";
 
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import AdminUsers from "../pages/Admin/AdminUsers";
-import NotFound from "../pages/NotFound";
+// Lazy loading para páginas de admin
+const AdminDashboard = lazy(() => import("../pages/admin/AdminDashboard"));
+const AdminUsers = lazy(() => import("../pages/admin/AdminUsers"));
+const NotFound = lazy(() => import("../pages/NotFound"));
+
+// Componente de loading
+const AdminLoadingSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+      <p className="text-gray-600 dark:text-gray-400">Cargando panel de administración...</p>
+    </div>
+  </div>
+);
 
 function AdminRoutes() {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <ProtectedAdminRoute>
-            <AdminDashboard />
-          </ProtectedAdminRoute>
-        }
-      />
-      <Route
-        path="/users"
-        element={
-          <ProtectedAdminRoute>
-            <AdminUsers />
-          </ProtectedAdminRoute>
-        }
-      />
-      {/* 404 para rutas de admin */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <Suspense fallback={<AdminLoadingSpinner />}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboard />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <ProtectedAdminRoute>
+              <AdminUsers />
+            </ProtectedAdminRoute>
+          }
+        />
+        {/* 404 para rutas de admin */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 }
 
