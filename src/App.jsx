@@ -3,17 +3,28 @@ import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 
-// Componentes principales
-import Landing from "./pages/Landing";
-import NotFound from "./pages/NotFound";
-import Error403 from "./pages/Error403";
+import { lazy, Suspense } from "react";
+
+// Componentes que se cargan inmediatamente (críticos)
 import LoginModal from "./components/auth/LoginModal";
 import RegisterModal from "./components/auth/RegisterModal";
 import { ModalProvider } from "./context/ModalContext";
 
-// Rutas organizadas
-import UserRoutes from "./routes/UserRoutes";
-import AdminRoutes from "./routes/AdminRoutes";
+// Lazy loading para componentes no críticos
+const Landing = lazy(() => import("./pages/Landing"));
+const Error403 = lazy(() => import("./pages/Error403"));
+const UserRoutes = lazy(() => import("./routes/UserRoutes"));
+const AdminRoutes = lazy(() => import("./routes/AdminRoutes"));
+
+// Componente de loading global
+const GlobalLoadingSpinner = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-neutral-900">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gradient-to-r from-pink-600 to-purple-600 mx-auto mb-4"></div>
+      <p className="text-gray-600 dark:text-gray-400 text-lg">Cargando Sound-Music...</p>
+    </div>
+  </div>
+);
 
 function App() {
   const location = useLocation();
@@ -34,19 +45,21 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
       <ModalProvider>
-        <Routes>
-          {/* Landing Page */}
-          <Route path="/" element={<Landing />} />
+        <Suspense fallback={<GlobalLoadingSpinner />}>
+          <Routes>
+            {/* Landing Page */}
+            <Route path="/" element={<Landing />} />
 
-          {/* Página de error 403 */}
-          <Route path="/error/403" element={<Error403 />} />
+            {/* Página de error 403 */}
+            <Route path="/error/403" element={<Error403 />} />
 
-          {/* Rutas de Admin (sin layout) */}
-          <Route path="/admin/*" element={<AdminRoutes />} />
+            {/* Rutas de Admin (sin layout) */}
+            <Route path="/admin/*" element={<AdminRoutes />} />
 
-          {/* Rutas de Usuario (con layout) - Debe ir al final */}
-          <Route path="/*" element={<UserRoutes />} />
-        </Routes>
+            {/* Rutas de Usuario (con layout) - Debe ir al final */}
+            <Route path="/*" element={<UserRoutes />} />
+          </Routes>
+        </Suspense>
 
         {/* Modals - Solo mostrar si no es página de admin */}
         {!isAdminPage && (
