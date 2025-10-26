@@ -18,7 +18,6 @@ function Home() {
     setIsVisible(true);
   }, []);
 
-  // Función para manejar la navegación con verificación de autenticación
   const handleNavigation = (route) => {
     if (isAuthenticated) {
       navigate(route);
@@ -62,7 +61,7 @@ function Home() {
               className="group relative px-8 py-4 bg-linear-to-r from-purple-500 to-pink-500 rounded-full text-lg font-semibold hover:scale-105 transition-transform shadow-2xl"
             >
               <span className="flex items-center gap-2">
-                <Play size={24} fill="white" />
+                <Play size={24} />
                 Comenzar ahora
               </span>
               <div className="absolute inset-0 bg-white rounded-full opacity-0 group-hover:opacity-20 transition-opacity"></div>
@@ -76,16 +75,8 @@ function Home() {
             </button>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
       </section>
 
-      {/* Features Section */}
       <section className="relative py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -115,7 +106,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Genres Section */}
       <section className="relative py-20 px-4 bg-black/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -143,7 +133,6 @@ function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="relative py-32 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="relative">
@@ -159,7 +148,7 @@ function Home() {
               >
                 <span className="flex items-center gap-3">
                   Empezar gratis
-                  <Play size={24} fill="currentColor" />
+                  <Play size={24} />
                 </span>
               </button>
             </div>

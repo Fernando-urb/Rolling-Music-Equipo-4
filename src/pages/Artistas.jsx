@@ -1,13 +1,13 @@
 import MainLayout from "../components/MainC/MainLayout";
 
-function SongDetail() {
+function Artistas() {
   return (
     <MainLayout>
       <h1 className="text-3xl font-bold text-gray-800 dark:text-white p-4">
-        Esta es la pagina de SongDetail
+        Este es el contenido de la página artistas
       </h1>
     </MainLayout>
   );
 }
 
-export default SongDetail;
+export default Artistas;

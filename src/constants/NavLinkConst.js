@@ -1,14 +1,14 @@
-import { 
-  Home, 
-  TrendingUp, 
-  Music, 
-  Disc3, 
-  Music4, 
-  Album, 
-  Users, 
-  ListMusic, 
-  Clock, 
-  Info 
+import {
+  Home,
+  TrendingUp,
+  Music,
+  Disc,
+  Headphones,
+  Users,
+  List,
+  Info,
+  Shield,
+  UserCog,
 } from "lucide-react";
 
 export const PAGES_NAVIGATE = [
@@ -20,17 +20,17 @@ export const PAGES_NAVIGATE = [
   {
     name: "Tendencias",
     icon: TrendingUp,
-    href: "/songDetail",
+    href: "/tendencias",
   },
   {
     name: "Géneros",
     icon: Music,
-    href: "/",
+    href: "/generos",
   },
   {
     name: "Álbumes",
-    icon: Disc3,
-    href: "/",
+    icon: Disc,
+    href: "/albunes",
   },
 ];
 
@@ -38,28 +38,19 @@ export const PAGES_NAVIGATE = [
 export const PAGES_MUSICA = [
   {
     name: "Canciones",
-    icon: Music4,
-    href: "/",
+    icon: Headphones,
+    href: "/canciones",
   },
-  {
-    name: "Álbumes",
-    icon: Album,
-    href: "/",
-  },
+
   {
     name: "Artistas",
     icon: Users,
-    href: "/",
+    href: "/artistas",
   },
   {
     name: "Playlists",
-    icon: ListMusic,
-    href: "/",
-  },
-  {
-    name: "Historial",
-    icon: Clock,
-    href: "/",
+    icon: List,
+    href: "/playlist",
   },
 ];
 
@@ -68,6 +59,29 @@ export const FOOTER_LINKS = [
     name: "Acerca de",
     icon: Info,
     href: "/about",
+  },
+];
+
+export const getFooterLinks = (isAdmin = false) => {
+  const baseLinks = [...FOOTER_LINKS];
+
+  if (isAdmin) {
+    return [...baseLinks, ...ADMIN_LINKS];
+  }
+
+  return baseLinks;
+};
+
+export const ADMIN_LINKS = [
+  {
+    name: "Panel Admin",
+    icon: Shield,
+    href: "/admin",
+  },
+  {
+    name: "Gestión Usuarios",
+    icon: UserCog,
+    href: "/admin/users",
   },
 ];
 

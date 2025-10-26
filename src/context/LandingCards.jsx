@@ -1,4 +1,4 @@
-import { Play, Heart, ListMusic, Search } from "lucide-react";
+import { Play, Heart, List, Search } from "lucide-react";
 
 export const features = [
   {
@@ -17,7 +17,7 @@ export const features = [
     description: "Crea tu colección personal de canciones favoritas",
   },
   {
-    icon: <ListMusic size={40} />,
+    icon: <List size={40} />,
     title: "Crea playlists",
     description: "Organiza tu música en playlists personalizadas",
   },

@@ -1,31 +1,23 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "./components/Header/Header";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Home from "./pages/Home";
-import SongDetail from "./pages/SongDetail";
-import NotFound from "./pages/NotFound";
+
+// Componentes principales
 import Landing from "./pages/Landing";
+import NotFound from "./pages/NotFound";
+import Error403 from "./pages/Error403";
 import LoginModal from "./components/auth/LoginModal";
 import RegisterModal from "./components/auth/RegisterModal";
 import { ModalProvider } from "./context/ModalContext";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import { useAuth } from "./hook/useAuth";
+
+// Rutas organizadas
+import UserRoutes from "./routes/UserRoutes";
+import AdminRoutes from "./routes/AdminRoutes";
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { user } = useAuth();
   const location = useLocation();
-
-  const isAuthenticated = !!user;
-  const isLandingPage = location.pathname === "/";
-
-  // Cerrar sidebar al cambiar de ruta
-  useEffect(() => {
-    setIsSidebarOpen(false);
-  }, [location.pathname]);
+  const isAdminPage = location.pathname.startsWith("/admin");
 
   // Aplicar tema guardado al cargar
   useEffect(() => {
@@ -39,53 +31,30 @@ function App() {
     }
   }, []);
 
-  const handleOpenSidebar = () => {
-    setIsSidebarOpen(true);
-  };
-
-  const handleCloseSidebar = () => {
-    setIsSidebarOpen(false);
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
       <ModalProvider>
-      
-        <Header onOpenSidebar={handleOpenSidebar} />
+        <Routes>
+          {/* Landing Page */}
+          <Route path="/" element={<Landing />} />
 
-        <div className="flex flex-1 pt-16">
-        
-          {isAuthenticated && !isLandingPage && (
-            <Sidebar isOpen={isSidebarOpen} onClose={handleCloseSidebar} />
-          )}
+          {/* Página de error 403 */}
+          <Route path="/error/403" element={<Error403 />} />
 
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route
-                path="/home"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/songdetail/:id"
-                element={
-                  <ProtectedRoute>
-                    <SongDetail />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </div>
+          {/* Rutas de Admin (sin layout) */}
+          <Route path="/admin/*" element={<AdminRoutes />} />
 
-        {/* Modals */}
-        <LoginModal />
-        <RegisterModal />
+          {/* Rutas de Usuario (con layout) - Debe ir al final */}
+          <Route path="/*" element={<UserRoutes />} />
+        </Routes>
+
+        {/* Modals - Solo mostrar si no es página de admin */}
+        {!isAdminPage && (
+          <>
+            <LoginModal />
+            <RegisterModal />
+          </>
+        )}
 
         {/* Toast Notifications */}
         <ToastContainer
