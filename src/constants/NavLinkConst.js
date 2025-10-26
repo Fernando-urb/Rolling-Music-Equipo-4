@@ -1,38 +1,36 @@
 import {
-  FaHome,
-  FaChartLine,
-  FaMusic,
-  FaCompactDisc,
-  FaHeadphones,
-  FaRecordVinyl,
-  FaUsers,
-  FaListUl,
-  FaClock,
-  FaInfoCircle,
-  FaShieldAlt,
-  FaUserCog,
-} from "react-icons/fa";
+  Home,
+  TrendingUp,
+  Music,
+  Disc,
+  Headphones,
+  Users,
+  List,
+  Info,
+  Shield,
+  UserCog,
+} from "lucide-react";
 
 export const PAGES_NAVIGATE = [
   {
     name: "Inicio",
-    icon: FaHome,
+    icon: Home,
     href: "/home",
   },
   {
     name: "Tendencias",
-    icon: FaChartLine,
-    href: "/songDetail",
+    icon: TrendingUp,
+    href: "/tendencias",
   },
   {
     name: "Géneros",
-    icon: FaMusic,
-    href: "/",
+    icon: Music,
+    href: "/generos",
   },
   {
     name: "Álbumes",
-    icon: FaCompactDisc,
-    href: "/",
+    icon: Disc,
+    href: "/albunes",
   },
 ];
 
@@ -40,54 +38,30 @@ export const PAGES_NAVIGATE = [
 export const PAGES_MUSICA = [
   {
     name: "Canciones",
-    icon: FaHeadphones,
-    href: "/",
+    icon: Headphones,
+    href: "/canciones",
   },
-  {
-    name: "Álbumes",
-    icon: FaRecordVinyl,
-    href: "/",
-  },
+
   {
     name: "Artistas",
-    icon: FaUsers,
-    href: "/",
+    icon: Users,
+    href: "/artistas",
   },
   {
     name: "Playlists",
-    icon: FaListUl,
-    href: "/",
-  },
-  {
-    name: "Historial",
-    icon: FaClock,
-    href: "/",
+    icon: List,
+    href: "/playlist",
   },
 ];
 
 export const FOOTER_LINKS = [
   {
     name: "Acerca de",
-    icon: FaInfoCircle,
+    icon: Info,
     href: "/about",
   },
 ];
 
-// Enlaces de administrador (solo para admins)
-export const ADMIN_LINKS = [
-  {
-    name: "Panel Admin",
-    icon: FaShieldAlt,
-    href: "/admin",
-  },
-  {
-    name: "Gestión Usuarios",
-    icon: FaUserCog,
-    href: "/admin/users",
-  },
-];
-
-// Función para obtener enlaces del footer según el rol del usuario
 export const getFooterLinks = (isAdmin = false) => {
   const baseLinks = [...FOOTER_LINKS];
 
@@ -97,6 +71,19 @@ export const getFooterLinks = (isAdmin = false) => {
 
   return baseLinks;
 };
+
+export const ADMIN_LINKS = [
+  {
+    name: "Panel Admin",
+    icon: Shield,
+    href: "/admin",
+  },
+  {
+    name: "Gestión Usuarios",
+    icon: UserCog,
+    href: "/admin/users",
+  },
+];
 
 export const genres = [
   { name: "Pop", gradient: "from-pink-500 to-purple-600" },

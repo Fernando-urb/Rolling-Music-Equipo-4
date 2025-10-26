@@ -1,4 +1,4 @@
-import { FiUser, FiSettings, FiLogOut, FiSun, FiMoon } from "react-icons/fi";
+import { User, Settings, LogOut, Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "../../hook/useAuth";
 import Avatar from "../common/Avatar";
@@ -6,7 +6,7 @@ import Avatar from "../common/Avatar";
 const CERRAR_SESION = "Cerrar Sesión";
 
 function Dropdown({ closeUserMenu }) {
-  const { user, logout } = useAuth();
+  const { user, logout, isAdmin } = useAuth();
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "light";
   });
@@ -46,6 +46,7 @@ function Dropdown({ closeUserMenu }) {
                 alt="Foto de perfil"
                 className="w-10 sm:w-12 h-10 sm:h-12"
                 iconClassName="w-4 sm:w-5 h-4 sm:h-5"
+                isAdmin={isAdmin()}
               />
               <div className="absolute -bottom-1 -right-1 w-3 sm:w-4 h-3 sm:h-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></div>
             </div>
@@ -79,7 +80,7 @@ function Dropdown({ closeUserMenu }) {
               }`}
               title="Modo claro"
             >
-              <FiSun className="w-3 sm:w-4 h-3 sm:h-4" />
+              <Sun className="w-3 sm:w-4 h-3 sm:h-4" />
               <span className="hidden sm:inline">Claro</span>
             </button>
             <button
@@ -91,7 +92,7 @@ function Dropdown({ closeUserMenu }) {
               }`}
               title="Modo oscuro"
             >
-              <FiMoon className="w-3 sm:w-4 h-3 sm:h-4" />
+              <Moon className="w-3 sm:w-4 h-3 sm:h-4" />
               <span className="hidden sm:inline">Oscuro</span>
             </button>
           </div>
@@ -102,14 +103,14 @@ function Dropdown({ closeUserMenu }) {
             onClick={closeUserMenu}
             className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
           >
-            <FiUser className="w-4 sm:w-5 h-4 sm:h-5" />
+            <User className="w-4 sm:w-5 h-4 sm:h-5" />
             <span>Mi Perfil</span>
           </button>
           <button
             onClick={closeUserMenu}
             className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
           >
-            <FiSettings className="w-4 sm:w-5 h-4 sm:h-5" />
+            <Settings className="w-4 sm:w-5 h-4 sm:h-5" />
             <span>Configuración</span>
           </button>
           <div className="my-2 border-t border-gray-200/50 dark:border-gray-700/50"></div>
@@ -117,7 +118,7 @@ function Dropdown({ closeUserMenu }) {
             onClick={handleLogout}
             className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 dark:hover:from-red-900/20 dark:hover:to-pink-900/20 hover:text-red-700 dark:hover:text-red-300 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-red-200/50 dark:hover:border-red-700/50"
           >
-            <FiLogOut className="w-4 sm:w-5 h-4 sm:h-5" />
+            <LogOut className="w-4 sm:w-5 h-4 sm:h-5" />
             <span>{CERRAR_SESION}</span>
           </button>
         </div>

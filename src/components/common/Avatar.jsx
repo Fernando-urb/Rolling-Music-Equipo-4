@@ -1,9 +1,20 @@
-import { FaUser } from "react-icons/fa";
+import { User, Shield } from "lucide-react";
 
-function Avatar({ src, alt = "Avatar", className = "w-10 h-10", iconClassName = "w-5 h-5" }) {
+function Avatar({
+  src,
+  alt = "Avatar",
+  className = "w-10 h-10",
+  iconClassName = "w-5 h-5",
+  isAdmin = false,
+}) {
+  // Estilos diferentes para admin
+  const adminStyles = isAdmin
+    ? "bg-gradient-to-r from-amber-400 to-orange-500 border-amber-400"
+    : "bg-gradient-to-r from-pink-400 to-purple-500 border-pink-400";
+
   return (
     <div
-      className={`${className} rounded-full bg-gradient-to-r from-pink-400 to-purple-500 flex items-center justify-center border-2 border-pink-400 shadow-lg overflow-hidden`}
+      className={`${className} rounded-full ${adminStyles} flex items-center justify-center border-2 shadow-lg overflow-hidden`}
     >
       {src ? (
         <img
@@ -22,7 +33,7 @@ function Avatar({ src, alt = "Avatar", className = "w-10 h-10", iconClassName = 
         className={`${src ? "hidden" : "flex"} items-center justify-center w-full h-full text-white`}
         style={{ display: src ? "none" : "flex" }}
       >
-        <FaUser className={iconClassName} />
+        {isAdmin ? <Shield className={iconClassName} /> : <User className={iconClassName} />}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import Buscador from "../common/Buscador";
 import Button from "../common/Button";
 import { useModals } from "../../hook/useAuth";
 import { useAuth } from "../../hook/useAuth";
-import { FiChevronDown } from "react-icons/fi";
+import { ChevronDown } from "lucide-react";
 import { LOGO_VMUSIC } from "../../constants/imagenes";
 import Dropdown from "./Dropdown";
 import Avatar from "../common/Avatar";
@@ -14,7 +14,7 @@ const REGISTRARSE = "Registrarse";
 
 function Header({ onOpenSidebar }) {
   const { openLogin, openRegister } = useModals();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, isAdmin } = useAuth();
 
   // Estados locales
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -83,10 +83,11 @@ function Header({ onOpenSidebar }) {
                       alt="Foto de perfil"
                       className="w-8 sm:w-10 h-8 sm:h-10"
                       iconClassName="w-3 sm:w-4 h-3 sm:h-4"
+                      isAdmin={isAdmin()}
                     />
                     <div className="absolute -bottom-1 -right-1 w-3 sm:w-4 h-3 sm:h-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></div>
                   </div>
-                  <FiChevronDown
+                  <ChevronDown
                     className={`w-3 sm:w-4 h-3 sm:h-4 text-gray-600 dark:text-gray-400 transition-all duration-300 ${
                       isUserMenuOpen ? "rotate-180 text-pink-600 dark:text-pink-400" : ""
                     }`}

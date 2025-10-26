@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import Button from "../common/Button";
-import { PAGES_NAVIGATE, PAGES_MUSICA, FOOTER_LINKS } from "../../constants/NavLinkConst";
-import { useAuth } from "../../hook/useAuth";
-import { useModals } from "../../hook/useAuth";
-import { FiX } from "react-icons/fi";
+import { PAGES_NAVIGATE, PAGES_MUSICA, getFooterLinks } from "../../constants/NavLinkConst";
+import { useAuth, useModals } from "../../hook/useAuth";
+import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function Sidebar({ isOpen, onClose }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isAdmin } = useAuth();
   const { openLogin } = useModals();
 
   // Cerrar sidebar con tecla ESC
@@ -74,7 +73,7 @@ function Sidebar({ isOpen, onClose }) {
               className="p-2 text-gray-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 rounded-xl hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-all duration-200 hover:scale-105"
               aria-label="Cerrar menú"
             >
-              <FiX className="w-5 h-5" />
+              <X className="w-5 h-5" />
             </button>
           </div>
 
@@ -116,10 +115,10 @@ function Sidebar({ isOpen, onClose }) {
           <footer className="p-6 border-t border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-gray-50 to-purple-50/30 dark:from-gray-800 dark:to-purple-900/20">
             <div className="mb-3">
               <span className="block px-3 py-1 text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-full">
-                Información
+                {isAdmin() ? "Admin & Info" : "Información"}
               </span>
             </div>
-            {NavLinks(FOOTER_LINKS)}
+            {NavLinks(getFooterLinks(isAdmin()))}
           </footer>
         </div>
       </aside>

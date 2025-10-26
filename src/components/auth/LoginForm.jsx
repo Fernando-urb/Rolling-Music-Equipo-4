@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../utils/validationSchema";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import Input from "../common/Input";
 import bcrypt from "bcryptjs";
 import { useAuth } from "../../hook/useAuth";
@@ -9,6 +10,7 @@ import Button from "../common/Button";
 
 function LoginForm({ onLogin }) {
   const { login } = useAuth(); // 2. OBTENER la función login
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,19 +22,26 @@ function LoginForm({ onLogin }) {
   const onSubmit = async (data) => {
     try {
       const users = JSON.parse(localStorage.getItem("users") || "[]");
+
       const user = users.find((u) => u.email === data.email);
 
       if (user) {
         const isValidPassword = await bcrypt.compare(data.password, user.password);
+
         if (isValidPassword) {
           const userWithoutPassword = { ...user, password: undefined };
 
-          // 3. LLAMAR AL LOGIN DEL CONTEXTO
           login(userWithoutPassword);
-          // 4. onLogin cierra el modal y redirige (viene de LoginModal.jsx)
           onLogin(userWithoutPassword);
 
           toast.success("Login exitoso");
+
+          // Redirigir según el rol del usuario
+          if (userWithoutPassword.role === "admin") {
+            navigate("/admin");
+          } else {
+            navigate("/home");
+          }
         } else {
           toast.error("Credenciales incorrectas");
         }
@@ -40,7 +49,7 @@ function LoginForm({ onLogin }) {
         toast.error("Usuario no encontrado");
       }
     } catch (error) {
-      console.log("Error en login:", error);
+      console.error("❌ Error en login:", error);
       toast.error("Error en el login :(");
     }
   };
