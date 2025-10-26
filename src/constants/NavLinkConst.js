@@ -1,24 +1,35 @@
-import { ChevronRight } from "lucide-react";
+import { 
+  Home, 
+  TrendingUp, 
+  Music, 
+  Disc3, 
+  Music4, 
+  Album, 
+  Users, 
+  ListMusic, 
+  Clock, 
+  Info 
+} from "lucide-react";
 
 export const PAGES_NAVIGATE = [
   {
-    name: "Inico",
-    icon: ChevronRight,
+    name: "Inicio",
+    icon: Home,
     href: "/home",
   },
   {
     name: "Tendencias",
-    icon: ChevronRight,
+    icon: TrendingUp,
     href: "/songDetail",
   },
   {
-    name: "Generos",
-    icon: ChevronRight,
+    name: "Géneros",
+    icon: Music,
     href: "/",
   },
   {
-    name: "Albunes",
-    icon: ChevronRight,
+    name: "Álbumes",
+    icon: Disc3,
     href: "/",
   },
 ];
@@ -27,35 +38,35 @@ export const PAGES_NAVIGATE = [
 export const PAGES_MUSICA = [
   {
     name: "Canciones",
-    icon: ChevronRight,
+    icon: Music4,
     href: "/",
   },
   {
-    name: "Albunes",
-    icon: ChevronRight,
+    name: "Álbumes",
+    icon: Album,
     href: "/",
   },
   {
     name: "Artistas",
-    icon: ChevronRight,
+    icon: Users,
     href: "/",
   },
   {
     name: "Playlists",
-    icon: ChevronRight,
+    icon: ListMusic,
     href: "/",
   },
   {
     name: "Historial",
-    icon: ChevronRight,
+    icon: Clock,
     href: "/",
   },
 ];
 
 export const FOOTER_LINKS = [
   {
-    name: "About",
-    icon: ChevronRight,
+    name: "Acerca de",
+    icon: Info,
     href: "/about",
   },
 ];

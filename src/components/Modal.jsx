@@ -13,16 +13,16 @@ function Modal({ isOpen, onClose, children }) {
         ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
         z-100
       `}
-    >
+    >  
       {/* 2. PANEL DESLIZABLE (Slider) */}
       <div
         onClick={(e) => e.stopPropagation()}
         className={`
           relative bg-gray-800 shadow-xl
           w-80 h-full p-6
-          transform transition-transform // Animamos la transformación
-          duration-500                 // 500ms de duración
-          ease-in-out                  // Curva suave (lento-rápido-lento)
+          transform transition-transform 
+          duration-500                 
+          ease-in-out                  
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >

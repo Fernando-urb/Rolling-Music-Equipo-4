@@ -73,7 +73,7 @@ function Header({ onOpenSidebar }) {
 
           {/* Buscador (solo si está autenticado) */}
           {isAuthenticated && (
-            <div className="flex-1 max-w-2xl hidden md:block">
+            <div className="flex-1 max-w-xs sm:max-w-md md:max-w-2xl">
               <Buscador />
             </div>
           )}
@@ -99,19 +99,21 @@ function Header({ onOpenSidebar }) {
               <div className="relative">
                 <button
                   onClick={toggleUserMenu}
-                  className="flex items-center gap-2 p-1 rounded-full hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+                  className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2 rounded-xl sm:rounded-2xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 hover:shadow-lg border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
                   aria-expanded={isUserMenuOpen}
                   aria-haspopup="true"
                 >
-                  <img
-                    className="w-10 h-10 rounded-full object-cover border-2 border-primary-600"
-                    src={user?.photoURL || "https://i.blogs.es/dc6737/unnamed/1366_2000.png"}
-                    alt="Foto de perfil"
-                  />
+                  <div className="relative">
+                    <img
+                      className="w-8 sm:w-10 h-8 sm:h-10 rounded-full object-cover border-2 border-gradient-to-r from-pink-400 to-purple-500 shadow-md"
+                      src={user?.photoURL || "https://i.blogs.es/dc6737/unnamed/1366_2000.png"}
+                      alt="Foto de perfil"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-3 sm:w-4 h-3 sm:h-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></div>
+                  </div>
                   <FiChevronDown
-                    className={`w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform ${
-                      isUserMenuOpen ? "rotate-180" : ""
-                    }`}
+                    className={`w-3 sm:w-4 h-3 sm:h-4 text-gray-600 dark:text-gray-400 transition-all duration-300 ${isUserMenuOpen ? "rotate-180 text-pink-600 dark:text-pink-400" : ""
+                      }`}
                   />
                 </button>
 
@@ -122,68 +124,86 @@ function Header({ onOpenSidebar }) {
                     <div className="fixed inset-0 z-40" onClick={closeUserMenu}></div>
 
                     {/* Menu Content */}
-                    <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 rounded-xl shadow-xl z-50">
+                    <div className="absolute right-0 mt-3 w-64 sm:w-72 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl shadow-2xl backdrop-blur-xl z-50 overflow-hidden">
                       {/* User Info */}
-                      <div className="py-3 px-4 border-b border-gray-200 dark:border-neutral-700">
-                        <span className="block font-medium text-gray-800 dark:text-neutral-300">
-                          {user?.userName || "Usuario"}
-                        </span>
-                        <p className="text-sm text-gray-500 dark:text-neutral-500">{user?.email}</p>
+                      <div className="p-4 sm:p-6 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 border-b border-gray-200/50 dark:border-gray-700/50">
+                        <div className="flex items-center gap-3 sm:gap-4">
+                          <div className="relative">
+                            <img
+                              className="w-10 sm:w-12 h-10 sm:h-12 rounded-full object-cover border-2 border-pink-400 shadow-lg"
+                              src={user?.photoURL || "https://i.blogs.es/dc6737/unnamed/1366_2000.png"}
+                              alt="Foto de perfil"
+                            />
+                            <div className="absolute -bottom-1 -right-1 w-3 sm:w-4 h-3 sm:h-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></div>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-bold text-gray-900 dark:text-white text-base sm:text-lg truncate">
+                              {user?.userName || "Usuario"}
+                            </h3>
+                            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 truncate">
+                              {user?.email}
+                            </p>
+                            <span className="inline-block mt-1 px-2 py-1 text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded-full">
+                              En línea
+                            </span>
+                          </div>
+                        </div>
                       </div>
 
                       {/* Theme Selector */}
-                      <div className="px-4 py-3 border-b border-gray-200 dark:border-neutral-700">
-                        <div className="flex justify-between items-center gap-2 mb-2">
-                          <span className="text-sm text-gray-600 dark:text-neutral-400">Tema</span>
+                      <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200/50 dark:border-gray-700/50">
+                        <div className="flex justify-between items-center gap-2 mb-2 sm:mb-3">
+                          <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300">Apariencia</span>
                         </div>
-                        <div className="flex gap-1 p-1 bg-gray-100 dark:bg-neutral-800 rounded-lg">
+                        <div className="flex gap-1 sm:gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl">
                           <button
                             onClick={() => handleThemeChange("light")}
-                            className={`flex-1 flex items-center justify-center gap-1 py-2 px-3 rounded-md text-sm transition-colors ${
-                              theme === "light"
-                                ? "bg-white dark:bg-neutral-700 shadow-sm"
-                                : "hover:bg-gray-200 dark:hover:bg-neutral-700"
-                            }`}
+                            className={`flex-1 flex items-center justify-center gap-1 sm:gap-2 py-2 sm:py-3 px-2 sm:px-4 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 ${theme === "light"
+                                ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
+                                : "text-gray-600 dark:text-gray-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 dark:hover:text-pink-400"
+                              }`}
                             title="Modo claro"
                           >
-                            <FiSun className="w-4 h-4" />
+                            <FiSun className="w-3 sm:w-4 h-3 sm:h-4" />
+                            <span className="hidden sm:inline">Claro</span>
                           </button>
                           <button
                             onClick={() => handleThemeChange("dark")}
-                            className={`flex-1 flex items-center justify-center gap-1 py-2 px-3 rounded-md text-sm transition-colors ${
-                              theme === "dark"
-                                ? "bg-white dark:bg-neutral-700 shadow-sm"
-                                : "hover:bg-gray-200 dark:hover:bg-neutral-700"
-                            }`}
+                            className={`flex-1 flex items-center justify-center gap-1 sm:gap-2 py-2 sm:py-3 px-2 sm:px-4 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 ${theme === "dark"
+                                ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
+                                : "text-gray-600 dark:text-gray-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 dark:hover:text-pink-400"
+                              }`}
                             title="Modo oscuro"
                           >
-                            <FiMoon className="w-4 h-4" />
+                            <FiMoon className="w-3 sm:w-4 h-3 sm:h-4" />
+                            <span className="hidden sm:inline">Oscuro</span>
                           </button>
                         </div>
                       </div>
 
                       {/* Menu Items */}
-                      <div className="p-1">
+                      <div className="p-2 sm:p-3">
                         <button
                           onClick={closeUserMenu}
-                          className="w-full flex items-center gap-3 py-2 px-3 rounded-lg text-sm text-gray-600 dark:text-neutral-400 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors"
+                          className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
                         >
-                          <FiUser className="w-4 h-4" />
-                          Profile
+                          <FiUser className="w-4 sm:w-5 h-4 sm:h-5" />
+                          <span>Mi Perfil</span>
                         </button>
                         <button
                           onClick={closeUserMenu}
-                          className="w-full flex items-center gap-3 py-2 px-3 rounded-lg text-sm text-gray-600 dark:text-neutral-400 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors"
+                          className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
                         >
-                          <FiSettings className="w-4 h-4" />
-                          Settings
+                          <FiSettings className="w-4 sm:w-5 h-4 sm:h-5" />
+                          <span>Configuración</span>
                         </button>
+                        <div className="my-2 border-t border-gray-200/50 dark:border-gray-700/50"></div>
                         <button
                           onClick={handleLogout}
-                          className="w-full flex items-center gap-3 py-2 px-3 rounded-lg text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 dark:hover:from-red-900/20 dark:hover:to-pink-900/20 hover:text-red-700 dark:hover:text-red-300 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-red-200/50 dark:hover:border-red-700/50"
                         >
-                          <FiLogOut className="w-4 h-4" />
-                          {CERRAR_SESION}
+                          <FiLogOut className="w-4 sm:w-5 h-4 sm:h-5" />
+                          <span>{CERRAR_SESION}</span>
                         </button>
                       </div>
                     </div>
