@@ -13,7 +13,7 @@ function Modal({ isOpen, onClose, children }) {
         ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
         z-100
       `}
-    >  
+    >
       {/* 2. PANEL DESLIZABLE (Slider) */}
       <div
         onClick={(e) => e.stopPropagation()}

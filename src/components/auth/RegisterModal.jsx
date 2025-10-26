@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
 import { useModals } from "../../hook/useAuth";
 import { useAuth } from "../../hook/useAuth";
-import Modal from "../Modal";
+import Modal from "../common/Modal";
 
 function RegisterModal() {
   const navigate = useNavigate();

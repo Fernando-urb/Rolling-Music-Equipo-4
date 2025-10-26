@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Button from "../Header/Button";
+import Button from "../common/Button";
 import { PAGES_NAVIGATE, PAGES_MUSICA, FOOTER_LINKS } from "../../constants/NavLinkConst";
 import { useAuth } from "../../hook/useAuth";
 import { useModals } from "../../hook/useAuth";
@@ -33,8 +33,6 @@ function Sidebar({ isOpen, onClose }) {
     };
   }, [isOpen]);
 
-  // ...existing code...
-
   const NavLinks = (items) => (
     <ul className="space-y-2">
       {items.map((item) => (
@@ -52,19 +50,16 @@ function Sidebar({ isOpen, onClose }) {
     </ul>
   );
 
-  // ...existing code...
-
   return (
     <>
-      {/* Overlay */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} aria-hidden="true" />
       )}
 
-      {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-80 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-700/50 shadow-2xl transform transition-all duration-300 ease-out ${isOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`fixed inset-y-0 left-0 z-50 w-80 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-700/50 shadow-2xl transform transition-all duration-300 ease-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
         role="dialog"
         aria-label="Sidebar"
       >
@@ -83,18 +78,20 @@ function Sidebar({ isOpen, onClose }) {
             </button>
           </div>
 
-          {/* Navigation */}
           <nav className="flex-1 p-6 overflow-y-auto custom-scrollbar">
             {/* Login Button (no autenticado) */}
             {!isAuthenticated && (
               <div className="mb-8 p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-2xl border border-pink-200/50 dark:border-pink-700/50">
-                <Button onClick={openLogin} fullWidth className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+                <Button
+                  onClick={openLogin}
+                  fullWidth
+                  className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                >
                   Iniciar Sesión
                 </Button>
               </div>
             )}
 
-            {/* Pages Section */}
             <div className="mb-8">
               <div className="flex items-center mb-4">
                 <span className="block px-3 py-1 text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-full">
@@ -104,7 +101,6 @@ function Sidebar({ isOpen, onClose }) {
               {NavLinks(PAGES_NAVIGATE)}
             </div>
 
-            {/* Tu Música Section (solo si está autenticado) */}
             {isAuthenticated && (
               <div className="mb-8 pt-6 border-t border-gradient-to-r from-pink-200 to-purple-200 dark:from-pink-800 dark:to-purple-800">
                 <div className="flex items-center mb-4">
@@ -117,7 +113,6 @@ function Sidebar({ isOpen, onClose }) {
             )}
           </nav>
 
-          {/* Footer Links */}
           <footer className="p-6 border-t border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-gray-50 to-purple-50/30 dark:from-gray-800 dark:to-purple-900/20">
             <div className="mb-3">
               <span className="block px-3 py-1 text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-full">

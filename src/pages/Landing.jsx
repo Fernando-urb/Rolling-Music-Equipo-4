@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Play, Music } from "lucide-react";
+import { FaPlay, FaMusic } from "react-icons/fa";
 import { useModals, useAuth } from "../hook/useAuth";
 import { LOGO_VMUSIC } from "../constants/imagenes";
 import { features } from "../context/LandingCards.jsx";
@@ -62,7 +62,7 @@ function Home() {
               className="group relative px-8 py-4 bg-linear-to-r from-purple-500 to-pink-500 rounded-full text-lg font-semibold hover:scale-105 transition-transform shadow-2xl"
             >
               <span className="flex items-center gap-2">
-                <Play size={24} fill="white" />
+                <FaPlay size={24} />
                 Comenzar ahora
               </span>
               <div className="absolute inset-0 bg-white rounded-full opacity-0 group-hover:opacity-20 transition-opacity"></div>
@@ -135,7 +135,7 @@ function Home() {
                   <h3 className="text-xl font-bold">{genre.name}</h3>
                 </div>
                 <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Music size={24} />
+                  <FaMusic size={24} />
                 </div>
               </button>
             ))}
@@ -159,7 +159,7 @@ function Home() {
               >
                 <span className="flex items-center gap-3">
                   Empezar gratis
-                  <Play size={24} fill="currentColor" />
+                  <FaPlay size={24} />
                 </span>
               </button>
             </div>

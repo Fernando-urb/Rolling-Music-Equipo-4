@@ -50,11 +50,9 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-neutral-900">
       <ModalProvider>
-      
         <Header onOpenSidebar={handleOpenSidebar} />
 
         <div className="flex flex-1 pt-16">
-        
           {isAuthenticated && !isLandingPage && (
             <Sidebar isOpen={isSidebarOpen} onClose={handleCloseSidebar} />
           )}

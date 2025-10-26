@@ -1,35 +1,37 @@
-import { 
-  Home, 
-  TrendingUp, 
-  Music, 
-  Disc3, 
-  Music4, 
-  Album, 
-  Users, 
-  ListMusic, 
-  Clock, 
-  Info 
-} from "lucide-react";
+import {
+  FaHome,
+  FaChartLine,
+  FaMusic,
+  FaCompactDisc,
+  FaHeadphones,
+  FaRecordVinyl,
+  FaUsers,
+  FaListUl,
+  FaClock,
+  FaInfoCircle,
+  FaShieldAlt,
+  FaUserCog,
+} from "react-icons/fa";
 
 export const PAGES_NAVIGATE = [
   {
     name: "Inicio",
-    icon: Home,
+    icon: FaHome,
     href: "/home",
   },
   {
     name: "Tendencias",
-    icon: TrendingUp,
+    icon: FaChartLine,
     href: "/songDetail",
   },
   {
     name: "Géneros",
-    icon: Music,
+    icon: FaMusic,
     href: "/",
   },
   {
     name: "Álbumes",
-    icon: Disc3,
+    icon: FaCompactDisc,
     href: "/",
   },
 ];
@@ -38,27 +40,27 @@ export const PAGES_NAVIGATE = [
 export const PAGES_MUSICA = [
   {
     name: "Canciones",
-    icon: Music4,
+    icon: FaHeadphones,
     href: "/",
   },
   {
     name: "Álbumes",
-    icon: Album,
+    icon: FaRecordVinyl,
     href: "/",
   },
   {
     name: "Artistas",
-    icon: Users,
+    icon: FaUsers,
     href: "/",
   },
   {
     name: "Playlists",
-    icon: ListMusic,
+    icon: FaListUl,
     href: "/",
   },
   {
     name: "Historial",
-    icon: Clock,
+    icon: FaClock,
     href: "/",
   },
 ];
@@ -66,10 +68,35 @@ export const PAGES_MUSICA = [
 export const FOOTER_LINKS = [
   {
     name: "Acerca de",
-    icon: Info,
+    icon: FaInfoCircle,
     href: "/about",
   },
 ];
+
+// Enlaces de administrador (solo para admins)
+export const ADMIN_LINKS = [
+  {
+    name: "Panel Admin",
+    icon: FaShieldAlt,
+    href: "/admin",
+  },
+  {
+    name: "Gestión Usuarios",
+    icon: FaUserCog,
+    href: "/admin/users",
+  },
+];
+
+// Función para obtener enlaces del footer según el rol del usuario
+export const getFooterLinks = (isAdmin = false) => {
+  const baseLinks = [...FOOTER_LINKS];
+
+  if (isAdmin) {
+    return [...baseLinks, ...ADMIN_LINKS];
+  }
+
+  return baseLinks;
+};
 
 export const genres = [
   { name: "Pop", gradient: "from-pink-500 to-purple-600" },

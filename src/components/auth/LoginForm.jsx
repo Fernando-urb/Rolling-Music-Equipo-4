@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../utils/validationSchema";
 import { toast } from "react-toastify";
-import Input from "../Input";
+import Input from "../common/Input";
 import bcrypt from "bcryptjs";
 import { useAuth } from "../../hook/useAuth";
-import Button from "../Header/Button";
+import Button from "../common/Button";
 
 function LoginForm({ onLogin }) {
   const { login } = useAuth(); // 2. OBTENER la función login
