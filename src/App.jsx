@@ -50,16 +50,15 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-neutral-900">
       <ModalProvider>
-        {/* Header siempre visible */}
+      
         <Header onOpenSidebar={handleOpenSidebar} />
 
         <div className="flex flex-1 pt-16">
-          {/* Sidebar: visible solo si está autenticado y NO es Landing */}
+        
           {isAuthenticated && !isLandingPage && (
             <Sidebar isOpen={isSidebarOpen} onClose={handleCloseSidebar} />
           )}
 
-          {/* Main Content */}
           <main className="flex-1">
             <Routes>
               <Route path="/" element={<Landing />} />
@@ -72,7 +71,7 @@ function App() {
                 }
               />
               <Route
-                path="/songDetail/:id"
+                path="/songdetail/:id"
                 element={
                   <ProtectedRoute>
                     <SongDetail />
