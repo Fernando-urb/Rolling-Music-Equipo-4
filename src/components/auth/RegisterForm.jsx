@@ -4,10 +4,9 @@ import { registerSchema } from "../../utils/validationSchema";
 import { toast } from "react-toastify";
 import Input from "../Input";
 import bcrypt from "bcryptjs";
-import { useAuth } from "../../hook/useAuth"; // 1. IMPORTAR useAuth
+import Button from "../Header/Button";
 
 function RegisterForm({ onRegister }) {
-  const { login } = useAuth(); // 2. OBTENER la función login
   const {
     register,
     handleSubmit,
@@ -19,28 +18,38 @@ function RegisterForm({ onRegister }) {
   const onSubmit = async (data) => {
     try {
       const { ...userData } = data;
-      const users = JSON.parse(localStorage.getItem("users") || "[]");
 
+      let users = [];
+      try {
+        const stored = JSON.parse(localStorage.getItem("users"));
+        if (Array.isArray(stored)) {
+          users = stored;
+        }
+      } catch (e) {
+        console.error("Error al parsear usuarios:", e);
+      }
+
+      // Verificar si el usuario ya existe
       if (users.find((u) => u.email === userData.email)) {
-        toast.error("El email ya esta registrado");
+        toast.error("El Usuario ya existe");
         return;
       }
 
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(userData.password, salt);
+      // Hashear contraseña
+      const hashedPassword = await bcrypt.hash(userData.password, 12);
 
-      const userToSave = { ...userData, password: hashedPassword };
+      const userToSave = {
+        ...userData,
+        password: hashedPassword,
+      };
+
       users.push(userToSave);
       localStorage.setItem("users", JSON.stringify(users));
 
-      // Objeto de usuario para guardar en 'user' (sin contraseña)
       const userWithoutHash = { ...userData, password: undefined };
+      localStorage.setItem("user", JSON.stringify(userWithoutHash));
 
-      // 3. LLAMAR AL LOGIN DEL CONTEXTO
-      login(userWithoutHash);
-      // 4. onRegister cierra el modal y redirige (viene de RegisterModal.jsx)
-      onRegister(userWithoutHash); // <-- CORREGIDO (antes pasaba 'userToSave')
-
+      onRegister(userWithoutHash);
       toast.success("Registro exitoso :)");
     } catch (error) {
       console.log(error);
@@ -83,13 +92,9 @@ function RegisterForm({ onRegister }) {
         register={register}
         error={errors.confirmPassword}
       />
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
-      >
-        {isSubmitting ? "Registrando..." : "Registrarse"}
-      </button>
+      <Button onClick={isSubmitting} className="hidden lg:inline-flex w-full   ">
+        {isSubmitting ? "Iniciando..." : "Iniciar Sesión"}
+      </Button>
     </form>
   );
 }

@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
 import { useModals } from "../../hook/useAuth";
+import { useAuth } from "../../hook/useAuth";
 import Modal from "../Modal";
 
 function RegisterModal() {
   const navigate = useNavigate();
   const { isRegisterOpen, closeModals, openLogin } = useModals();
+  const { login } = useAuth();
 
-  const handleRegister = () => {
+  const handleRegister = (user) => {
+    login(user);
     closeModals();
     navigate("/home");
   };

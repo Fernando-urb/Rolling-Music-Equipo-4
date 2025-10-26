@@ -7,13 +7,12 @@ import "./index.css";
 
 import { AuthProvider } from "./context/AuthContext"; // 1. IMPORTAR AUTH
 
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
 );

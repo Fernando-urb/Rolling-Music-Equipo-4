@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       toast.success("Sesión cerrada");
       // Opcional: Redirigir al inicio
-      // window.location.href = '/';
+      window.location.href = "/";
     }
   };
 

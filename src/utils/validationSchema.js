@@ -4,16 +4,15 @@ export const loginSchema = z.object({
   email: z.string().email("Email invalido"),
   password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
 });
-
 export const registerSchema = z
   .object({
-    userName: z.string().min(3, "El nombre de usuario debe tener al menos 3 caracteres"),
-    email: z.string().email("Email invalido"),
-    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
+    userName: z.string().min(3, "El nombre de usuario debe tener al menos 3 caracteres"), // ✅ corregido
+    email: z.string().email("Email inválido"),
+    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
+    message: "Las contraseñas no coinciden",
     path: ["confirmPassword"],
   });
 
