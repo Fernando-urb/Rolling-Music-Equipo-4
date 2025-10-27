@@ -13,37 +13,39 @@ export default defineConfig({
         // Configuración manual de chunks para optimizar el bundle
         manualChunks: (id) => {
           // Separar node_modules en chunks específicos
-          if (id.includes('node_modules')) {
+          if (id.includes("node_modules")) {
             // React y ReactDOM
-            if (id.includes('react') && !id.includes('react-router')) {
-              return 'react-vendor';
+            if (id.includes("react") && !id.includes("react-router")) {
+              return "react-vendor";
             }
 
             // React Router
-            if (id.includes('react-router')) {
-              return 'router-vendor';
+            if (id.includes("react-router")) {
+              return "router-vendor";
             }
 
             // Firebase
-            if (id.includes('firebase')) {
-              return 'firebase-vendor';
+            if (id.includes("firebase")) {
+              return "firebase-vendor";
             }
 
             // Librerías de UI y forms
-            if (id.includes('react-hook-form') ||
-              id.includes('@hookform') ||
-              id.includes('react-toastify') ||
-              id.includes('lucide-react')) {
-              return 'ui-vendor';
+            if (
+              id.includes("react-hook-form") ||
+              id.includes("@hookform") ||
+              id.includes("react-toastify") ||
+              id.includes("lucide-react")
+            ) {
+              return "ui-vendor";
             }
 
             // Librerías de utilidades
-            if (id.includes('zod') || id.includes('bcryptjs')) {
-              return 'utils-vendor';
+            if (id.includes("zod") || id.includes("bcryptjs")) {
+              return "utils-vendor";
             }
 
             // Otras librerías grandes
-            return 'vendor';
+            return "vendor";
           }
         },
       },

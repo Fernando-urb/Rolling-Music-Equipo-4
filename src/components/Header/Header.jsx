@@ -8,6 +8,8 @@ import { LOGO_VMUSIC } from "../../constants/imagenes";
 import Dropdown from "./Dropdown";
 import Avatar from "../common/Avatar";
 
+import { useSearch } from "../../hook/useAuth";
+
 const logo = LOGO_VMUSIC[0];
 const INICIO_SESION = "Iniciar Sesión";
 const REGISTRARSE = "Registrarse";
@@ -15,6 +17,9 @@ const REGISTRARSE = "Registrarse";
 function Header({ onOpenSidebar }) {
   const { openLogin, openRegister } = useModals();
   const { isAuthenticated, user, isAdmin } = useAuth();
+
+  // 2. OBTENER LA FUNCIÓN DE BÚSQUEDA DEL CONTEXTO
+  const { handleSearch } = useSearch();
 
   // Estados locales
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -49,7 +54,10 @@ function Header({ onOpenSidebar }) {
 
           {isAuthenticated && (
             <div className="flex-1 max-w-xs sm:max-w-md md:max-w-2xl">
-              <Buscador />
+              {/* 3. CONECTAR LA FUNCIÓN AL BUSCADOR 
+                  (Asumo que tu componente Buscador usa la prop 'onSearch')
+              */}
+              <Buscador onSearch={handleSearch} />
             </div>
           )}
 
@@ -81,14 +89,14 @@ function Header({ onOpenSidebar }) {
                     <Avatar
                       src={user?.photoURL}
                       alt="Foto de perfil"
-                      className="w-8 sm:w-10 h-8 sm:h-10"
-                      iconClassName="w-3 sm:w-4 h-3 sm:h-4"
+                      className="w-8 sm:w-10 h-8 sm:w-10"
+                      iconClassName="w-3 sm:w-4 h-3 sm:w-4"
                       isAdmin={isAdmin()}
                     />
-                    <div className="absolute -bottom-1 -right-1 w-3 sm:w-4 h-3 sm:h-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></div>
+                    <div className="absolute -bottom-1 -right-1 w-3 sm:w-4 h-3 sm:w-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></div>
                   </div>
                   <ChevronDown
-                    className={`w-3 sm:w-4 h-3 sm:h-4 text-gray-600 dark:text-gray-400 transition-all duration-300 ${
+                    className={`w-3 sm:w-4 h-3 sm:w-4 text-gray-600 dark:text-gray-400 transition-all duration-300 ${
                       isUserMenuOpen ? "rotate-180 text-pink-600 dark:text-pink-400" : ""
                     }`}
                   />
