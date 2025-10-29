@@ -1,13 +1,12 @@
 import MainLayout from "../components/MainC/MainLayout";
-
-function SongDetail() {
+function Albunes() {
   return (
     <MainLayout>
       <h1 className="text-3xl font-bold text-gray-800 dark:text-white p-4">
-        Esta es la pagina de SongDetail
+        Este es el contenido de la página albunes
       </h1>
     </MainLayout>
   );
 }
 
-export default SongDetail;
+export default Albunes;

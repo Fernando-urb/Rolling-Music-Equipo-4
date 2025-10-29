@@ -1,96 +1,128 @@
-import Button from "../Header/Button";
-import { PAGES_NAVIGATE, PAGES_MUSICA, FOOTER_LINKS } from "../../constants/NavLinkConst";
+import { useEffect } from "react";
+import Button from "../common/Button";
+import { PAGES_NAVIGATE, PAGES_MUSICA, getFooterLinks } from "../../constants/NavLinkConst";
+import { useAuth, useModals } from "../../hook/useAuth";
+import { X } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const INICIO_SESION = "Iniciar Sesión";
+function Sidebar({ isOpen, onClose }) {
+  const { isAuthenticated, isAdmin } = useAuth();
+  const { openLogin } = useModals();
 
-function Sidebar() {
-  const handleLogin = () => {
-    alert("¡Iniciando Sesión!");
-  };
+  // Cerrar sidebar con tecla ESC
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [isOpen, onClose]);
+
+  // Prevenir scroll del body cuando el sidebar está abierto
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   const NavLinks = (items) => (
-    <ul className="space-y-1">
+    <ul className="space-y-2">
       {items.map((item) => (
         <li key={item.name}>
-          <a
-            href={item.href}
-            className="flex items-center p-2 text-sm font-medium text-gray-400 rounded-lg hover:bg-gray-700 hover:text-white transition duration-150 ease-in-out"
+          <Link
+            to={item.href}
+            onClick={onClose}
+            className="group flex items-center p-3 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 hover:scale-[1.02] hover:shadow-md border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
           >
-            <item.icon className="w-5 h-5 mr-3" />
-            <span>{item.name}</span>
-          </a>
+            <item.icon className="w-5 h-5 mr-3 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors duration-300" />
+            <span className="font-medium">{item.name}</span>
+          </Link>
         </li>
       ))}
     </ul>
   );
-  return (
-    <div
-      id="hs-pro-sidebar"
-      className="hs-overlay [--body-scroll:true] lg:[--overlay-backdrop:false] [--is-layout-affect:true] [--opened:lg] [--auto-close:lg]
-hs-overlay-open:translate-x-0 lg:hs-overlay-layout-open:translate-x-0
--translate-x-full transition-all duration-300 transform
-w-60
-hidden
-fixed inset-y-0 lg:inset-y-5 z-60 start-0
-bg-zinc-100
-lg:block lg:-translate-x-full lg:end-auto lg:bottom-0
-dark:bg-neutral-900"
-      role="dialog"
-      tabindex="-1"
-      aria-label="Sidebar"
-    >
-      <div className="lg:pt-13 relative flex flex-col h-full max-h-full">
-        <nav className="p-3 size-full flex flex-col overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-200 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
-          <div className="lg:hidden mb-2 flex items-center justify-between">
-            <Button onClick={handleLogin}>{INICIO_SESION}</Button>
 
+  return (
+    <>
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} aria-hidden="true" />
+      )}
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-80 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 backdrop-blur-xl border-r border-gray-200/50 dark:border-gray-700/50 shadow-2xl transform transition-all duration-300 ease-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+        role="dialog"
+        aria-label="Sidebar"
+      >
+        <div className="relative flex flex-col h-full">
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-700">
+            <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Sound-Music
+            </h2>
             <button
-              type="button"
-              className="p-1.5 size-7.5 inline-flex items-center gap-x-1 text-xs rounded-md text-gray-500 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden dark:text-neutral-500"
-              aria-haspopup="dialog"
-              aria-expanded="false"
-              aria-controls="hs-pro-sidebar"
-              data-hs-overlay="#hs-pro-sidebar"
+              onClick={onClose}
+              className="p-2 text-gray-500 hover:text-pink-600 dark:text-gray-400 dark:hover:text-pink-400 rounded-xl hover:bg-pink-50 dark:hover:bg-pink-900/20 transition-all duration-200 hover:scale-105"
+              aria-label="Cerrar menú"
             >
-              <svg
-                className="shrink-0 size-3.5"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 6 6 18" />
-                <path d="m6 6 12 12" />
-              </svg>
-              <span className="sr-only">Sidebar Toggle</span>
+              <X className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="pt-3 mt-3 flex flex-col border-t border-gray-200 first:border-t-0 first:pt-0 first:mt-0 dark:border-neutral-700">
-            <span className="block ps-2.5 mb-2 font-medium text-xs uppercase text-gray-500 dark:text-neutral-500">
-              Pages
-            </span>
+          <nav className="flex-1 p-6 overflow-y-auto custom-scrollbar">
+            {/* Login Button (no autenticado) */}
+            {!isAuthenticated && (
+              <div className="mb-8 p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-2xl border border-pink-200/50 dark:border-pink-700/50">
+                <Button
+                  onClick={openLogin}
+                  fullWidth
+                  className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                >
+                  Iniciar Sesión
+                </Button>
+              </div>
+            )}
 
-            {NavLinks(PAGES_NAVIGATE)}
-          </div>
+            <div className="mb-8">
+              <div className="flex items-center mb-4">
+                <span className="block px-3 py-1 text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-full">
+                  Navegación
+                </span>
+              </div>
+              {NavLinks(PAGES_NAVIGATE)}
+            </div>
 
-          <div className="pt-3 mt-3 flex flex-col border-t border-gray-200 first:border-t-0 first:pt-0 first:mt-0 dark:border-neutral-700">
-            <span className="block ps-2.5 mb-2 font-medium text-xs uppercase text-gray-500 dark:text-neutral-500">
-              TU MUSICA
-            </span>
+            {isAuthenticated && (
+              <div className="mb-8 pt-6 border-t border-gradient-to-r from-pink-200 to-purple-200 dark:from-pink-800 dark:to-purple-800">
+                <div className="flex items-center mb-4">
+                  <span className="block px-3 py-1 text-xs font-bold uppercase tracking-wider text-pink-600 dark:text-pink-400 bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-900/30 dark:to-purple-900/30 rounded-full">
+                    Tu Música
+                  </span>
+                </div>
+                {NavLinks(PAGES_MUSICA)}
+              </div>
+            )}
+          </nav>
 
-            {NavLinks(PAGES_MUSICA)}
-          </div>
-        </nav>
-
-        <footer className="mt-auto p-3 flex flex-col">{NavLinks(FOOTER_LINKS)}</footer>
-      </div>
-    </div>
+          <footer className="p-6 border-t border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-gray-50 to-purple-50/30 dark:from-gray-800 dark:to-purple-900/20">
+            <div className="mb-3">
+              <span className="block px-3 py-1 text-xs font-bold uppercase tracking-wider text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-full">
+                {isAdmin() ? "Admin & Info" : "Información"}
+              </span>
+            </div>
+            {NavLinks(getFooterLinks(isAdmin()))}
+          </footer>
+        </div>
+      </aside>
+    </>
   );
 }
 

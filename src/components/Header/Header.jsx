@@ -1,107 +1,111 @@
+import { useState } from "react";
+import Buscador from "../common/Buscador";
+import Button from "../common/Button";
+import { useModals } from "../../hook/useAuth";
+import { useAuth } from "../../hook/useAuth";
+import { ChevronDown } from "lucide-react";
 import { LOGO_VMUSIC } from "../../constants/imagenes";
-import Buscador from "./Buscador";
-import Button from "./Button";
+import Dropdown from "./Dropdown";
+import Avatar from "../common/Avatar";
 
-const logoPrincipal = LOGO_VMUSIC[0];
+import { useSearch } from "../../hook/useAuth";
+
+const logo = LOGO_VMUSIC[0];
 const INICIO_SESION = "Iniciar Sesión";
+const REGISTRARSE = "Registrarse";
 
-function Header() {
-  const handleLogin = () => {
-    alert("¡Iniciando Sesión!");
+function Header({ onOpenSidebar }) {
+  const { openLogin, openRegister } = useModals();
+  const { isAuthenticated, user, isAdmin } = useAuth();
+
+  // 2. OBTENER LA FUNCIÓN DE BÚSQUEDA DEL CONTEXTO
+  const { handleSearch } = useSearch();
+
+  // Estados locales
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
+  const toggleUserMenu = () => {
+    setIsUserMenuOpen(!isUserMenuOpen);
   };
+
+  const closeUserMenu = () => {
+    setIsUserMenuOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-48 lg:z-61 w-full bg-zinc-100 text-sm py-4 dark:bg-neutral-900">
-      <nav className="px-4 sm:px-5.5 flex basis-full items-center w-full mx-auto">
-        <div className="w-full flex items-center gap-x-1.5">
-          <ul className="flex items-center gap-1.5">
-            <li className="inline-flex items-center relative text-gray-200 pe-1.5 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
-              <div className="hidden sm:block ms-1"></div>
-              <button
-                type="button"
-                className="p-1.5  inline-flex items-center gap-x-1 text-xs rounded-md border border-transparent text-gray-500 hover:text-gray-800 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:text-gray-800 dark:text-neutral-500 dark:hover:text-neutral-400 dark:focus:text-neutral-400"
-                aria-haspopup="dialog"
-                aria-expanded="false"
-                aria-controls="hs-pro-sidebar"
-                data-hs-overlay="#hs-pro-sidebar"
-              >
-                <img src={logoPrincipal.src} alt={logoPrincipal.alt} width={40} height={40} />
-                <span className="sr-only">Sidebar Toggle</span>
-              </button>
-            </li>
+    <header className="fixed top-0 inset-x-0 z-50 w-full bg-zinc-100 text-sm py-4 dark:bg-black ">
+      <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
+        <div className="w-full flex items-center gap-x-4">
+          {/* Logo y Menu Button */}
+          <div className="flex items-center  gap-1">
+            <button
+              onClick={onOpenSidebar}
+              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-neutral-800 transition-colors"
+              aria-label="Abrir menú"
+            >
+              <img src={logo.src} alt={logo.alt} width={35} />
+            </button>
+            <div className="flex items-center gap-1">
+              <span className="text-xl md:text-2xl font-bold px-1 bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                Sound-Music
+              </span>
+            </div>
+          </div>
 
-            <li className="inline-flex items-center relative text-gray-200 pe-1.5 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
-              <div className="inline-flex justify-center w-full">
-                <div className="hs-dropdown relative [--strategy:absolute] [--placement:bottom-left] inline-flex">
-                  <Buscador />
-                </div>
-              </div>
-            </li>
-          </ul>
+          {isAuthenticated && (
+            <div className="flex-1 max-w-xs sm:max-w-md md:max-w-2xl">
+              {/* 3. CONECTAR LA FUNCIÓN AL BUSCADOR 
+                  (Asumo que tu componente Buscador usa la prop 'onSearch')
+              */}
+              <Buscador onSearch={handleSearch} />
+            </div>
+          )}
 
-          <ul className="flex flex-row items-center gap-x-3 ms-auto">
-            <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
-              <Button onClick={handleLogin}>{INICIO_SESION}</Button>
-            </li>
-
-            <li className="hidden lg:inline-flex items-center gap-1.5 relative text-gray-500 pe-3 last:pe-0 last:after:hidden after:absolute after:top-1/2 after:end-0 after:inline-block after:w-px after:h-3.5 after:bg-gray-300 after:rounded-full after:-translate-y-1/2 after:rotate-12 dark:text-neutral-200 dark:after:bg-neutral-700">
-              <div className="px-4 py-2  dark:border-neutral-800">
-                <div className="flex flex-wrap justify-between items-center gap-2">
-                  <div className="p-0.5 inline-flex cursor-pointer bg-gray-100 rounded-full dark:bg-neutral-800">
-                    <button
-                      type="button"
-                      className="size-7 flex justify-center items-center bg-white shadow-sm text-gray-800 rounded-full dark:text-neutral-200 hs-auto-mode-active:bg-transparent hs-auto-mode-active:shadow-none hs-dark-mode-active:bg-transparent hs-dark-mode-active:shadow-none"
-                      data-hs-theme-click-value="default"
-                    >
-                      <svg
-                        className="shrink-0 size-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <circle cx="12" cy="12" r="4" />
-                        <path d="M12 3v1" />
-                        <path d="M12 20v1" />
-                        <path d="M3 12h1" />
-                        <path d="M20 12h1" />
-                        <path d="m18.364 5.636-.707.707" />
-                        <path d="m6.343 17.657-.707.707" />
-                        <path d="m5.636 5.636.707.707" />
-                        <path d="m17.657 17.657.707.707" />
-                      </svg>
-                      <span className="sr-only">Default (Light)</span>
-                    </button>
-                    <button
-                      type="button"
-                      className="size-7 flex justify-center items-center text-gray-800 rounded-full dark:text-neutral-200 hs-dark-mode-active:bg-white hs-dark-mode-active:shadow-sm hs-dark-mode-active:text-neutral-800"
-                      data-hs-theme-click-value="dark"
-                    >
-                      <svg
-                        className="shrink-0 size-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                      </svg>
-                      <span className="sr-only">Dark</span>
-                    </button>
+          <div className="flex items-center gap-3 ml-auto">
+            {!isAuthenticated ? (
+              // Usuario NO autenticado
+              <>
+                <Button onClick={openLogin} className="hidden lg:inline-flex">
+                  {INICIO_SESION}
+                </Button>
+                <Button
+                  onClick={openRegister}
+                  variant="primary"
+                  className="hidden lg:inline-flex  "
+                >
+                  {REGISTRARSE}
+                </Button>
+              </>
+            ) : (
+              // Usuario autenticado
+              <div className="relative">
+                <button
+                  onClick={toggleUserMenu}
+                  className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2 rounded-xl sm:rounded-2xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 hover:shadow-lg border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
+                  aria-expanded={isUserMenuOpen}
+                  aria-haspopup="true"
+                >
+                  <div className="relative">
+                    <Avatar
+                      src={user?.photoURL}
+                      alt="Foto de perfil"
+                      className="w-8 sm:w-10 h-8 sm:w-10"
+                      iconClassName="w-3 sm:w-4 h-3 sm:w-4"
+                      isAdmin={isAdmin()}
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-3 sm:w-4 h-3 sm:w-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></div>
                   </div>
-                </div>
+                  <ChevronDown
+                    className={`w-3 sm:w-4 h-3 sm:w-4 text-gray-600 dark:text-gray-400 transition-all duration-300 ${
+                      isUserMenuOpen ? "rotate-180 text-pink-600 dark:text-pink-400" : ""
+                    }`}
+                  />
+                </button>
+
+                {isUserMenuOpen && <Dropdown closeUserMenu={closeUserMenu} />}
               </div>
-            </li>
-          </ul>
+            )}
+          </div>
         </div>
       </nav>
     </header>

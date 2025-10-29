@@ -18,9 +18,7 @@ function NotFound() {
           404
         </h1>
 
-        <p className="text-2xl md:text-3xl font-semibold mt-4">
-          Ups... página no encontrada
-        </p>
+        <p className="text-2xl md:text-3xl font-semibold mt-4">Ups... página no encontrada</p>
 
         <p className="mt-2 mb-8 max-w-md">
           Parece que te perdiste entre los acordes 🎵. No te preocupes, podés volver al inicio.
@@ -38,4 +36,3 @@ function NotFound() {
 }
 
 export default NotFound;
-
