@@ -25,18 +25,15 @@ function Tendencias() {
     playTrack(track);
   };
 
- return (
+  return (
     <MainLayout>
       <div className="p-4 sm:p-6">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
-          Tendencias
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">Tendencias</h1>
 
         {isLoading ? (
           <p className="text-gray-400">Cargando tendencias...</p>
         ) : (
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            
             {/* AÑADE UN '?' ANTES DE .map */}
             {popularTracks?.map((track) => (
               <li key={track.id}>

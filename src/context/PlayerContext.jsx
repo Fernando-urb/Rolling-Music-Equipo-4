@@ -1,11 +1,7 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../hook/useAuth"; // <-- 2. CORREGIR LA RUTA DE useAuth
 import { logSongPlay } from "../services/userService";
-import {PlayerContext} from "../hook/usePlayer";
+import { PlayerContext } from "../hook/usePlayer";
 
 export const PlayerProvider = ({ children }) => {
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -57,18 +53,16 @@ export const PlayerProvider = ({ children }) => {
 
       const artistId = track?.artistId;
 
-      console.log("Datos para registrar:", { 
-        usuario: user, 
-        idCancion: track?.id, 
-        idArtista: artistId 
+      console.log("Datos para registrar:", {
+        usuario: user,
+        idCancion: track?.id,
+        idArtista: artistId,
       });
 
       if (user && track?.id && artistId) {
         logSongPlay(user.uid, track.id, artistId);
       } else {
-        console.warn(
-          "No se pudo registrar la canción: falta user.uid, track.id o artistId"
-        );
+        console.warn("No se pudo registrar la canción: falta user.uid, track.id o artistId");
       }
     }
   };
@@ -112,7 +106,5 @@ export const PlayerProvider = ({ children }) => {
   };
 
   // El Provider usa el PlayerContext que creamos arriba
-  return (
-    <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
-  );
+  return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>;
 };

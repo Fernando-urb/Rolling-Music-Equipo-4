@@ -26,9 +26,7 @@ function GenreCard({ genre, onClick }) {
         className="w-24 h-24 rounded-full object-cover mb-3"
       />
       <div className="overflow-hidden text-center">
-        <p className="font-semibold text-gray-800 dark:text-white truncate">
-          {genre.name}
-        </p>
+        <p className="font-semibold text-gray-800 dark:text-white truncate">{genre.name}</p>
       </div>
     </div>
   );

@@ -8,12 +8,12 @@ const _transformTrackData = (track) => {
   }
 
   // Verificación más robusta de la estructura del track
-  if (!track.album || typeof track.album !== 'object') {
+  if (!track.album || typeof track.album !== "object") {
     console.warn("Track inválido - sin álbum:", track);
     return null;
   }
 
-  if (!track.artist || typeof track.artist !== 'object') {
+  if (!track.artist || typeof track.artist !== "object") {
     console.warn("Track inválido - sin artista:", track);
     return null;
   }
@@ -21,20 +21,20 @@ const _transformTrackData = (track) => {
   // Asegurarnos de que tenemos al menos los datos mínimos
   try {
     const transformedTrack = {
-      id: track.id?.toString() || '',
-      name: track.title || 'Título desconocido',
-      artistId: track.artist?.id?.toString() || '',
-      artists: [{ name: track.artist?.name || 'Artista desconocido' }],
+      id: track.id?.toString() || "",
+      name: track.title || "Título desconocido",
+      artistId: track.artist?.id?.toString() || "",
+      artists: [{ name: track.artist?.name || "Artista desconocido" }],
       album: {
-        name: track.album?.title || 'Álbum desconocido',
+        name: track.album?.title || "Álbum desconocido",
         images: [
-          { url: track.album.cover_xl || track.album.cover_big || track.album.cover_medium || '' },
-          { url: track.album.cover_big || track.album.cover_medium || '' },
-          { url: track.album.cover_medium || '' },
-        ].filter(img => img.url), // Filtra imágenes vacías
+          { url: track.album.cover_xl || track.album.cover_big || track.album.cover_medium || "" },
+          { url: track.album.cover_big || track.album.cover_medium || "" },
+          { url: track.album.cover_medium || "" },
+        ].filter((img) => img.url), // Filtra imágenes vacías
       },
-      preview_url: track.preview || '',
-      external_url: track.link || '',
+      preview_url: track.preview || "",
+      external_url: track.link || "",
     };
 
     // Verificar que tenemos al menos los datos esenciales
@@ -56,7 +56,7 @@ const _transformGenreData = (genre) => {
     id: genre.id.toString(),
     name: genre.name,
     // Usamos 'picture_medium' para los géneros
-    image: genre.picture_medium || genre.picture_big || genre.picture, 
+    image: genre.picture_medium || genre.picture_big || genre.picture,
   };
 };
 
@@ -98,9 +98,7 @@ export const searchMusic = async (query) => {
 export const getPopularTracks = async () => {
   try {
     const response = await fetch(
-      `${CORS_PROXY}${encodeURIComponent(
-        `${DEEZER_API}/chart/0/tracks?limit=20`
-      )}`
+      `${CORS_PROXY}${encodeURIComponent(`${DEEZER_API}/chart/0/tracks?limit=20`)}`
     );
     const data = await response.json();
     console.log("Canciones populares:", data);
@@ -108,7 +106,7 @@ export const getPopularTracks = async () => {
     if (!data.data) {
       return [];
     }
-    
+
     // Usamos el helper para transformar
     return data.data.map(_transformTrackData).filter(Boolean);
   } catch (error) {
@@ -141,9 +139,7 @@ export const getTrackById = async (trackId) => {
 export const getArtistTopTrack = async (artistId) => {
   try {
     const response = await fetch(
-      `${CORS_PROXY}${encodeURIComponent(
-        `${DEEZER_API}/artist/${artistId}/top?limit=1`
-      )}`
+      `${CORS_PROXY}${encodeURIComponent(`${DEEZER_API}/artist/${artistId}/top?limit=1`)}`
     );
     const data = await response.json(); // Viene { data: [track] }
 
@@ -157,10 +153,7 @@ export const getArtistTopTrack = async (artistId) => {
     // Usamos el helper para transformar el primer track
     return _transformTrackData(data.data[0]);
   } catch (error) {
-    console.error(
-      `Error al obtener top track de artista (${artistId}):`,
-      error
-    );
+    console.error(`Error al obtener top track de artista (${artistId}):`, error);
     return null;
   }
 };
@@ -168,12 +161,10 @@ export const getArtistTopTrack = async (artistId) => {
 // Obtener Generos
 export const getGenres = async () => {
   try {
-    const response = await fetch(
-      `${CORS_PROXY}${encodeURIComponent(`${DEEZER_API}/genre`)}`
-    );
+    const response = await fetch(`${CORS_PROXY}${encodeURIComponent(`${DEEZER_API}/genre`)}`);
     const data = await response.json();
     if (data.error) throw new Error(data.error.message);
-    
+
     // Devuelve { data: [genre1, genre2, ...] }
     return data.data ? data.data.map(_transformGenreData).filter(Boolean) : [];
   } catch (error) {
@@ -209,17 +200,15 @@ export const getTopRadioTracks = async () => {
       `${CORS_PROXY}${encodeURIComponent(`${DEEZER_API}/chart/0/radios?limit=1`)}`
     );
     const radioData = await radioResponse.json();
-    
+
     if (radioData.error || !radioData.data || radioData.data.length === 0) {
       throw new Error("No se pudo obtener la radio principal");
     }
 
     const topRadio = radioData.data[0];
-    
+
     // 2. Segundo, obtenemos el 'tracklist' de ESA radio
-    const tracksResponse = await fetch(
-      `${CORS_PROXY}${encodeURIComponent(topRadio.tracklist)}`
-    );
+    const tracksResponse = await fetch(`${CORS_PROXY}${encodeURIComponent(topRadio.tracklist)}`);
     const tracksData = await tracksResponse.json();
 
     if (tracksData.error) {
@@ -229,7 +218,6 @@ export const getTopRadioTracks = async () => {
     // 3. Transformamos los datos de las canciones
     // Asumo que ya tienes la función _transformTrackData
     return tracksData.data ? tracksData.data.map(_transformTrackData).filter(Boolean) : [];
-
   } catch (error) {
     console.error("Error al obtener éxitos de radio:", error);
     return []; // Devuelve un array vacío si falla
@@ -261,7 +249,7 @@ export const getGenreById = async (genreId) => {
     );
     const data = await response.json();
     if (data.error) throw new Error(data.error.message);
-    
+
     return _transformGenreData(data);
   } catch (error) {
     console.error(`Error al obtener género ${genreId}:`, error);
@@ -275,7 +263,7 @@ export const getAlbumTracks = async (albumId) => {
       `${CORS_PROXY}${encodeURIComponent(`${DEEZER_API}/album/${albumId}/tracks`)}`
     );
     const data = await response.json();
-    
+
     if (data.error) {
       console.error(`Error API Deezer: ${data.error.message}`);
       throw new Error(data.error.message);
@@ -287,20 +275,17 @@ export const getAlbumTracks = async (albumId) => {
     }
 
     // Transformar y filtrar tracks válidos
-    const validTracks = data.data
-      .map(_transformTrackData)
-      .filter(track => {
-        // Filtra tracks que no tengan preview (no se pueden reproducir)
-        const hasPreview = track && track.preview_url;
-        if (!hasPreview) {
-          console.warn("Track sin preview, se omite:", track);
-        }
-        return hasPreview;
-      });
+    const validTracks = data.data.map(_transformTrackData).filter((track) => {
+      // Filtra tracks que no tengan preview (no se pueden reproducir)
+      const hasPreview = track && track.preview_url;
+      if (!hasPreview) {
+        console.warn("Track sin preview, se omite:", track);
+      }
+      return hasPreview;
+    });
 
     console.log(`✅ ${validTracks.length} tracks válidos de ${data.data.length} totales`);
     return validTracks;
-
   } catch (error) {
     console.error(`Error al obtener pistas del álbum ${albumId}:`, error);
     return [];
@@ -337,7 +322,7 @@ export const getAlbumTracksRobust = async (albumId) => {
       `${CORS_PROXY}${encodeURIComponent(`${DEEZER_API}/album/${albumId}/tracks`)}`
     );
     const data = await response.json();
-    
+
     if (data.error) throw new Error(data.error.message);
 
     if (!data.data || data.data.length === 0) {
@@ -346,42 +331,40 @@ export const getAlbumTracksRobust = async (albumId) => {
     }
 
     // Transformar tracks con información adicional del álbum
-    const tracksWithAlbumContext = data.data.map(track => {
-      try {
-        // Si el track no tiene album info completa, la completamos con la del álbum
-        if (!track.album || !track.album.title) {
-          track.album = {
-            ...track.album,
-            title: albumInfo.name,
-            cover_xl: albumInfo.image,
-            cover_big: albumInfo.image,
-            cover_medium: albumInfo.image
-          };
-        }
-        
-        // Si el track no tiene artista, usar el del álbum
-        if (!track.artist || !track.artist.name) {
-          track.artist = {
-            ...track.artist,
-            name: albumInfo.artistName,
-            id: albumInfo.artistId
-          };
-        }
+    const tracksWithAlbumContext = data.data
+      .map((track) => {
+        try {
+          // Si el track no tiene album info completa, la completamos con la del álbum
+          if (!track.album || !track.album.title) {
+            track.album = {
+              ...track.album,
+              title: albumInfo.name,
+              cover_xl: albumInfo.image,
+              cover_big: albumInfo.image,
+              cover_medium: albumInfo.image,
+            };
+          }
 
-        return _transformTrackData(track);
-      } catch (trackError) {
-        console.warn("Error procesando track individual:", trackError, track);
-        return null;
-      }
-    }).filter(Boolean);
+          // Si el track no tiene artista, usar el del álbum
+          if (!track.artist || !track.artist.name) {
+            track.artist = {
+              ...track.artist,
+              name: albumInfo.artistName,
+              id: albumInfo.artistId,
+            };
+          }
+
+          return _transformTrackData(track);
+        } catch (trackError) {
+          console.warn("Error procesando track individual:", trackError, track);
+          return null;
+        }
+      })
+      .filter(Boolean);
 
     return tracksWithAlbumContext;
-
   } catch (error) {
     console.error(`Error robusto al obtener pistas del álbum ${albumId}:`, error);
     return [];
   }
 };
-
-
-

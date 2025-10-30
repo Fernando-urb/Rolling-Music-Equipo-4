@@ -15,8 +15,7 @@ function SongCard({ track, onPlay }) {
   // Extraemos la información del objeto 'track' transformado
   // Usamos images[1] (cover_big) o images[2] (cover_medium)
   // Añadimos '?' (optional chaining) por si acaso la imagen no existe.
-  const imageUrl =
-    track.album.images[2]?.url || track.album.images[1]?.url || "";
+  const imageUrl = track.album.images[2]?.url || track.album.images[1]?.url || "";
   const title = track.name;
   const artistName = track.artists[0].name;
   // --- Fin de la adaptación ---
@@ -41,12 +40,8 @@ function SongCard({ track, onPlay }) {
 
       {/* Información de la canción */}
       <div className="flex-1 overflow-hidden">
-        <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
-          {title}
-        </p>
-        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-          {artistName}
-        </p>
+        <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{title}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{artistName}</p>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MainLayout from "../components/MainC/MainLayout";
-import {  getAlbumById, getAlbumTracksRobust } from "../services/deezerApi";
+import { getAlbumById, getAlbumTracksRobust } from "../services/deezerApi";
 import { usePlayer } from "../hook/usePlayer";
 import SongCard from "../components/common/SongCard";
 
@@ -23,12 +23,12 @@ function AlbumDetail() {
         // Obtener información del álbum y sus pistas
         const [albumData, tracksData] = await Promise.all([
           getAlbumById(id),
-          getAlbumTracksRobust(id)
+          getAlbumTracksRobust(id),
         ]);
-        
+
         setAlbum(albumData);
         setTracks(tracksData);
-        
+
         if (tracksData.length === 0) {
           setError("No se encontraron pistas en este álbum.");
         }
@@ -39,7 +39,7 @@ function AlbumDetail() {
         setIsLoading(false);
       }
     };
-    
+
     fetchAlbumData();
   }, [id]);
 
@@ -54,33 +54,30 @@ function AlbumDetail() {
   return (
     <MainLayout>
       <div className="p-4 sm:p-6">
-        <button 
+        <button
           onClick={handleBackClick}
           className="mb-4 flex items-center text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
         >
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
           </svg>
           Volver atrás
         </button>
 
         {album && (
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
-            <img 
-              src={album.image} 
-              alt={album.name}
-              className="w-48 h-48 rounded-lg shadow-lg"
-            />
+            <img src={album.image} alt={album.name} className="w-48 h-48 rounded-lg shadow-lg" />
             <div>
               <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2">
                 {album.name}
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400">
-                {album.artistName}
-              </p>
-              <p className="text-gray-500 dark:text-gray-400 mt-2">
-                {tracks.length} pistas
-              </p>
+              <p className="text-xl text-gray-600 dark:text-gray-400">{album.artistName}</p>
+              <p className="text-gray-500 dark:text-gray-400 mt-2">{tracks.length} pistas</p>
             </div>
           </div>
         )}

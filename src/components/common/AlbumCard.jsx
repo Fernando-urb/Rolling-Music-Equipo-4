@@ -1,4 +1,3 @@
-
 function AlbumCard({ album, onClick }) {
   if (!album) return null;
 
@@ -14,12 +13,8 @@ function AlbumCard({ album, onClick }) {
         style={{ aspectRatio: "1 / 1" }} // Mantiene la proporción 1:1
       />
       <div className="overflow-hidden">
-        <p className="font-semibold text-gray-800 dark:text-white truncate">
-          {album.name}
-        </p>
-        <p className="text-sm text-gray-600 dark:text-gray-400 truncate">
-          {album.artistName}
-        </p>
+        <p className="font-semibold text-gray-800 dark:text-white truncate">{album.name}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 truncate">{album.artistName}</p>
       </div>
     </div>
   );

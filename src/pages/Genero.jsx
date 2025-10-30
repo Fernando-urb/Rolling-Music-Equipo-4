@@ -27,9 +27,7 @@ function Genero() {
   return (
     <MainLayout>
       <div className="p-4 sm:p-6">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
-          Géneros
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">Géneros</h1>
 
         {isLoading ? (
           <p className="text-gray-400">Cargando géneros...</p>
