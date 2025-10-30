@@ -13,7 +13,8 @@ const Canciones = lazy(() => import("../pages/Canciones"));
 const Artistas = lazy(() => import("../pages/Artistas"));
 const Playlist = lazy(() => import("../pages/Playlist"));
 const NotFound = lazy(() => import("../pages/NotFound"));
-
+const GeneroDetail = lazy(() => import("../pages/GeneroDetail"));
+const AlbumDetail = lazy(() => import("../pages/AlbumDetail"));
 // Componente de loading para páginas de usuario
 const UserLoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
@@ -62,6 +63,14 @@ function UserRoutes() {
             }
           />
           <Route
+            path="genero/:id"
+            element={
+              <ProtectedRoute>
+                <GeneroDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="albunes"
             element={
               <ProtectedRoute>
@@ -90,6 +99,14 @@ function UserRoutes() {
             element={
               <ProtectedRoute>
                 <Playlist />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="album/:id"
+            element={
+              <ProtectedRoute>
+                <AlbumDetail />
               </ProtectedRoute>
             }
           />

@@ -1,14 +1,12 @@
-// src/pages/Generos.jsx
+// src/pages/Genero.jsx
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import MainLayout from "../components/MainC/MainLayout";
 import { getGenres } from "../services/deezerApi";
-import GenreCard from "../components/common/GenreCard";
+import GenreCard from "../components/common/GenreCard"; // <-- Usa GenreCard
 
-function Generos() {
+function Genero() {
   const [genres, setGenres] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -20,9 +18,10 @@ function Generos() {
     fetchGenres();
   }, []);
 
+  // Por ahora, solo imprime el ID. Luego me dices qué hacer aquí.
   const handleGenreClick = (genreId) => {
-    console.log("📍 Navegando a género ID:", genreId);
-    navigate(`/genero/${genreId}`);
+    console.log("Clic en Género ID:", genreId);
+    // Próximo paso: navegar a /genero/${genreId}
   };
 
   return (
@@ -48,4 +47,4 @@ function Generos() {
   );
 }
 
-export default Generos;
+export default Genero;

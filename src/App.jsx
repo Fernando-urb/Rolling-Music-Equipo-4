@@ -2,8 +2,11 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
-
 import { lazy, Suspense } from "react";
+
+// --- ¡CORRECCIÓN AQUÍ! ---
+// La ruta estaba incorrecta, probablemente era "./" en lugar de "../src/"
+import { PlayerProvider } from "./context/PlayerContext";
 
 // Componentes que se cargan inmediatamente (críticos)
 import LoginModal from "./components/auth/LoginModal";
@@ -45,21 +48,24 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
       <ModalProvider>
-        <Suspense fallback={<GlobalLoadingSpinner />}>
-          <Routes>
-            {/* Landing Page */}
-            <Route path="/" element={<Landing />} />
+        {/* Tu provider está en el lugar correcto, envolviendo las rutas */}
+        <PlayerProvider>
+          <Suspense fallback={<GlobalLoadingSpinner />}>
+            <Routes>
+              {/* Landing Page */}
+              <Route path="/" element={<Landing />} />
 
-            {/* Página de error 403 */}
-            <Route path="/error/403" element={<Error403 />} />
+              {/* Página de error 403 */}
+              <Route path="/error/403" element={<Error403 />} />
 
-            {/* Rutas de Admin (sin layout) */}
-            <Route path="/admin/*" element={<AdminRoutes />} />
+              {/* Rutas de Admin (sin layout) */}
+              <Route path="/admin/*" element={<AdminRoutes />} />
 
-            {/* Rutas de Usuario (con layout) - Debe ir al final */}
-            <Route path="/*" element={<UserRoutes />} />
-          </Routes>
-        </Suspense>
+              {/* Rutas de Usuario (con layout) - Debe ir al final */}
+              <Route path="/*" element={<UserRoutes />} />
+            </Routes>
+          </Suspense>
+        </PlayerProvider>
 
         {/* Modals - Solo mostrar si no es página de admin */}
         {!isAdminPage && (

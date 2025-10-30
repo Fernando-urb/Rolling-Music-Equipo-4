@@ -1,5 +1,5 @@
 import { Play, Pause, ChevronDown } from "lucide-react"; // Iconos
-import { usePlayer } from "../../hook/useAuth";
+import { usePlayer } from "../../hook/usePlayer"
 
 const MusicPlayer = () => {
   const {

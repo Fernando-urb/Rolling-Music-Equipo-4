@@ -1,10 +1,49 @@
+// src/pages/Albunes.jsx
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // <-- Añade useNavigate
 import MainLayout from "../components/MainC/MainLayout";
+import { getPopularAlbums } from "../services/deezerApi";
+import AlbumCard from "../components/common/AlbumCard";
+
 function Albunes() {
+  const [albums, setAlbums] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate(); // <-- Añade navigate
+
+  useEffect(() => {
+    const fetchAlbums = async () => {
+      setIsLoading(true);
+      const albumData = await getPopularAlbums();
+      setAlbums(albumData);
+      setIsLoading(false);
+    };
+    fetchAlbums();
+  }, []);
+
+  // Navega a la página de detalle del álbum
+  const handleAlbumClick = (albumId) => {
+    navigate(`/album/${albumId}`);
+  };
+
   return (
     <MainLayout>
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-white p-4">
-        Este es el contenido de la página albunes
-      </h1>
+      <div className="p-4 sm:p-6">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
+          Álbumes Populares
+        </h1>
+
+        {isLoading ? (
+          <p className="text-gray-400">Cargando álbumes...</p>
+        ) : (
+          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {albums.map((album) => (
+              <li key={album.id}>
+                <AlbumCard album={album} onClick={handleAlbumClick} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </MainLayout>
   );
 }

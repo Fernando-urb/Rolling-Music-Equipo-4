@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import MainLayout from "../components/MainC/MainLayout";
 import { getPopularTracks } from "../services/deezerApi";
 import { useSearch } from "../hook/useAuth";
-import { usePlayer } from "../hook/useAuth";
+import { usePlayer } from "../hook/usePlayer";
 
 function Home() {
   const { searchResults, isLoading, hasSearched } = useSearch();

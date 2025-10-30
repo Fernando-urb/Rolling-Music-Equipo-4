@@ -1,4 +1,3 @@
-// src/hook/useAuth.js
 import { createContext, useContext } from "react";
 
 // --- Autenticación ---
@@ -13,7 +12,7 @@ export const useModals = () => {
   return useContext(ModalContext);
 };
 
-// --- Búsqueda (NUEVO) ---
+// --- Búsqueda ---
 export const SearchContext = createContext();
 export const useSearch = () => {
   const context = useContext(SearchContext);
@@ -23,12 +22,3 @@ export const useSearch = () => {
   return context;
 };
 
-// --- Reproductor (NUEVO) ---
-export const PlayerContext = createContext();
-export const usePlayer = () => {
-  const context = useContext(PlayerContext);
-  if (context === undefined) {
-    throw new Error("usePlayer debe ser usado dentro de un PlayerProvider");
-  }
-  return context;
-};

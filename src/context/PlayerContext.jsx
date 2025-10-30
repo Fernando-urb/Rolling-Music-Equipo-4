@@ -1,8 +1,12 @@
-import { useState, useRef, useEffect } from "react";
-// 1. IMPORTA EL CONTEXTO DESDE TU ARCHIVO DE HOOKS
-import { PlayerContext } from "../hook/useAuth";
+import {
+  useState,
+  useRef,
+  useEffect,
+} from "react";
+import { useAuth } from "../hook/useAuth"; // <-- 2. CORREGIR LA RUTA DE useAuth
+import { logSongPlay } from "../services/userService";
+import {PlayerContext} from "../hook/usePlayer";
 
-// 2. Este archivo ahora SOLO exporta el componente
 export const PlayerProvider = ({ children }) => {
   const [currentTrack, setCurrentTrack] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -10,41 +14,23 @@ export const PlayerProvider = ({ children }) => {
   const [duration, setDuration] = useState(0);
   const [isPlayerVisible, setIsPlayerVisible] = useState(false);
   const audioRef = useRef(new Audio());
+  const { user } = useAuth();
 
-  // ... (useEffect para los eventos de audio, sin cambios) ...
   useEffect(() => {
     const audio = audioRef.current;
 
-    const handleTimeUpdate = () => {
-      if (audio.duration) {
-        setProgress((audio.currentTime / audio.duration) * 100);
-      }
-    };
+    const updateProgress = () => setProgress(audio.currentTime);
+    const setAudioDuration = () => setDuration(audio.duration);
+    const handleEnded = () => setIsPlaying(false);
 
-    const handleLoadedMetadata = () => {
-      setDuration(audio.duration);
-    };
-
-    const handleEnded = () => {
-      setIsPlaying(false);
-      setProgress(0);
-    };
-
-    const handlePlay = () => setIsPlaying(true);
-    const handlePause = () => setIsPlaying(false);
-
-    audio.addEventListener("timeupdate", handleTimeUpdate);
-    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("timeupdate", updateProgress);
+    audio.addEventListener("loadedmetadata", setAudioDuration);
     audio.addEventListener("ended", handleEnded);
-    audio.addEventListener("play", handlePlay);
-    audio.addEventListener("pause", handlePause);
 
     return () => {
-      audio.removeEventListener("timeupdate", handleTimeUpdate);
-      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", updateProgress);
+      audio.removeEventListener("loadedmetadata", setAudioDuration);
       audio.removeEventListener("ended", handleEnded);
-      audio.removeEventListener("play", handlePlay);
-      audio.removeEventListener("pause", handlePause);
     };
   }, []);
 
@@ -61,13 +47,29 @@ export const PlayerProvider = ({ children }) => {
     }
   }, [currentTrack]);
 
-  // ... (Funciones playTrack, togglePlayPause, closePlayer, seekTo, sin cambios) ...
   const playTrack = (track) => {
+    console.log("Objeto 'track' recibido:", track);
     if (currentTrack?.id === track.id) {
       togglePlayPause();
     } else {
       setCurrentTrack(track);
       setIsPlayerVisible(true);
+
+      const artistId = track?.artistId;
+
+      console.log("Datos para registrar:", { 
+        usuario: user, 
+        idCancion: track?.id, 
+        idArtista: artistId 
+      });
+
+      if (user && track?.id && artistId) {
+        logSongPlay(user.uid, track.id, artistId);
+      } else {
+        console.warn(
+          "No se pudo registrar la canción: falta user.uid, track.id o artistId"
+        );
+      }
     }
   };
 
@@ -76,8 +78,9 @@ export const PlayerProvider = ({ children }) => {
     if (isPlaying) {
       audio.pause();
     } else {
-      audio.play().catch((e) => console.error("Error al reproducir el audio:", e));
+      audio.play().catch((e) => console.error("Error al reproducir:", e));
     }
+    setIsPlaying(!isPlaying);
   };
 
   const closePlayer = () => {
@@ -85,15 +88,15 @@ export const PlayerProvider = ({ children }) => {
     audio.pause();
     audio.src = "";
     setCurrentTrack(null);
+    setIsPlaying(false);
     setIsPlayerVisible(false);
     setProgress(0);
     setDuration(0);
   };
 
-  const seekTo = (newProgress) => {
-    const audio = audioRef.current;
-    const newTime = (newProgress / 100) * audio.duration;
-    audio.currentTime = newTime;
+  const seekTo = (time) => {
+    audioRef.current.currentTime = time;
+    setProgress(time);
   };
 
   const value = {
@@ -108,5 +111,8 @@ export const PlayerProvider = ({ children }) => {
     closePlayer,
   };
 
-  return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>;
+  // El Provider usa el PlayerContext que creamos arriba
+  return (
+    <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
+  );
 };
