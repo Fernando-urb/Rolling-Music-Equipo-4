@@ -1,16 +1,14 @@
-import React from "react";
-
 function AlbumCard({ album }) {
+  // Manejador para cuando se hace clic en el álbum
   const handlePlayAlbum = () => {
     console.log("Reproducir álbum (próximamente):", album.id);
+    // Aquí, en el futuro, llamarías a una función de tu PlayerContext
+    // que busque las canciones de este álbum y empiece a reproducirlas.
   };
 
   return (
     <div
-      className="flex-shrink-0 w-40 sm:w-48 cursor-pointer group
-                 
-                 flex-shrink-0
-                 w-40"
+      className="flex-shrink-0 w-40 sm:w-48 cursor-pointer group"
       onClick={handlePlayAlbum}
       title={`${album.name} - ${album.artistName}`}
     >

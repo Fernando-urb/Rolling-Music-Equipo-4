@@ -1,12 +1,6 @@
 import { doc, getDoc, setDoc, updateDoc, arrayUnion, increment } from "firebase/firestore";
 import { db } from "../config/firebase";
 
-/**
- * Revisa si un usuario existe en Firestore y, si no, lo crea.
- * Ahora acepta 'additionalData' para el registro con email.
- * @param {object} userAuth - El objeto 'user' que devuelve Firebase Auth.
- * @param {object} additionalData - Datos extra (ej. { userName: 'dante' })
- */
 export const getOrCreateUserDocument = async (userAuth, additionalData = {}) => {
   if (!userAuth) return;
 

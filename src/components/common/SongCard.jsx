@@ -1,12 +1,4 @@
-import React from "react";
-
-/**
- * Componente de tarjeta de canción.
- * Recibe un objeto 'track' (con el formato transformado de tu deezerApi.js)
- * y una función 'onPlay'.
- */
 function SongCard({ track, onPlay }) {
-  // --- Adaptado a tu deezerApi.js ---
   // Asegurarnos de que 'track' y sus propiedades existen.
   if (!track || !track.album || !track.artists || track.artists.length === 0) {
     return null;
@@ -35,7 +27,7 @@ function SongCard({ track, onPlay }) {
       <img
         src={imageUrl}
         alt={`Carátula de ${title}`}
-        className="w-12 h-12 rounded-md object-cover mr-4"
+        className="w-12 h-12 rounded-md object-cover mr-4 group-hover:opacity-80 transition-opacity"
       />
 
       {/* Información de la canción */}

@@ -1,4 +1,3 @@
-// src/pages/Tendencias.jsx
 import { useState, useEffect } from "react";
 import MainLayout from "../components/MainC/MainLayout";
 import { getPopularTracks } from "../services/deezerApi";

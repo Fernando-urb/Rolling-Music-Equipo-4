@@ -1,4 +1,3 @@
-// src/pages/GeneroDetail.jsx - ACTUALIZADO
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MainLayout from "../components/MainC/MainLayout";

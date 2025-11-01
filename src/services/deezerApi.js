@@ -7,7 +7,6 @@ const _transformTrackData = (track) => {
     return null;
   }
 
-  // Verificación más robusta de la estructura del track
   if (!track.album || typeof track.album !== "object") {
     console.warn("Track inválido - sin álbum:", track);
     return null;

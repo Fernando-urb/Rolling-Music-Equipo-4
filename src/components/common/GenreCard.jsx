@@ -1,15 +1,8 @@
-// src/components/common/GenreCard.jsx
-import React from "react";
-
-/**
- * Muestra una tarjeta para un Género.
- * Recibe un objeto 'genre' (de getGenres) y una función 'onClick'.
- */
 function GenreCard({ genre, onClick }) {
   if (!genre) return null;
 
   const handleClick = () => {
-    console.log("🟢 GenreCard clicked - ID:", genre.id); // Debug
+    console.log("🟢 GenreCard clicked - ID:", genre.id);
     if (onClick) {
       onClick(genre.id);
     }
@@ -18,15 +11,28 @@ function GenreCard({ genre, onClick }) {
   return (
     <div
       onClick={handleClick}
-      className="flex flex-col items-center p-3 bg-gray-100 dark:bg-neutral-800 rounded-lg shadow-sm cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors"
+      className="flex flex-col items-center cursor-pointer 
+                 transition-colors
+                 
+                 w-32 
+                 flex-shrink-0
+                 
+                 group" // Añadimos 'group' para el efecto hover
     >
       <img
         src={genre.image}
         alt={genre.name}
-        className="w-24 h-24 rounded-full object-cover mb-3"
+        className="w-24 h-24 rounded-full object-cover mb-3
+                   transition-transform duration-300 group-hover:scale-110" // Efecto hover en la imagen
       />
+
       <div className="overflow-hidden text-center">
-        <p className="font-semibold text-gray-800 dark:text-white truncate">{genre.name}</p>
+        <p
+          className="font-semibold text-gray-800 dark:text-white truncate
+                      group-hover:text-pink-500 transition-colors" // Efecto hover en el texto
+        >
+          {genre.name}
+        </p>
       </div>
     </div>
   );

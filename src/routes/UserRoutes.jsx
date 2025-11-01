@@ -3,7 +3,6 @@ import { lazy, Suspense } from "react";
 import ProtectedRoute from "./ProtectedRoute";
 import UserLayout from "../layouts/UserLayout";
 
-// Lazy loading para páginas de usuario
 const Home = lazy(() => import("../pages/Home"));
 const About = lazy(() => import("../pages/About"));
 const Tendencias = lazy(() => import("../pages/Tendencias"));

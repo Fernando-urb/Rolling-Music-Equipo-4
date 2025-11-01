@@ -3,9 +3,6 @@ import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { lazy, Suspense } from "react";
-
-// --- ¡CORRECCIÓN AQUÍ! ---
-// La ruta estaba incorrecta, probablemente era "./" en lugar de "../src/"
 import { PlayerProvider } from "./context/PlayerContext";
 
 // Componentes que se cargan inmediatamente (críticos)
@@ -48,7 +45,6 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
       <ModalProvider>
-        {/* Tu provider está en el lugar correcto, envolviendo las rutas */}
         <PlayerProvider>
           <Suspense fallback={<GlobalLoadingSpinner />}>
             <Routes>
@@ -67,7 +63,6 @@ function App() {
           </Suspense>
         </PlayerProvider>
 
-        {/* Modals - Solo mostrar si no es página de admin */}
         {!isAdminPage && (
           <>
             <LoginModal />

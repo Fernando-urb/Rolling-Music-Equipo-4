@@ -1,37 +1,60 @@
 import { useState, useEffect } from "react";
 import MainLayout from "../components/MainC/MainLayout";
-import { getPopularTracks } from "../services/deezerApi";
+import { getPopularTracks, getPopularAlbums, getGenres } from "../services/deezerApi";
 import { useSearch } from "../hook/useAuth";
 import { usePlayer } from "../hook/usePlayer";
+import HomeSection from "../components/common/HomeSection";
+import GenreCard from "../components/common/GenreCard";
+import AlbumCard from "../components/common/AlbumCard";
+import TrackCardSmall from "../components/cards/TrackCardSmalll";
 
 function Home() {
   const { searchResults, isLoading, hasSearched } = useSearch();
-  const [popularTracks, setPopularTracks] = useState([]);
-  const [isPopularLoading, setIsPopularLoading] = useState(true);
-
-  // 2. OBTENER playTrack DEL REPRODUCTOR
   const { playTrack } = usePlayer();
 
-  useEffect(() => {
-    (async () => {
-      setIsPopularLoading(true);
-      const tracks = await getPopularTracks();
-      setPopularTracks(tracks);
-      setIsPopularLoading(false);
-    })();
-  }, []);
+  // --- 3. ESTADOS ACTUALIZADOS ---
+  const [popularTracks, setPopularTracks] = useState([]);
+  const [popularAlbums, setPopularAlbums] = useState([]);
+  const [genres, setGenres] = useState([]); // <-- ¡AQUÍ ESTÁ EL ERROR! Faltaba esta línea.
+  const [isLoadingData, setIsLoadingData] = useState(true);
 
-  // Función para renderizar la lista de canciones (MODIFICADA)
+  // --- 4. USEEFFECT (Sin cambios, ahora funciona) ---
+  useEffect(() => {
+    if (!hasSearched) {
+      const loadHomeData = async () => {
+        setIsLoadingData(true);
+        try {
+          const [tracksData, albumsData, genresData] = await Promise.all([
+            getPopularTracks(),
+            getPopularAlbums(),
+            getGenres(),
+          ]);
+
+          setPopularTracks(tracksData);
+          setPopularAlbums(albumsData);
+          setGenres(genresData); // <-- Esta línea ahora es válida
+        } catch (error) {
+          console.error("Error al cargar datos del Home:", error);
+        } finally {
+          setIsLoadingData(false);
+        }
+      };
+
+      loadHomeData();
+    }
+  }, [hasSearched]);
+
+  // --- 5. FUNCIÓN DE RENDER PARA BÚSQUEDA (Sin cambios) ---
   const renderTrackList = (tracks) => (
     <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {tracks.map((track) => (
         <li
           key={track.id}
           className="flex items-center p-3 bg-gray-100 dark:bg-neutral-800 rounded-lg shadow-sm cursor-pointer hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors"
-          onClick={() => playTrack(track)} // 3. AÑADIR onClick para reproducir
+          onClick={() => playTrack(track)}
         >
           <img
-            src={track.album.images[2].url}
+            src={track.album.images[2].url} // Cuidado: esto puede fallar si no hay imagen [2]
             alt={track.album.name}
             className="w-12 h-12 rounded-md mr-4"
           />
@@ -46,42 +69,61 @@ function Home() {
     </ul>
   );
 
+  // --- 6. RETURN (Sin cambios, ahora funciona) ---
   return (
     <MainLayout>
-      <div className="p-4 sm:p-6">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">Explorar</h1>
+      <div className="pt-4 sm:pt-6">
+        {/* --- SECCIÓN DE BÚSQUEDA --- */}
+        {isLoading && <p className="text-gray-600 dark:text-gray-400 px-4 sm:px-6">Buscando...</p>}
 
-        <div className="mt-8">
-          {isLoading && <p className="text-gray-600 dark:text-gray-400">Buscando...</p>}
+        {!isLoading && hasSearched && (
+          <div className="px-4 sm:px-6">
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+              Resultados de la búsqueda
+            </h2>
+            {searchResults.length > 0 ? (
+              renderTrackList(searchResults)
+            ) : (
+              <p className="text-gray-600 dark:text-gray-400">No se encontraron resultados.</p>
+            )}
+          </div>
+        )}
 
-          {!isLoading && hasSearched && (
-            <div>
-              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-                Resultados de la búsqueda
-              </h2>
-              {searchResults.length > 0 ? (
-                renderTrackList(searchResults)
-              ) : (
-                <p className="text-gray-600 dark:text-gray-400">No se encontraron resultados.</p>
-              )}
-            </div>
-          )}
+        {/* --- SECCIÓN HOME (Ahora debería funcionar) --- */}
+        {!hasSearched && (
+          <div>
+            {isLoadingData ? (
+              <p className="text-gray-600 dark:text-gray-400 px-4 sm:px-6">Cargando...</p>
+            ) : (
+              <div>
+                {/* Nueva Sección: Géneros (Círculos) */}
+                <HomeSection title="Explorar Géneros">
+                  {genres.map(
+                    (
+                      genre // <-- Esta línea ahora es válida
+                    ) => (
+                      <GenreCard key={genre.id} genre={genre} />
+                    )
+                  )}
+                </HomeSection>
 
-          {!hasSearched && (
-            <div>
-              {isPopularLoading ? (
-                <p className="text-gray-600 dark:text-gray-400">Cargando canciones populares...</p>
-              ) : (
-                <div>
-                  <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-                    Populares del momento
-                  </h2>
-                  {renderTrackList(popularTracks)}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+                {/* Carrusel de Populares del momento */}
+                <HomeSection title="Populares del momento">
+                  {popularTracks.map((track) => (
+                    <TrackCardSmall key={track.id} track={track} />
+                  ))}
+                </HomeSection>
+
+                {/* Carrusel de Álbumes Populares */}
+                <HomeSection title="Álbumes Populares">
+                  {popularAlbums.map((album) => (
+                    <AlbumCard key={album.id} album={album} />
+                  ))}
+                </HomeSection>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </MainLayout>
   );

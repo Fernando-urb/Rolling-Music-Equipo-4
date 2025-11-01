@@ -1,4 +1,3 @@
-// src/pages/Albunes.jsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // <-- Añade useNavigate
 import MainLayout from "../components/MainC/MainLayout";

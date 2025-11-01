@@ -1,11 +1,7 @@
-// src/context/SearchContext.jsx
-
 import { useState } from "react";
-// 1. IMPORTA EL CONTEXTO DESDE TU ARCHIVO DE HOOKS
 import { SearchContext } from "../hook/useAuth";
 import { searchMusic } from "../services/deezerApi";
 
-// 2. Este archivo ahora SOLO exporta el componente
 export const SearchProvider = ({ children }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

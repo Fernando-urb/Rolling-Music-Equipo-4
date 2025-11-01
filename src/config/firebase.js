@@ -19,10 +19,9 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const analytics = getAnalytics(app);
 
-// 2. Creamos las constantes para la base de datos y el storage
+//  Creamos las constantes para la base de datos y el storage
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// 3. Modificamos la línea de export para incluir db y storage
-// (Esta es la única línea de export que debe haber)
+//  Modificamos la línea de export para incluir db y storage
 export { auth, googleProvider, analytics, db, storage };
