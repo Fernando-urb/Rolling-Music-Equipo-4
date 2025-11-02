@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import googleAuthService from "../../services/googleAuth";
-import { useAuth } from "../../hook/useAuth"; // 1. IMPORTAR useAuth
+import { useAuth } from "../../hook/useAuth"; 
 
 function GoogleLoginButton({ onLogin }) {
   const { login } = useAuth(); // 2. OBTENER la función login
@@ -10,12 +10,46 @@ function GoogleLoginButton({ onLogin }) {
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     try {
-      const user = await googleAuthService.loginWithGoogle();
+      // 1. Obtenemos el usuario de Google (como antes)
+      const googleUser = await googleAuthService.loginWithGoogle();
 
-      // 3. LLAMAR AL LOGIN DEL CONTEXTO
-      login(user);
-      // 4. onLogin cierra el modal y redirige
-      onLogin(user);
+      // 2. Leemos la base de datos de localStorage
+      let users = [];
+      try {
+        const stored = JSON.parse(localStorage.getItem("users"));
+        if (Array.isArray(stored)) {
+          users = stored;
+        }
+      } catch (e) {
+        console.error("Error al parsear usuarios:", e);
+      }
+
+      // 3. Verificamos si el usuario de Google ya existe en localStorage
+      let userInDb = users.find((u) => u.email === googleUser.email);
+
+      if (!userInDb) {
+        // 4. SI NO EXISTE: Lo creamos y lo guardamos en localStorage
+        console.log("Creando nuevo usuario de Google en localStorage...");
+        
+        // Creamos un usuario compatible con tu sistema
+        const newUser = {
+          id: googleUser.id, // O Date.now() si prefieres
+          userName: googleUser.userName,
+          email: googleUser.email,
+          photoURL: googleUser.photoURL,
+          role: "user",
+          provider: "google",
+          // No guardamos contraseña, ya que es de Google
+        };
+
+        users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(users));
+        userInDb = newUser; // El usuario que usaremos es el que acabamos de crear
+      }
+
+      // 5.Llamamos al login del contexto y cerramos el modal
+      login(userInDb);
+      onLogin(userInDb); // onLogin es la prop que cierra el modal
 
       toast.success("Login con Google exitoso");
     } catch (error) {

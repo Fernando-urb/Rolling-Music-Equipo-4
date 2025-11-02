@@ -5,6 +5,11 @@ class GoogleAuthService {
   //metodo para login
   async loginWithGoogle() {
     try {
+      //esta linea le preguntara a google que cuanta de usuario debe sellecionar
+      googleProvider.setCustomParameters({
+        prompt: "select_account"
+      });
+
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
