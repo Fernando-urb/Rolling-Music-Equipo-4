@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -17,4 +19,9 @@ const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const analytics = getAnalytics(app);
 
-export { auth, googleProvider, analytics };
+//  Creamos las constantes para la base de datos y el storage
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+//  Modificamos la línea de export para incluir db y storage
+export { auth, googleProvider, analytics, db, storage };

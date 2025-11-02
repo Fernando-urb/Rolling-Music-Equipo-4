@@ -7,9 +7,6 @@
   }
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-/* Modern Custom Scrollbar Styles */
 @layer utilities {
   .custom-scrollbar {
     scrollbar-width: thin;
@@ -46,3 +43,7 @@
     scrollbar-color: rgb(236 72 153) transparent;
   }
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Modern Custom Scrollbar Styles */

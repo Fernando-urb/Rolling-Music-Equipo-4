@@ -1,5 +1,5 @@
 import { Play, Pause, ChevronDown } from "lucide-react"; // Iconos
-import { usePlayer } from "../../hook/useAuth";
+import { usePlayer } from "../../hook/usePlayer";
 
 const MusicPlayer = () => {
   const {
@@ -9,11 +9,10 @@ const MusicPlayer = () => {
     duration,
     togglePlayPause,
     seekTo,
-    isPlayerVisible, // <-- Lo estabas recibiendo
-    closePlayer, // <-- Lo estabas recibiendo
+    isPlayerVisible,
+    closePlayer,
   } = usePlayer();
 
-  // --- CORRECCIÓN 1: Comprobar ambos estados ---
   // Si no hay canción O no es visible, no se muestra el reproductor
   if (!isPlayerVisible || !currentTrack) {
     return null;
@@ -46,7 +45,6 @@ const MusicPlayer = () => {
         </div>
       </div>
 
-      {/* Sección Central: Controles (Sin cambios) */}
       <div className="flex flex-col items-center justify-center w-1/3">
         <div className="flex items-center gap-4 mb-1">
           <button
@@ -75,7 +73,6 @@ const MusicPlayer = () => {
         </div>
       </div>
 
-      {/* --- CORRECCIÓN 2: Añadir el botón de cerrar --- */}
       <div className="w-1/3 flex justify-end items-center gap-4">
         <button
           onClick={closePlayer}

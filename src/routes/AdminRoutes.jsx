@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import ProtectedAdminRoute from "./ProtectedAdminRoute";
 
-// Lazy loading para páginas de admin
 const AdminDashboard = lazy(() => import("../pages/admin/AdminDashboard"));
 const AdminUsers = lazy(() => import("../pages/admin/AdminUsers"));
 const NotFound = lazy(() => import("../pages/NotFound"));

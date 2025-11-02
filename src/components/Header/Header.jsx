@@ -54,9 +54,8 @@ function Header({ onOpenSidebar }) {
 
           {isAuthenticated && (
             <div className="flex-1 max-w-xs sm:max-w-md md:max-w-2xl">
-              {/* 3. CONECTAR LA FUNCIÓN AL BUSCADOR 
-                  (Asumo que tu componente Buscador usa la prop 'onSearch')
-              */}
+              {/* 3. CONECTAR LA FUNCIÓN AL BUSCADOR
+               */}
               <Buscador onSearch={handleSearch} />
             </div>
           )}

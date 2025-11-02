@@ -1,7 +1,5 @@
-import React from "react";
-
 function Modal({ isOpen, onClose, children }) {
-  // if (!isOpen) return null; // (Esta línea estaba comentada en tu original)
+  // if (!isOpen) return null;
 
   return (
     // 1. CONTENEDOR PRINCIPAL (Overlay)
@@ -38,7 +36,6 @@ function Modal({ isOpen, onClose, children }) {
         {children}
       </div>
 
-      {/* 3. RESTO DE LA PANTALLA (Fondo oscuro) */}
       <div className="flex-grow"></div>
     </div>
   );
