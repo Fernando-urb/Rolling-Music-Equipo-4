@@ -6,9 +6,6 @@ import UserLayout from "../layouts/UserLayout";
 // Lazy loading para páginas de usuario
 const Home = lazy(() => import("../pages/Home"));
 const About = lazy(() => import("../pages/About"));
-const Tendencias = lazy(() => import("../pages/Tendencias"));
-const Generos = lazy(() => import("../pages/Generos"));
-const Albunes = lazy(() => import("../pages/Albunes"));
 const Canciones = lazy(() => import("../pages/Canciones"));
 const Favorites = lazy(() => import("../pages/Favorites"));
 const Playlists = lazy(() => import("../pages/Playlists"));
@@ -43,30 +40,6 @@ function UserRoutes() {
             element={
               <ProtectedRoute>
                 <About />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="tendencias"
-            element={
-              <ProtectedRoute>
-                <Tendencias />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="generos"
-            element={
-              <ProtectedRoute>
-                <Generos />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="albunes"
-            element={
-              <ProtectedRoute>
-                <Albunes />
               </ProtectedRoute>
             }
           />

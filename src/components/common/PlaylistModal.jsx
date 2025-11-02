@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { X, Music, Search } from 'lucide-react';
-import { usePlaylists } from '../../hook/usePlaylists';
+import { usePlaylists } from '../../context/PlaylistContext';
 import SongCard from './SongCard';
 
 const PlaylistModal = ({ playlist, isOpen, onClose, onEdit }) => {

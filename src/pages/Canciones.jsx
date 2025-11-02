@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Search, Music, Shuffle, Grid, List } from 'lucide-react';
-import MainLayout from "../components/common/MainLayout";
+// No necesitamos importar MainLayout porque UserLayout ya lo maneja
 import SongCard from '../components/common/SongCard';
 import SpotifyCard from '../components/common/SpotifyCard';
 import { getPopularTracks, searchMusic } from '../services/deezerApi';
@@ -182,7 +182,6 @@ function Canciones() {
   };
 
   return (
-    <MainLayout>
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -341,7 +340,6 @@ function Canciones() {
           </div>
         )}
       </div>
-    </MainLayout>
   );
 }
 

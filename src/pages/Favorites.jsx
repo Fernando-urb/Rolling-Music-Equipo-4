@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Heart, Music, Trash2, Search } from 'lucide-react';
-import MainLayout from "../components/common/MainLayout";
+// No necesitamos importar MainLayout porque UserLayout ya lo maneja
 import SongCard from '../components/common/SongCard';
 import { useAuth } from '../hook/useAuth';
 import { toast } from 'react-toastify';
@@ -11,16 +11,7 @@ function Favorites() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
-    // Cargar canciones favoritas desde localStorage
-    useEffect(() => {
-        if (user) {
-            loadFavorites();
-        } else {
-            setFavoriteSongs([]);
-            setLoading(false);
-        }
-    }, [user, loadFavorites]);
-
+    // Función para cargar favoritos (definida antes de usarse)
     const loadFavorites = useCallback(() => {
         setLoading(true);
         try {
@@ -51,6 +42,16 @@ function Favorites() {
             setLoading(false);
         }
     }, [user]);
+
+    // Cargar canciones favoritas desde localStorage
+    useEffect(() => {
+        if (user) {
+            loadFavorites();
+        } else {
+            setFavoriteSongs([]);
+            setLoading(false);
+        }
+    }, [user, loadFavorites]);
 
     // Escuchar cambios en localStorage para actualizar la lista
     useEffect(() => {
@@ -143,31 +144,28 @@ function Favorites() {
     // Si no hay usuario logueado, mostrar mensaje
     if (!user) {
         return (
-            <MainLayout>
-                <div className="max-w-4xl mx-auto p-6">
-                    <div className="text-center py-16">
-                        <Heart className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                            Inicia sesión para ver tus favoritos
-                        </h3>
-                        <p className="text-gray-500 dark:text-gray-400 mb-6">
-                            Necesitas estar logueado para guardar y ver tus canciones favoritas
-                        </p>
-                        <a
-                            href="/"
-                            className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105"
-                        >
-                            <Heart className="w-5 h-5" />
-                            Iniciar Sesión
-                        </a>
-                    </div>
+            <div className="max-w-4xl mx-auto p-6">
+                <div className="text-center py-16">
+                    <Heart className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                        Inicia sesión para ver tus favoritos
+                    </h3>
+                    <p className="text-gray-500 dark:text-gray-400 mb-6">
+                        Necesitas estar logueado para guardar y ver tus canciones favoritas
+                    </p>
+                    <a
+                        href="/"
+                        className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105"
+                    >
+                        <Heart className="w-5 h-5" />
+                        Iniciar Sesión
+                    </a>
                 </div>
-            </MainLayout>
+            </div>
         );
     }
 
     return (
-        <MainLayout>
             <div className="max-w-4xl mx-auto p-6">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
@@ -298,7 +296,6 @@ function Favorites() {
                     </div>
                 )}
             </div>
-        </MainLayout>
     );
 }
 

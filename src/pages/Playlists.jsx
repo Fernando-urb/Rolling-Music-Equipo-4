@@ -12,7 +12,7 @@ const Playlists = () => {
   const [showPlaylistModal, setShowPlaylistModal] = useState(false);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [showMenu, setShowMenu] = useState(null);
-  
+
   // Form state
   const [formData, setFormData] = useState({
     name: '',
@@ -90,7 +90,7 @@ const Playlists = () => {
               </p>
             </div>
           </div>
-          
+
           <button
             onClick={() => setShowCreateModal(true)}
             className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all"
@@ -113,7 +113,7 @@ const Playlists = () => {
                   <div className="w-full aspect-square bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
                     <Music className="w-12 h-12 text-white" />
                   </div>
-                  
+
                   {/* Menú de opciones */}
                   <div className="absolute top-2 right-2">
                     <button
@@ -122,7 +122,7 @@ const Playlists = () => {
                     >
                       <MoreVertical className="w-4 h-4 text-white" />
                     </button>
-                    
+
                     {showMenu === playlist.id && (
                       <div className="absolute right-0 top-full mt-1 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-10">
                         <Link
@@ -149,7 +149,7 @@ const Playlists = () => {
                 </div>
 
                 {/* Información de la playlist */}
-                <button 
+                <button
                   onClick={() => handleViewPlaylist(playlist)}
                   className="block w-full text-left hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded-lg transition-colors"
                 >
@@ -208,7 +208,7 @@ const Playlists = () => {
               required
             />
           </div>
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Descripción
@@ -264,7 +264,7 @@ const Playlists = () => {
             ¿Estás seguro de que quieres eliminar la playlist "{selectedPlaylist?.name}"?
             Esta acción no se puede deshacer.
           </p>
-          
+
           <div className="flex gap-3 pt-4">
             <button
               onClick={handleDeletePlaylist}
