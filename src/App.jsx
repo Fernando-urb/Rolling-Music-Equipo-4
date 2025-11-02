@@ -9,6 +9,7 @@ import { PlayerProvider } from "./context/PlayerContext";
 import LoginModal from "./components/auth/LoginModal";
 import RegisterModal from "./components/auth/RegisterModal";
 import { ModalProvider } from "./context/ModalContext";
+import Footer from "./components/Footer/Footer";
 
 // Lazy loading para componentes no críticos
 const Landing = lazy(() => import("./pages/Landing"));
@@ -84,6 +85,7 @@ function App() {
           theme="dark"
         />
       </ModalProvider>
+      <Footer />
     </div>
   );
 }
