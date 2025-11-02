@@ -1,4 +1,4 @@
-import MainLayout from "../components/MainC/MainLayout";
+import MainLayout from "../components/common/MainLayout";
 function Albunes() {
   return (
     <MainLayout>

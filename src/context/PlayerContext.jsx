@@ -52,8 +52,17 @@ export const PlayerProvider = ({ children }) => {
     const audio = audioRef.current;
     if (currentTrack && currentTrack.preview_url) {
       audio.src = currentTrack.preview_url;
-      audio.play().catch((e) => console.error("Error al reproducir el audio:", e));
+      audio.play().catch((e) => {
+        console.error("Error al reproducir el audio:", e);
+        setIsPlaying(false);
+      });
       setIsPlaying(true);
+    } else if (currentTrack && !currentTrack.preview_url) {
+      // Si no hay preview, mostrar el player pero sin reproducir
+      audio.pause();
+      setIsPlaying(false);
+      audio.src = "";
+      console.warn("Esta canción no tiene preview disponible");
     } else {
       audio.pause();
       setIsPlaying(false);

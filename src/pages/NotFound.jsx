@@ -1,4 +1,3 @@
-import MainLayout from "../components/MainC/MainLayout";
 import { Link } from "react-router-dom";
 
 function NotFound() {

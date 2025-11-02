@@ -9,6 +9,7 @@ import { lazy, Suspense } from "react";
 import LoginModal from "./components/auth/LoginModal";
 import RegisterModal from "./components/auth/RegisterModal";
 import { ModalProvider } from "./context/ModalContext";
+import { PlaylistProvider } from "./context/PlaylistContext";
 
 // Lazy loading para componentes no críticos
 const Landing = lazy(() => import("./pages/Landing"));
@@ -45,7 +46,8 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
       <ModalProvider>
-        <Suspense fallback={<GlobalLoadingSpinner />}>
+          <PlaylistProvider>
+            <Suspense fallback={<GlobalLoadingSpinner />}>
           <Routes>
             {/* Landing Page */}
             <Route path="/" element={<Landing />} />
@@ -59,7 +61,8 @@ function App() {
             {/* Rutas de Usuario (con layout) - Debe ir al final */}
             <Route path="/*" element={<UserRoutes />} />
           </Routes>
-        </Suspense>
+            </Suspense>
+          </PlaylistProvider>
 
         {/* Modals - Solo mostrar si no es página de admin */}
         {!isAdminPage && (

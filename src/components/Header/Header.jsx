@@ -33,7 +33,7 @@ function Header({ onOpenSidebar }) {
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 w-full bg-zinc-100 text-sm py-4 dark:bg-black ">
+    <header className="fixed top-0 inset-x-0 z-50 w-full bg-zinc-100 text-sm py-4 border-b border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-700">
       <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
         <div className="w-full flex items-center gap-x-4">
           {/* Logo y Menu Button */}

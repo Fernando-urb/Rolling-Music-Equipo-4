@@ -35,6 +35,8 @@ function LoginForm({ onLogin }) {
           onLogin(userWithoutPassword);
 
           toast.success("Login exitoso");
+          localStorage.setItem("currentUser", JSON.stringify(userWithoutPassword));
+
 
           // Redirigir según el rol del usuario
           if (userWithoutPassword.role === "admin") {

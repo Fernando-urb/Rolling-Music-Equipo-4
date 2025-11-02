@@ -11,7 +11,7 @@ class GoogleAuthService {
       //crear un objeto de usuario que sea compatible con nuestra app exoistenete
 
       const userData = {
-        id: user.id,
+        id: user.uid,
         email: user.email,
         userName: user.displayName || user.email.split("@")[0],
         name: user.displayName,

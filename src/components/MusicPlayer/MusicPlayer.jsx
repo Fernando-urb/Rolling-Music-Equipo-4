@@ -9,12 +9,11 @@ const MusicPlayer = () => {
     duration,
     togglePlayPause,
     seekTo,
-    isPlayerVisible, // <-- Lo estabas recibiendo
-    closePlayer, // <-- Lo estabas recibiendo
+    isPlayerVisible, 
+    closePlayer, 
   } = usePlayer();
 
-  // --- CORRECCIÓN 1: Comprobar ambos estados ---
-  // Si no hay canción O no es visible, no se muestra el reproductor
+ 
   if (!isPlayerVisible || !currentTrack) {
     return null;
   }
@@ -28,58 +27,76 @@ const MusicPlayer = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-neutral-900 border-t border-neutral-700 p-3 sm:p-4 flex items-center justify-between text-white shadow-lg">
-      {/* Sección Izquierda: Info (Sin cambios) */}
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-gray-900 via-purple-900 to-pink-900 border-t border-gray-700 p-3 sm:p-4 flex items-center justify-between text-white shadow-2xl backdrop-blur-lg">
+      {/* Sección Izquierda: Info de la canción */}
       <div className="flex items-center gap-3 w-1/3">
-        {currentTrack.album && currentTrack.album.images[2] && (
-          <img
-            src={currentTrack.album.images[2].url}
-            alt={currentTrack.album.name}
-            className="w-10 h-10 sm:w-12 sm:h-12 rounded-md object-cover"
-          />
-        )}
+        <img
+          src={currentTrack.cover || '/default-cover.jpg'}
+          alt={currentTrack.title}
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg object-cover shadow-lg"
+        />
         <div className="flex flex-col overflow-hidden">
-          <p className="font-semibold text-sm truncate">{currentTrack.name}</p>
-          <p className="text-xs text-gray-400 truncate">
-            {currentTrack.artists[0]?.name || "Artista desconocido"}
+          <p className="font-semibold text-sm truncate text-white">
+            {currentTrack.title}
+          </p>
+          <p className="text-xs text-gray-300 truncate">
+            {currentTrack.artist || "Artista desconocido"}
           </p>
         </div>
       </div>
 
-      {/* Sección Central: Controles (Sin cambios) */}
+      {/* Sección Central: Controles de reproducción */}
       <div className="flex flex-col items-center justify-center w-1/3">
-        <div className="flex items-center gap-4 mb-1">
+        <div className="flex items-center gap-4 mb-2">
           <button
             onClick={togglePlayPause}
-            className="bg-purple-600 hover:bg-purple-700 text-white rounded-full p-2 transition-all duration-300 transform hover:scale-110"
+            disabled={!currentTrack.preview_url}
+            className={`rounded-full p-3 transition-all duration-300 transform hover:scale-110 shadow-lg ${
+              !currentTrack.preview_url 
+                ? 'bg-gray-500 cursor-not-allowed' 
+                : 'bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700'
+            } text-white`}
             aria-label={isPlaying ? "Pausar" : "Reproducir"}
+            title={!currentTrack.preview_url ? "Preview no disponible" : (isPlaying ? "Pausar" : "Reproducir")}
           >
             {isPlaying ? (
-              <Pause size={24} fill="currentColor" />
+              <Pause size={20} fill="currentColor" />
             ) : (
-              <Play size={24} fill="currentColor" />
+              <Play size={20} fill="currentColor" className="ml-0.5" />
             )}
           </button>
         </div>
-        <div className="flex items-center w-full max-w-sm gap-2 text-xs text-gray-400">
-          <span>{formatTime((progress / 100) * duration)}</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={progress}
-            onChange={(e) => seekTo(parseFloat(e.target.value))}
-            className="w-full h-1 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
-          />
-          <span>{formatTime(duration)}</span>
+        {!currentTrack.preview_url && (
+          <p className="text-xs text-gray-400 mb-1">Preview no disponible</p>
+        )}
+        <div className="flex items-center w-full max-w-sm gap-2 text-xs text-gray-300">
+          <span className="min-w-[35px] text-right">
+            {formatTime((progress / 100) * duration)}
+          </span>
+          <div className="flex-1 relative">
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={progress}
+              onChange={(e) => seekTo(parseFloat(e.target.value))}
+              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
+              style={{
+                background: `linear-gradient(to right, #ec4899 0%, #8b5cf6 ${progress}%, #374151 ${progress}%, #374151 100%)`
+              }}
+            />
+          </div>
+          <span className="min-w-[35px]">
+            {formatTime(duration)}
+          </span>
         </div>
       </div>
 
-      {/* --- CORRECCIÓN 2: Añadir el botón de cerrar --- */}
+      {/* Sección Derecha: Controles adicionales */}
       <div className="w-1/3 flex justify-end items-center gap-4">
         <button
           onClick={closePlayer}
-          className="text-gray-400 hover:text-white transition-colors p-2 rounded-full hover:bg-neutral-700"
+          className="text-gray-300 hover:text-white transition-colors p-2 rounded-full hover:bg-gray-700/50"
           aria-label="Cerrar reproductor"
         >
           <ChevronDown size={20} />

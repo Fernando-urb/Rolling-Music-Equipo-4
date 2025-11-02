@@ -10,8 +10,9 @@ const Tendencias = lazy(() => import("../pages/Tendencias"));
 const Generos = lazy(() => import("../pages/Generos"));
 const Albunes = lazy(() => import("../pages/Albunes"));
 const Canciones = lazy(() => import("../pages/Canciones"));
-const Artistas = lazy(() => import("../pages/Artistas"));
-const Playlist = lazy(() => import("../pages/Playlist"));
+const Favorites = lazy(() => import("../pages/Favorites"));
+const Playlists = lazy(() => import("../pages/Playlists"));
+const PlaylistDetail = lazy(() => import("../pages/PlaylistDetail"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 // Componente de loading para páginas de usuario
@@ -78,18 +79,26 @@ function UserRoutes() {
             }
           />
           <Route
-            path="artistas"
+            path="favoritos"
             element={
               <ProtectedRoute>
-                <Artistas />
+                <Favorites />
               </ProtectedRoute>
             }
           />
           <Route
-            path="playlist"
+            path="playlists"
             element={
               <ProtectedRoute>
-                <Playlist />
+                <Playlists />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="playlist/:id"
+            element={
+              <ProtectedRoute>
+                <PlaylistDetail />
               </ProtectedRoute>
             }
           />

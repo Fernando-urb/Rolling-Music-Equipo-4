@@ -1,4 +1,4 @@
-// src/hook/useAuth.js
+
 import { createContext, useContext } from "react";
 
 // --- Autenticación ---

@@ -1,45 +1,35 @@
 import React from "react";
 
-function Modal({ isOpen, onClose, children }) {
-  // if (!isOpen) return null; // (Esta línea estaba comentada en tu original)
+function Modal({ isOpen, onClose, title, children }) {
+  if (!isOpen) return null;
 
   return (
-    // 1. CONTENEDOR PRINCIPAL (Overlay)
     <div
       onClick={onClose}
-      className={`
-        fixed inset-0  flex
-        transition-opacity duration-300 ease-in-out
-        ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
-        z-100
-      `}
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
     >
-      {/* 2. PANEL DESLIZABLE (Slider) */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`
-          relative bg-gray-800 shadow-xl
-          w-80 h-full p-6
-          transform transition-transform 
-          duration-500                 
-          ease-in-out                  
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        `}
+        className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto"
       >
-        {/* Botón de Cerrar (X) */}
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 text-gray-400 hover:text-white text-2xl z-10"
-        >
-          &times;
-        </button>
+        {/* Header */}
+        {title && (
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              {title}
+            </h3>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            >
+              ✕
+            </button>
+          </div>
+        )}
 
-        {/* Tu contenido (formularios) */}
+        {/* Content */}
         {children}
       </div>
-
-      {/* 3. RESTO DE LA PANTALLA (Fondo oscuro) */}
-      <div className="flex-grow"></div>
     </div>
   );
 }

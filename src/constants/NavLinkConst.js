@@ -4,8 +4,8 @@ import {
   Music,
   Disc,
   Headphones,
-  Users,
-  List,
+  Heart,
+  ListMusic,
   Info,
   Shield,
   UserCog,
@@ -34,24 +34,26 @@ export const PAGES_NAVIGATE = [
   },
 ];
 
-//no se tiene que mostrar hasta que el usuario inicie sesion
+
 export const PAGES_MUSICA = [
-  {
+   {
     name: "Canciones",
     icon: Headphones,
     href: "/canciones",
   },
+  {
+    name: "Favoritos",
+    icon: Heart,
+    href: "/favoritos",
+  },
+  
+  {
+    name: "Mis Playlists",
+    icon: ListMusic,
+    href: "/playlists",
+  },
+ 
 
-  {
-    name: "Artistas",
-    icon: Users,
-    href: "/artistas",
-  },
-  {
-    name: "Playlists",
-    icon: List,
-    href: "/playlist",
-  },
 ];
 
 export const FOOTER_LINKS = [
@@ -86,10 +88,10 @@ export const ADMIN_LINKS = [
 ];
 
 export const genres = [
-  { name: "Pop", gradient: "from-pink-500 to-purple-600" },
-  { name: "Rock", gradient: "from-red-500 to-orange-600" },
-  { name: "Hip Hop", gradient: "from-yellow-500 to-red-600" },
-  { name: "Reggaeton", gradient: "from-green-500 to-teal-600" },
-  { name: "Electronic", gradient: "from-blue-500 to-purple-600" },
-  { name: "Jazz", gradient: "from-indigo-500 to-blue-600" },
+  { name: "Pop", linear: "from-pink-500 to-purple-800" },
+  { name: "Rock", linear: "from-red-500 to-orange-600" },
+  { name: "Hip Hop", linear: "from-yellow-500 to-red-600" },
+  { name: "Reggaeton", linear: "from-green-500 to-teal-600" },
+  { name: "Electronic", linear: "from-blue-500 to-purple-600" },
+  { name: "Jazz", linear: "from-indigo-500 to-blue-600" },
 ];
