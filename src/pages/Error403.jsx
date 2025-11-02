@@ -5,13 +5,13 @@ function Error403() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 px-4">
       <div className="text-center max-w-md mx-auto">
-        <div className="w-24 h-24 bg-gradient-to-r from-red-100 to-pink-100 dark:from-red-900/30 dark:to-pink-900/30 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
+        <div className="w-24 h-24 bg-gradient-to from-red-100 to-pink-100 dark:from-red-900/30 dark:to-pink-900/30 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
           <ShieldX className="w-12 h-12 text-red-600 dark:text-red-400" />
         </div>
 
-        <h1 className="text-6xl font-bold bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent mb-4">
+        <h1 className="text-6xl font-bold bg-gradient-t from-red-600 to-pink-600 bg-clip-text text-transparent mb-4">
           403
         </h1>
 
