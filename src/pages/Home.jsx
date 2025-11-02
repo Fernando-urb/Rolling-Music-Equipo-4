@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MainLayout from "../components/MainC/MainLayout";
 import { getPopularTracks, getPopularAlbums, getGenres } from "../services/deezerApi";
 import { useSearch } from "../hook/useAuth";
@@ -11,14 +12,18 @@ import TrackCardSmall from "../components/cards/TrackCardSmalll";
 function Home() {
   const { searchResults, isLoading, hasSearched } = useSearch();
   const { playTrack } = usePlayer();
-
-  // --- 3. ESTADOS ACTUALIZADOS ---
   const [popularTracks, setPopularTracks] = useState([]);
   const [popularAlbums, setPopularAlbums] = useState([]);
-  const [genres, setGenres] = useState([]); // <-- ¡AQUÍ ESTÁ EL ERROR! Faltaba esta línea.
+  const [genres, setGenres] = useState([]);
   const [isLoadingData, setIsLoadingData] = useState(true);
+  const navigate = useNavigate();
+  const handleGenreClick = (genreId) => {
+    navigate(`/genero/${genreId}`);
+  };
+  const handleAlbumClick = (albumId) => {
+    navigate(`/album/${albumId}`);
+  };
 
-  // --- 4. USEEFFECT (Sin cambios, ahora funciona) ---
   useEffect(() => {
     if (!hasSearched) {
       const loadHomeData = async () => {
@@ -44,7 +49,6 @@ function Home() {
     }
   }, [hasSearched]);
 
-  // --- 5. FUNCIÓN DE RENDER PARA BÚSQUEDA (Sin cambios) ---
   const renderTrackList = (tracks) => (
     <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {tracks.map((track) => (
@@ -54,7 +58,7 @@ function Home() {
           onClick={() => playTrack(track)}
         >
           <img
-            src={track.album.images[2].url} // Cuidado: esto puede fallar si no hay imagen [2]
+            src={track.album.images?.[2]?.url || "ruta/a/tu/imagen/por/defecto.png"}
             alt={track.album.name}
             className="w-12 h-12 rounded-md mr-4"
           />
@@ -69,7 +73,6 @@ function Home() {
     </ul>
   );
 
-  // --- 6. RETURN (Sin cambios, ahora funciona) ---
   return (
     <MainLayout>
       <div className="pt-4 sm:pt-6">
@@ -89,22 +92,16 @@ function Home() {
           </div>
         )}
 
-        {/* --- SECCIÓN HOME (Ahora debería funcionar) --- */}
         {!hasSearched && (
           <div>
             {isLoadingData ? (
               <p className="text-gray-600 dark:text-gray-400 px-4 sm:px-6">Cargando...</p>
             ) : (
               <div>
-                {/* Nueva Sección: Géneros (Círculos) */}
-                <HomeSection title="Explorar Géneros">
-                  {genres.map(
-                    (
-                      genre // <-- Esta línea ahora es válida
-                    ) => (
-                      <GenreCard key={genre.id} genre={genre} />
-                    )
-                  )}
+                <HomeSection title="Explorar Géneros" href="/generos">
+                  {genres.map((genre) => (
+                    <GenreCard key={genre.id} genre={genre} onClick={handleGenreClick} />
+                  ))}
                 </HomeSection>
 
                 {/* Carrusel de Populares del momento */}
@@ -115,9 +112,9 @@ function Home() {
                 </HomeSection>
 
                 {/* Carrusel de Álbumes Populares */}
-                <HomeSection title="Álbumes Populares">
+                <HomeSection title="Álbumes Populares" href="/albumes">
                   {popularAlbums.map((album) => (
-                    <AlbumCard key={album.id} album={album} />
+                    <AlbumCard key={album.id} album={album} onClick={handleAlbumClick} />
                   ))}
                 </HomeSection>
               </div>

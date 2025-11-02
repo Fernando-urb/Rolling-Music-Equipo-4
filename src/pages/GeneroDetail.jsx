@@ -17,19 +17,12 @@ function GeneroDetail() {
       setIsLoading(true);
       setError(null);
       try {
-        // Obtener información del género primero
-        const genreInfo = await getGenreById(id);
+        const [genreInfo, albumData] = await Promise.all([getGenreById(id), getAlbumsByGenre(id)]);
+
         if (genreInfo) {
           setGenreName(genreInfo.name);
         }
-
-        // Luego obtener los álbumes
-        const albumData = await getAlbumsByGenre(id);
         setAlbums(albumData);
-
-        if (albumData.length === 0) {
-          setError("No se encontraron álbumes para este género.");
-        }
       } catch (error) {
         console.error("Error cargando datos:", error);
         setError("Error al cargar los álbumes. Intenta nuevamente.");
@@ -42,7 +35,7 @@ function GeneroDetail() {
   }, [id]);
 
   const handleAlbumClick = (albumId) => {
-    console.log("Clic en Álbum ID:", albumId);
+    navigate(`/album/${albumId}`);
   };
 
   const handleBackClick = () => {
