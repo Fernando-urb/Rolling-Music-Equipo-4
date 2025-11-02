@@ -8,11 +8,16 @@ export const SearchProvider = ({ children }) => {
   const [hasSearched, setHasSearched] = useState(false);
 
   const handleSearch = async (searchTerm) => {
-    if (!searchTerm) {
+    // Verificamos si searchTerm es nulo O un string vacío
+    // Tu versión anterior (!searchTerm) no funcionaba con strings vacíos
+    if (!searchTerm || searchTerm.trim() === "") {
       setSearchResults([]);
-      setHasSearched(false);
-      return;
+      setHasSearched(false); // Resetea el estado
+      setIsLoading(false); // Resetea el loading
+      return; // Termina la función aquí
     }
+
+    // Si hay un término de búsqueda, continúa normalmente
     setIsLoading(true);
     setHasSearched(true);
     const results = await searchMusic(searchTerm);

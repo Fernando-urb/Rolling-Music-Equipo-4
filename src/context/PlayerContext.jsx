@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { useAuth } from "../hook/useAuth"; // <-- 2. CORREGIR LA RUTA DE useAuth
-import { logSongPlay } from "../services/userService";
 import { PlayerContext } from "../hook/usePlayer";
 
 export const PlayerProvider = ({ children }) => {
@@ -10,32 +8,60 @@ export const PlayerProvider = ({ children }) => {
   const [duration, setDuration] = useState(0);
   const [isPlayerVisible, setIsPlayerVisible] = useState(false);
   const audioRef = useRef(new Audio());
-  const { user } = useAuth();
 
+  // Este useEffect maneja los eventos de 'carga' y 'final'
   useEffect(() => {
     const audio = audioRef.current;
-
-    const updateProgress = () => setProgress(audio.currentTime);
     const setAudioDuration = () => setDuration(audio.duration);
-    const handleEnded = () => setIsPlaying(false);
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setProgress(0);
+    };
 
-    audio.addEventListener("timeupdate", updateProgress);
     audio.addEventListener("loadedmetadata", setAudioDuration);
     audio.addEventListener("ended", handleEnded);
 
     return () => {
-      audio.removeEventListener("timeupdate", updateProgress);
       audio.removeEventListener("loadedmetadata", setAudioDuration);
       audio.removeEventListener("ended", handleEnded);
     };
   }, []);
 
+  // --- ¡AQUÍ ESTÁ LA MAGIA! ---
+  // Este useEffect maneja el progreso FLUIDO
+  useEffect(() => {
+    const audio = audioRef.current;
+    let timerId = null;
+
+    if (isPlaying) {
+      // Si está sonando, inicia un bucle para actualizar el progreso
+      timerId = setInterval(() => {
+        // Asegúrate de no dividir por cero
+        if (audio.duration > 0) {
+          // Calcula el progreso como un porcentaje
+          const percentage = (audio.currentTime / audio.duration) * 100;
+          setProgress(percentage);
+        }
+      }, 250); // Actualiza 4 veces por segundo (muy fluido)
+    } else {
+      // Si se pausa, limpia el bucle
+      clearInterval(timerId);
+    }
+
+    // Limpieza al desmontar o si 'isPlaying' cambia
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [isPlaying]); // Este efecto solo depende de si está sonando o no
+
+  // Este useEffect maneja el CAMBIO de canción
   useEffect(() => {
     const audio = audioRef.current;
     if (currentTrack && currentTrack.preview_url) {
       audio.src = currentTrack.preview_url;
       audio.play().catch((e) => console.error("Error al reproducir el audio:", e));
       setIsPlaying(true);
+      setProgress(0); // Resetea el progreso al cambiar de canción
     } else {
       audio.pause();
       setIsPlaying(false);
@@ -43,6 +69,7 @@ export const PlayerProvider = ({ children }) => {
     }
   }, [currentTrack]);
 
+  // --- LÓGICA DE 'playTrack' SIMPLIFICADA ---
   const playTrack = (track) => {
     console.log("Objeto 'track' recibido:", track);
     if (currentTrack?.id === track.id) {
@@ -50,20 +77,6 @@ export const PlayerProvider = ({ children }) => {
     } else {
       setCurrentTrack(track);
       setIsPlayerVisible(true);
-
-      const artistId = track?.artistId;
-
-      console.log("Datos para registrar:", {
-        usuario: user,
-        idCancion: track?.id,
-        idArtista: artistId,
-      });
-
-      if (user && track?.id && artistId) {
-        logSongPlay(user.uid, track.id, artistId);
-      } else {
-        console.warn("No se pudo registrar la canción: falta user.uid, track.id o artistId");
-      }
     }
   };
 
@@ -88,9 +101,15 @@ export const PlayerProvider = ({ children }) => {
     setDuration(0);
   };
 
-  const seekTo = (time) => {
-    audioRef.current.currentTime = time;
-    setProgress(time);
+  const seekTo = (percentage) => {
+    const audio = audioRef.current;
+
+    if (isNaN(audio.duration) || audio.duration === 0) return;
+
+    const newTime = (percentage / 100) * audio.duration;
+
+    audio.currentTime = newTime;
+    setProgress(percentage);
   };
 
   const value = {
@@ -105,6 +124,5 @@ export const PlayerProvider = ({ children }) => {
     closePlayer,
   };
 
-  // El Provider usa el PlayerContext que creamos arriba
   return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>;
 };

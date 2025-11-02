@@ -4,17 +4,27 @@ const Buscador = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+    // Definimos la variable con el nuevo valor
+    const newSearchTerm = event.target.value;
+    setSearchTerm(newSearchTerm);
+
+    if (newSearchTerm.trim() === "") {
+      if (onSearch) {
+        onSearch("");
+      }
+    }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (onSearch) {
+    // Solo buscamos si el término no está vacío
+    if (onSearch && searchTerm.trim() !== "") {
       onSearch(searchTerm);
     }
 
-    setSearchTerm("");
+    // No limpiamos el input aquí, para que el usuario vea qué buscó
+    // setSearchTerm("");
   };
 
   return (

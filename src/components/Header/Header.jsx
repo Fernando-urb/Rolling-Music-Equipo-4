@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Buscador from "../common/Buscador";
 import Button from "../common/Button";
 import { useModals } from "../../hook/useAuth";
@@ -20,6 +21,7 @@ function Header({ onOpenSidebar }) {
 
   // 2. OBTENER LA FUNCIÓN DE BÚSQUEDA DEL CONTEXTO
   const { handleSearch } = useSearch();
+  const navigate = useNavigate();
 
   // Estados locales
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -30,6 +32,11 @@ function Header({ onOpenSidebar }) {
 
   const closeUserMenu = () => {
     setIsUserMenuOpen(false);
+  };
+
+  const handleSearchAndNavigate = (query) => {
+    navigate("/home");
+    handleSearch(query);
   };
 
   return (
@@ -54,9 +61,7 @@ function Header({ onOpenSidebar }) {
 
           {isAuthenticated && (
             <div className="flex-1 max-w-xs sm:max-w-md md:max-w-2xl">
-              {/* 3. CONECTAR LA FUNCIÓN AL BUSCADOR
-               */}
-              <Buscador onSearch={handleSearch} />
+              <Buscador onSearch={handleSearchAndNavigate} />
             </div>
           )}
 
