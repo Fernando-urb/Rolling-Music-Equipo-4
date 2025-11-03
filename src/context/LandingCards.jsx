@@ -1,4 +1,4 @@
-import { Play, Heart, List, Search } from "lucide-react";
+import { Play, Heart, List, Search,Star,Music,Users } from "lucide-react";
 
 export const features = [
   {
@@ -22,3 +22,26 @@ export const features = [
     description: "Organiza tu música en playlists personalizadas",
   },
 ];
+
+export const featuresAbout = [
+    {
+      icon: <Music size={40} />,
+      title: "Millones de Canciones",
+      description: "Accede a una biblioteca musical extensa con los últimos éxitos y clásicos atemporales."
+    },
+    {
+      icon: <Heart size={40} />,
+      title: "Favoritos Personalizados",
+      description: "Guarda tus canciones favoritas y crea tu colección musical personalizada."
+    },
+    {
+      icon: <Users size={40} />,
+      title: "Descubre Artistas",
+      description: "Explora nuevos artistas y mantente al día con tus músicos favoritos."
+    },
+    {
+      icon: <Star size={40} />,
+      title: "Playlists Inteligentes",
+      description: "Crea y organiza playlists que se adapten a tu estado de ánimo y momento."
+    }
+  ];
