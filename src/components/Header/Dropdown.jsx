@@ -99,20 +99,6 @@ function Dropdown({ closeUserMenu }) {
         </div>
 
         <div className="p-2 sm:p-3">
-          <button
-            onClick={closeUserMenu}
-            className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
-          >
-            <User className="w-4 sm:w-5 h-4 sm:h-5" />
-            <span>Mi Perfil</span>
-          </button>
-          <button
-            onClick={closeUserMenu}
-            className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
-          >
-            <Settings className="w-4 sm:w-5 h-4 sm:h-5" />
-            <span>Configuración</span>
-          </button>
           <div className="my-2 border-t border-gray-200/50 dark:border-gray-700/50"></div>
           <button
             onClick={handleLogout}

@@ -1,12 +1,11 @@
-import { Github, Linkedin } from "lucide-react"; 
+import { Github, Linkedin } from "lucide-react";
 
-const TeamMemberCard = ({ name, role, description, image,git , linkedin }) => (
+const TeamMemberCard = ({ name, role, description, image, git, linkedin }) => (
   <div className="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100 dark:border-gray-700">
     <div className="relative mb-6">
       <img
         src={image}
         alt={name}
-
         className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-linear-to-r group-hover:scale-110 transition-transform duration-300"
       />
       <div className="absolute inset-0 rounded-full bg-linear-to-r group-hover:opacity-100 opacity-0 transition-opacity duration-300"></div>

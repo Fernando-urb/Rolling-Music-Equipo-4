@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Play  } from "lucide-react";
+import { Play } from "lucide-react";
 import { LOGO_VMUSIC } from "../constants/imagenes";
-import {featuresAbout} from "../context/LandingCards.jsx"
-import {stats} from "../constants/nosotros.js"
+import { featuresAbout } from "../context/LandingCards.jsx";
+import { stats } from "../constants/nosotros.js";
 import MainLayout from "../components/common/MainLayout.jsx";
 import TeamSection from "../components/common/TeamSection.jsx";
 
@@ -14,8 +14,6 @@ function About() {
   useEffect(() => {
     setIsVisible(true);
   }, []);
-
-
 
   return (
     <MainLayout>
@@ -138,8 +136,7 @@ function About() {
       </section>
 
       {/* Equipo Section */}
-      <TeamSection/>
-     
+      <TeamSection />
 
       {/* Contact Section */}
       <section className="py-16 px-4">
@@ -152,7 +149,11 @@ function About() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://wa.me/543813540041 " target="_blank" className="bg-linear-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg">
+            <a
+              href="https://wa.me/543813540041 "
+              target="_blank"
+              className="bg-linear-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg"
+            >
               Contactar Soporte
             </a>
           </div>

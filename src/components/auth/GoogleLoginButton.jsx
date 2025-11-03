@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import googleAuthService from "../../services/googleAuth";
-import { useAuth } from "../../hook/useAuth"; 
+import { useAuth } from "../../hook/useAuth";
 
 function GoogleLoginButton({ onLogin }) {
   const { login } = useAuth(); // 2. OBTENER la función login
@@ -30,7 +30,7 @@ function GoogleLoginButton({ onLogin }) {
       if (!userInDb) {
         // 4. SI NO EXISTE: Lo creamos y lo guardamos en localStorage
         console.log("Creando nuevo usuario de Google en localStorage...");
-        
+
         // Creamos un usuario compatible con tu sistema
         const newUser = {
           id: googleUser.id, // O Date.now() si prefieres
