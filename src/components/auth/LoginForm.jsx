@@ -9,7 +9,7 @@ import { useAuth } from "../../hook/useAuth";
 import Button from "../common/Button";
 
 function LoginForm({ onLogin }) {
-  const { login } = useAuth(); // 2. OBTENER la función login
+  const { login } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -22,10 +22,15 @@ function LoginForm({ onLogin }) {
   const onSubmit = async (data) => {
     try {
       const users = JSON.parse(localStorage.getItem("users") || "[]");
-
       const user = users.find((u) => u.email === data.email);
 
       if (user) {
+        // Verificamos si el usuario tiene un estado y si está bloqueado.
+        if (user.status && user.status === "blocked") {
+          toast.error("Tu cuenta ha sido bloqueada. Contacta al administrador.");
+          return; // Detiene el inicio de sesión
+        }
+
         const isValidPassword = await bcrypt.compare(data.password, user.password);
 
         if (isValidPassword) {
@@ -33,10 +38,8 @@ function LoginForm({ onLogin }) {
 
           login(userWithoutPassword);
           onLogin(userWithoutPassword);
-
           toast.success("Login exitoso");
 
-          // Redirigir según el rol del usuario
           if (userWithoutPassword.role === "admin") {
             navigate("/admin");
           } else {
