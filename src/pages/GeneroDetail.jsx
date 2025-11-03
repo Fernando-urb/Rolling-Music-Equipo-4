@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import MainLayout from "../components/MainC/MainLayout";
+import MainLayout from "../components/common/MainLayout";
 import { getAlbumsByGenre, getGenreById } from "../services/deezerApi";
 import AlbumCard from "../components/common/AlbumCard";
 

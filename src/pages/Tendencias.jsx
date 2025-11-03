@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import MainLayout from "../components/MainC/MainLayout";
+import MainLayout from "../components/common/MainLayout";
 import { getPopularTracks } from "../services/deezerApi";
 import { usePlayer } from "../hook/usePlayer";
 import SongCard from "../components/common/SongCard"; // <-- Usa SongCard
