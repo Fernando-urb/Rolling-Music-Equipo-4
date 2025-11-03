@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Play, Music } from "lucide-react";
+import { Play, Music, LogIn } from "lucide-react";
 import { useModals, useAuth } from "../hook/useAuth";
 import { LOGO_VMUSIC } from "../constants/imagenes";
-import { features } from "../context/LandingCards.jsx";
+import { featuresAbout } from "../context/LandingCards.jsx";
 import { genres } from "../constants/NavLinkConst.js";
+import Background from "../components/common/Background.jsx";
 
 const logo = LOGO_VMUSIC[0];
 
 function Home() {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
-  const { openLogin } = useModals();
+  const { openLogin, openRegister } = useModals();
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -22,7 +23,7 @@ function Home() {
     if (isAuthenticated) {
       navigate(route);
     } else {
-      openLogin(route);
+      openLogin();
     }
   };
 
@@ -31,11 +32,7 @@ function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 py-20">
         {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
-        </div>
+      <Background/>
 
         <div
           className={`relative z-10 text-center max-w-5xl mx-auto transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
@@ -68,10 +65,13 @@ function Home() {
             </button>
 
             <button
-              onClick={() => handleNavigation("/songDetail")}
+              onClick={openRegister}
               className="px-8 py-4 border-2 border-white/30 rounded-full text-lg font-semibold hover:bg-white/10 transition-all"
             >
-              Explorar música
+              <span className="flex items-center gap-2">
+                <LogIn size={24} />
+                Crear Cuenta
+              </span>
             </button>
           </div>
         </div>
@@ -87,7 +87,7 @@ function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feat, index) => (
+            {featuresAbout.map((feat, index) => (
               <div
                 key={index}
                 className="group relative bg-white/5 backdrop-blur-lg rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 hover:scale-105 border border-white/10"
@@ -115,10 +115,9 @@ function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {genres.map((genre, index) => (
-              <button
+              <div
                 key={index}
-                onClick={() => navigate(`/home?q=${genre.name.toLowerCase()}`)}
-                className={`group relative h-32 rounded-xl bg-linear-to-br ${genre.gradient} overflow-hidden hover:scale-105 transition-transform shadow-xl`}
+                className={`group relative h-32 rounded-xl bg-linear-to-br ${genre.linear} overflow-hidden hover:scale-105 transition-transform shadow-xl`}
               >
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
                 <div className="relative h-full flex items-center justify-center">
@@ -127,7 +126,7 @@ function Home() {
                 <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Music size={24} />
                 </div>
-              </button>
+              </div>
             ))}
           </div>
         </div>
@@ -143,7 +142,7 @@ function Home() {
                 Únete a miles de usuarios que ya disfrutan de su música favorita
               </p>
               <button
-                onClick={() => navigate("/home")}
+                onClick={() => handleNavigation("/home")}
                 className="group relative px-10 py-5 bg-white text-purple-900 rounded-full text-xl font-bold hover:scale-105 transition-transform shadow-2xl"
               >
                 <span className="flex items-center gap-3">
