@@ -32,7 +32,7 @@ function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 py-20">
         {/* Animated Background Elements */}
-      <Background/>
+        <Background />
 
         <div
           className={`relative z-10 text-center max-w-5xl mx-auto transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}

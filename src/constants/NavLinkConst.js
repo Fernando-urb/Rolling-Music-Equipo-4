@@ -34,9 +34,8 @@ export const PAGES_NAVIGATE = [
   },
 ];
 
-
 export const PAGES_MUSICA = [
-   {
+  {
     name: "Canciones",
     icon: Headphones,
     href: "/canciones",
@@ -46,14 +45,12 @@ export const PAGES_MUSICA = [
     icon: Heart,
     href: "/favoritos",
   },
-  
+
   {
     name: "Mis Playlists",
     icon: ListMusic,
     href: "/playlists",
   },
- 
-
 ];
 
 export const FOOTER_LINKS = [

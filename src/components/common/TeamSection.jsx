@@ -7,8 +7,8 @@ const teamMembers = [
     description:
       "Acompaña al equipo con pasión y liderazgo, creando experiencias visuales  que conectan con cada usuario.",
     image: "/nosotros/fernando.jpg",
-     git:"https://github.com/Fernando-urb",
-    linkedin:"",
+    git: "https://github.com/Fernando-urb",
+    linkedin: "",
   },
   {
     name: "Daniel",
@@ -16,8 +16,8 @@ const teamMembers = [
     description:
       "Diseña interfaces claras y funcionales, pensando siempre en que cada interacción sea intuitiva y agradable.",
     image: "/nosotros/daniel.jpg",
-    git:"https://github.com/Cdantequera",
-    linkedin:"",
+    git: "https://github.com/Cdantequera",
+    linkedin: "",
   },
   {
     name: "Santiago",
@@ -25,8 +25,8 @@ const teamMembers = [
     description:
       "Optimiza cada detalle para que la experiencia del usuario fluya con rendimiento y calidad, sin perder el ritmo.",
     image: "/nosotros/santiago.jpg",
-     git:"https://github.com/SantiagoPaolantonio",
-    linkedin:"",
+    git: "https://github.com/SantiagoPaolantonio",
+    linkedin: "",
   },
 ];
 
