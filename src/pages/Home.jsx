@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MainLayout from "../components/MainC/MainLayout";
+import MainLayout from "../components/common/MainLayout";
 import { getPopularTracks, getPopularAlbums, getGenres } from "../services/deezerApi";
 import { useSearch } from "../hook/useAuth";
 import { usePlayer } from "../hook/usePlayer";

@@ -1,7 +1,7 @@
 // src/pages/AlbumDetail.jsx
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import MainLayout from "../components/MainC/MainLayout";
+import MainLayout from "../components/common/MainLayout";
 import { getAlbumById, getAlbumTracksRobust } from "../services/deezerApi";
 import { usePlayer } from "../hook/usePlayer";
 import SongCard from "../components/common/SongCard";

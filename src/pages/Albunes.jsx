@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // <-- Añade useNavigate
-import MainLayout from "../components/MainC/MainLayout";
+import MainLayout from "../components/common/MainLayout";
 import { getPopularAlbums } from "../services/deezerApi";
 import AlbumCard from "../components/common/AlbumCard";
 
