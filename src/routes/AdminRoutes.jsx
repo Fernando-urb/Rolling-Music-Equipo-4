@@ -2,8 +2,12 @@ import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import ProtectedAdminRoute from "./ProtectedAdminRoute";
 
+// --- 1. Importar las nuevas páginas ---
 const AdminDashboard = lazy(() => import("../pages/admin/AdminDashboard"));
 const AdminUsers = lazy(() => import("../pages/admin/AdminUsers"));
+const AdminContent = lazy(() => import("../pages/admin/AdminContent")); // <-- NUEVO
+const AdminStats = lazy(() => import("../pages/admin/AdminStats")); // <-- NUEVO
+const AdminSettings = lazy(() => import("../pages/admin/AdminSettings")); // <-- NUEVO
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 // Componente de loading
@@ -36,6 +40,33 @@ function AdminRoutes() {
             </ProtectedAdminRoute>
           }
         />
+
+        {/* --- 2. Añadir las nuevas rutas --- */}
+        <Route
+          path="/content"
+          element={
+            <ProtectedAdminRoute>
+              <AdminContent />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/stats"
+          element={
+            <ProtectedAdminRoute>
+              <AdminStats />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedAdminRoute>
+              <AdminSettings />
+            </ProtectedAdminRoute>
+          }
+        />
+
         {/* 404 para rutas de admin */}
         <Route path="*" element={<NotFound />} />
       </Routes>
