@@ -27,14 +27,15 @@ function App() {
   const location = useLocation();
   const isAdminPage = location.pathname.startsWith("/admin");
 
-  // Aplicar tema guardado al cargar
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    if (savedTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else if (savedTheme === "auto") {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      if (savedTheme === "dark") {
         document.documentElement.classList.add("dark");
+      } else if (savedTheme === "auto") {
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          document.documentElement.classList.add("dark");
+        }
       }
     }
   }, []);
