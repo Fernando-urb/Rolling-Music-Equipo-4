@@ -1,0 +1,12 @@
+[build]
+  publish = "dist"
+  command = "chmod +x build.sh && ./build.sh"
+
+[build.environment]
+  NODE_VERSION = "18.18.0"
+  NPM_VERSION = "9.8.1"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
