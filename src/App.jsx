@@ -4,20 +4,16 @@ import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { lazy, Suspense } from "react";
 import { PlayerProvider } from "./context/PlayerContext";
-
-// Componentes que se cargan inmediatamente (críticos)
+import { FavoritesProvider } from "./context/FavoritesContext";
 import LoginModal from "./components/auth/LoginModal";
 import RegisterModal from "./components/auth/RegisterModal";
 import { ModalProvider } from "./context/ModalContext";
 import Footer from "./components/Footer/Footer";
-
 // Lazy loading para componentes no críticos
 const Landing = lazy(() => import("./pages/Landing"));
-const Error403 = lazy(() => import("./pages/Error403"));
 const UserRoutes = lazy(() => import("./routes/UserRoutes"));
 const AdminRoutes = lazy(() => import("./routes/AdminRoutes"));
 
-// Componente de loading global
 const GlobalLoadingSpinner = () => (
   <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-neutral-900">
     <div className="text-center">
@@ -44,24 +40,23 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-purple-500 text-white overflow-hidden">
       <ModalProvider>
         <PlayerProvider>
-          <Suspense fallback={<GlobalLoadingSpinner />}>
-            <Routes>
-              {/* Landing Page */}
-              <Route path="/" element={<Landing />} />
+          <FavoritesProvider>
+            <Suspense fallback={<GlobalLoadingSpinner />}>
+              <Routes>
+                {/* Landing Page */}
+                <Route path="/" element={<Landing />} />
 
-              {/* Página de error 403 */}
-              <Route path="/error/403" element={<Error403 />} />
+                {/* Rutas de Admin  */}
+                <Route path="/admin/*" element={<AdminRoutes />} />
 
-              {/* Rutas de Admin (sin layout) */}
-              <Route path="/admin/*" element={<AdminRoutes />} />
-
-              {/* Rutas de Usuario (con layout) - Debe ir al final */}
-              <Route path="/*" element={<UserRoutes />} />
-            </Routes>
-          </Suspense>
+                {/* Rutas de Usuario (con layout) - Debe ir al final para capturar todas las rutas no encontradas */}
+                <Route path="/*" element={<UserRoutes />} />
+              </Routes>
+            </Suspense>
+          </FavoritesProvider>
         </PlayerProvider>
 
         {!isAdminPage && (

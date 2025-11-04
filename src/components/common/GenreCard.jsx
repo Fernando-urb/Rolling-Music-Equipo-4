@@ -2,7 +2,6 @@ function GenreCard({ genre, onClick }) {
   if (!genre) return null;
 
   const handleClick = () => {
-    console.log("🟢 GenreCard clicked - ID:", genre.id);
     if (onClick) {
       onClick(genre.id);
     }

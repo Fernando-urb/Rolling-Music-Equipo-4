@@ -1,21 +1,34 @@
 import { useEffect } from "react";
 import Button from "../common/Button";
-import { PAGES_NAVIGATE, PAGES_MUSICA, getFooterLinks } from "../../constants/NavLinkConst";
+import {
+  PAGES_NAVIGATE,
+  PAGES_MUSICA,
+  PAGES_FAVORITOS,
+  getFooterLinks,
+} from "../../constants/NavLinkConst";
 import { useAuth, useModals } from "../../hook/useAuth";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useModalFav } from "../../hook/usemodalFav";
 
 function Sidebar({ isOpen, onClose }) {
   const { isAuthenticated, isAdmin } = useAuth();
   const { openLogin } = useModals();
+  const { showFavoritos, showPlaylists, showCrearPlaylist } = useModalFav();
 
-  // Cerrar sidebar con tecla ESC
+  const favoritosPages = PAGES_FAVORITOS({
+    showFavoritos,
+    showPlaylists,
+    showCrearPlaylist,
+  });
+
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
+
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
@@ -44,6 +57,25 @@ function Sidebar({ isOpen, onClose }) {
             <item.icon className="w-5 h-5 mr-3 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors duration-300" />
             <span className="font-medium">{item.name}</span>
           </Link>
+        </li>
+      ))}
+    </ul>
+  );
+
+  const FavoritosButton = (items) => (
+    <ul className="space-y-2">
+      {items.map((item) => (
+        <li key={item.name}>
+          <button
+            onClick={() => {
+              item.onClick();
+              onClose(); // Cerrar sidebar después de abrir modal
+            }}
+            className="group flex items-center w-full p-3 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 hover:scale-[1.02] hover:shadow-md border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
+          >
+            <item.icon className="w-5 h-5 mr-3 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors duration-300" />
+            <span className="font-medium">{item.name}</span>
+          </button>
         </li>
       ))}
     </ul>
@@ -108,6 +140,7 @@ function Sidebar({ isOpen, onClose }) {
                   </span>
                 </div>
                 {NavLinks(PAGES_MUSICA)}
+                {FavoritosButton(favoritosPages)}
               </div>
             )}
           </nav>

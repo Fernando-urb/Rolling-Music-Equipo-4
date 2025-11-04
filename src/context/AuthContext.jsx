@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import googleAuthService from "../services/googleAuth";
 import { AuthContext } from "../hook/useAuth";
 import bcrypt from "bcryptjs";
+import { clearUserData } from "../utils/favoritos";
 
 // 1. Crear el Proveedor
 export const AuthProvider = ({ children }) => {
@@ -96,6 +97,9 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Error al cerrar sesión de Google:", error);
     } finally {
+      // Limpiar datos del usuario antes de cerrar sesión
+      clearUserData();
+
       localStorage.removeItem("user");
       setUser(null);
       toast.success("Sesión cerrada");

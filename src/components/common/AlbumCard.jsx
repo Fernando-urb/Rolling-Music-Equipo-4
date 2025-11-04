@@ -1,5 +1,3 @@
-import React from "react";
-
 function AlbumCard({ album }) {
   const handlePlayAlbum = () => {
     console.log("Reproducir álbum (próximamente):", album.id);

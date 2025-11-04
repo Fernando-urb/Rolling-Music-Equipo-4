@@ -28,7 +28,7 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-purple-900 via-blue-900 to-black text-white overflow-hidden ">
+    <div className=" ">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 py-20">
         {/* Animated Background Elements */}
@@ -154,11 +154,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="relative py-8 px-4 border-t border-white/10">
-        <div className="max-w-7xl mx-auto text-center text-gray-400"></div>
-      </footer>
     </div>
   );
 }
