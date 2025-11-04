@@ -9,7 +9,6 @@ const Tendencias = lazy(() => import("../pages/Tendencias"));
 const Generos = lazy(() => import("../pages/Generos"));
 const Albunes = lazy(() => import("../pages/Albunes"));
 const Canciones = lazy(() => import("../pages/Canciones"));
-const Artistas = lazy(() => import("../pages/Artistas"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 const GeneroDetail = lazy(() => import("../pages/GeneroDetail"));
 const AlbumDetail = lazy(() => import("../pages/AlbumDetail"));
@@ -81,14 +80,6 @@ function UserRoutes() {
             element={
               <ProtectedRoute>
                 <Canciones />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="artistas"
-            element={
-              <ProtectedRoute>
-                <Artistas />
               </ProtectedRoute>
             }
           />
