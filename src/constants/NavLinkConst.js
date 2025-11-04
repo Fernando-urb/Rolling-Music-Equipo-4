@@ -9,6 +9,7 @@ import {
   Info,
   Shield,
   UserCog,
+  ListPlus,
 } from "lucide-react";
 
 export const PAGES_NAVIGATE = [
@@ -40,16 +41,22 @@ export const PAGES_MUSICA = [
     icon: Headphones,
     href: "/canciones",
   },
+];
+export const PAGES_FAVORITOS = (handlers) => [
   {
     name: "Favoritos",
     icon: Heart,
-    href: "/favoritos",
+    onClick: handlers.showFavoritos,
   },
-
   {
     name: "Mis Playlists",
     icon: ListMusic,
-    href: "/playlists",
+    onClick: handlers.showPlaylists,
+  },
+  {
+    name: "Crear Playlist",
+    icon: ListPlus,
+    onClick: handlers.showCrearPlaylist,
   },
 ];
 

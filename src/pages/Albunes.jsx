@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // <-- Añade useNavigate
-import MainLayout from "../components/common/MainLayout";
 import { getPopularAlbums } from "../services/deezerApi";
 import AlbumCard from "../components/common/AlbumCard";
 
@@ -25,23 +24,21 @@ function Albunes() {
   };
 
   return (
-    <MainLayout>
-      <div className="p-4 sm:p-6">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">Álbumes Populares</h1>
+    <div className="p-4 sm:p-6">
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">Álbumes Populares</h1>
 
-        {isLoading ? (
-          <p className="text-gray-400">Cargando álbumes...</p>
-        ) : (
-          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {albums.map((album) => (
-              <li key={album.id}>
-                <AlbumCard album={album} onClick={handleAlbumClick} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </MainLayout>
+      {isLoading ? (
+        <p className="text-gray-400">Cargando álbumes...</p>
+      ) : (
+        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {albums.map((album) => (
+            <li key={album.id}>
+              <AlbumCard album={album} onClick={handleAlbumClick} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 

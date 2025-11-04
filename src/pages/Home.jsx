@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MainLayout from "../components/common/MainLayout";
+// import MainLayout from "../components/common/MainLayout";
 import { getPopularTracks, getPopularAlbums, getGenres } from "../services/deezerApi";
 import { useSearch } from "../hook/useAuth";
 import { usePlayer } from "../hook/usePlayer";
@@ -74,55 +74,55 @@ function Home() {
   );
 
   return (
-    <MainLayout>
-      <div className="pt-4 sm:pt-6">
-        {/* --- SECCIÓN DE BÚSQUEDA --- */}
-        {isLoading && <p className="text-gray-600 dark:text-gray-400 px-4 sm:px-6">Buscando...</p>}
+    // <MainLayout>
+    <div className="pt-4 sm:pt-6">
+      {/* --- SECCIÓN DE BÚSQUEDA --- */}
+      {isLoading && <p className="text-gray-600 dark:text-gray-400 px-4 sm:px-6">Buscando...</p>}
 
-        {!isLoading && hasSearched && (
-          <div className="px-4 sm:px-6">
-            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-              Resultados de la búsqueda
-            </h2>
-            {searchResults.length > 0 ? (
-              renderTrackList(searchResults)
-            ) : (
-              <p className="text-gray-600 dark:text-gray-400">No se encontraron resultados.</p>
-            )}
-          </div>
-        )}
+      {!isLoading && hasSearched && (
+        <div className="px-4 sm:px-6">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+            Resultados de la búsqueda
+          </h2>
+          {searchResults.length > 0 ? (
+            renderTrackList(searchResults)
+          ) : (
+            <p className="text-gray-600 dark:text-gray-400">No se encontraron resultados.</p>
+          )}
+        </div>
+      )}
 
-        {!hasSearched && (
-          <div>
-            {isLoadingData ? (
-              <p className="text-gray-600 dark:text-gray-400 px-4 sm:px-6">Cargando...</p>
-            ) : (
-              <div>
-                <HomeSection title="Explorar Géneros" href="/generos">
-                  {genres.map((genre) => (
-                    <GenreCard key={genre.id} genre={genre} onClick={handleGenreClick} />
-                  ))}
-                </HomeSection>
+      {!hasSearched && (
+        <div>
+          {isLoadingData ? (
+            <p className="text-gray-600 dark:text-gray-400 px-4 sm:px-6">Cargando...</p>
+          ) : (
+            <div>
+              <HomeSection title="Explorar Géneros" href="/generos">
+                {genres.map((genre) => (
+                  <GenreCard key={genre.id} genre={genre} onClick={handleGenreClick} />
+                ))}
+              </HomeSection>
 
-                {/* Carrusel de Populares del momento */}
-                <HomeSection title="Populares del momento">
-                  {popularTracks.map((track) => (
-                    <TrackCardSmall key={track.id} track={track} />
-                  ))}
-                </HomeSection>
+              {/* Carrusel de Populares del momento */}
+              <HomeSection title="Populares del momento">
+                {popularTracks.map((track) => (
+                  <TrackCardSmall key={track.id} track={track} />
+                ))}
+              </HomeSection>
 
-                {/* Carrusel de Álbumes Populares */}
-                <HomeSection title="Álbumes Populares" href="/albumes">
-                  {popularAlbums.map((album) => (
-                    <AlbumCard key={album.id} album={album} onClick={handleAlbumClick} />
-                  ))}
-                </HomeSection>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </MainLayout>
+              {/* Carrusel de Álbumes Populares */}
+              <HomeSection title="Álbumes Populares" href="/albumes">
+                {popularAlbums.map((album) => (
+                  <AlbumCard key={album.id} album={album} onClick={handleAlbumClick} />
+                ))}
+              </HomeSection>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+    // </MainLayout>
   );
 }
 

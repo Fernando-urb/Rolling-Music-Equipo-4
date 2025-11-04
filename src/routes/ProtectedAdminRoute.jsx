@@ -20,7 +20,7 @@ function ProtectedAdminRoute({ children, redirectTo = "/" }) {
   }
 
   if (user?.role !== "admin") {
-    return <Navigate to="/error/403" replace />;
+    return <Navigate to="/404" replace />;
   }
 
   return children;

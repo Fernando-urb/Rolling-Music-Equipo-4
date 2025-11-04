@@ -10,7 +10,6 @@ const Generos = lazy(() => import("../pages/Generos"));
 const Albunes = lazy(() => import("../pages/Albunes"));
 const Canciones = lazy(() => import("../pages/Canciones"));
 const Artistas = lazy(() => import("../pages/Artistas"));
-const Playlist = lazy(() => import("../pages/Playlist"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 const GeneroDetail = lazy(() => import("../pages/GeneroDetail"));
 const AlbumDetail = lazy(() => import("../pages/AlbumDetail"));
@@ -93,14 +92,7 @@ function UserRoutes() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="playlist"
-            element={
-              <ProtectedRoute>
-                <Playlist />
-              </ProtectedRoute>
-            }
-          />
+
           <Route
             path="album/:id"
             element={
@@ -109,7 +101,10 @@ function UserRoutes() {
               </ProtectedRoute>
             }
           />
-          {/* 404 para rutas de usuario */}
+          {/* Ruta específica para 404 */}
+          <Route path="404" element={<NotFound />} />
+
+          {/* 404 para todas las rutas no encontradas */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
