@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPlaylists, savePlaylist } from "../../utils/favoritos";
+import { toast } from "react-toastify";
 
 export default function AddToPlaylistModal({ visible, onClose, trackId, trackName }) {
   const [playlists, setPlaylists] = useState({});
@@ -17,26 +18,41 @@ export default function AddToPlaylistModal({ visible, onClose, trackId, trackNam
     if (!currentTracks.includes(trackId)) {
       const updatedTracks = [...currentTracks, trackId];
       savePlaylist(playlistName, updatedTracks);
-      alert(`Canción agregada a "${playlistName}"`);
+      toast.success(`🎵 "${trackName}" agregada a "${playlistName}"`, {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     } else {
-      alert(`La canción ya está en "${playlistName}"`);
+      toast.warning(`"${trackName}" ya está en "${playlistName}"`, {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
     }
     onClose();
   };
 
   const createNewPlaylist = () => {
     if (!newPlaylistName.trim()) {
-      alert("El nombre de la playlist es requerido");
+      toast.error("El nombre de la playlist es requerido", {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
       return;
     }
 
     if (playlists[newPlaylistName.trim()]) {
-      alert("Ya existe una playlist con ese nombre");
+      toast.error("Ya existe una playlist con ese nombre", {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
       return;
     }
 
     savePlaylist(newPlaylistName.trim(), [trackId]);
-    alert(`Nueva playlist "${newPlaylistName}" creada con la canción`);
+    toast.success(`🎉 Playlist "${newPlaylistName}" creada con "${trackName}"`, {
+      position: "bottom-right",
+      autoClose: 3000,
+    });
     setNewPlaylistName("");
     setShowNewPlaylist(false);
     onClose();

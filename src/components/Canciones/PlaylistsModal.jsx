@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getPlaylists, deletePlaylist } from "../../utils/favoritos";
-import { Trash2, FolderUp } from "lucide-react";
+import { Trash2, FolderUp, ListMusic } from "lucide-react";
+import Button from "../common/Button";
 
 export default function PlaylistsModal({ visible, onClose, allTracks }) {
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
@@ -32,12 +33,16 @@ export default function PlaylistsModal({ visible, onClose, allTracks }) {
     <>
       <div className="fixed inset-0 bg-black/90 bg-opacity-50 z-40" onClick={onClose}></div>
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-500 p-6 rounded-lg shadow-lg z-50 w-[90vw] max-w-xl max-h-[80vh] overflow-y-auto">
-        <h2 className="text-xl font-bold mb-4 text-gray-100"> Tus Playlists</h2>
+        <h2 className="text-xl font-bold mb-4 text-gray-100 flex gap-2">
+          {" "}
+          <ListMusic className="size-8 text-" />
+          Tus Playlists
+        </h2>
 
         {playlistNames.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-gray-500 mb-4">No hay playlists guardadas.</p>
-            <p className="text-sm text-gray-400">Crea tu primera playlist para empezar.</p>
+            <p className="text-gray-200 mb-4">No hay playlists guardadas.</p>
+            <p className="text-sm text-gray-200">Crea tu primera playlist para empezar.</p>
           </div>
         ) : (
           <div className="mb-4 ">
@@ -51,7 +56,7 @@ export default function PlaylistsModal({ visible, onClose, allTracks }) {
                 }`}
               >
                 <button className="flex-grow text-left" onClick={() => setSelectedPlaylist(name)}>
-                  <span className="flex items-center text-gray-800">
+                  <span className="flex gap-2 items-center text-gray-800">
                     <FolderUp className="text-yellow-400" /> {name}
                     <span className="ml-2 text-sm text-gray-500">
                       ({playlists[name]?.length || 0} canciones)
@@ -106,9 +111,9 @@ export default function PlaylistsModal({ visible, onClose, allTracks }) {
           </div>
         )}
 
-        <button className="mt-4 text-gray-100" onClick={onClose}>
+        <Button onClick={onClose} variant="danger">
           Cerrar
-        </button>
+        </Button>
       </div>
     </>
   );
