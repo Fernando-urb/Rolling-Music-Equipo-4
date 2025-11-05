@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { toggleFavorite, isFavorite as checkIsFavorite } from "../../utils/favoritos";
 import { HeartPlus, HeartMinus, CirclePlus } from "lucide-react";
+import { usePlayer } from "../../hook/usePlayer";
 
 export default function TrackCard({ track, onAddToPlaylist }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const { playTrack } = usePlayer();
 
   useEffect(() => {
     setIsFavorite(checkIsFavorite(track.id));
@@ -48,10 +50,10 @@ export default function TrackCard({ track, onAddToPlaylist }) {
         >
           <CirclePlus />
         </button>
-        {track.preview && (
+        {track.preview_url && (
           <button
             className="text-green-500 hover:text-green-700 text-xl transition-all duration-200 hover:scale-110 p-1 rounded-full hover:bg-green-50"
-            onClick={() => window.open(track.preview, "_blank")}
+            onClick={() => playTrack(track)}
             title="Escuchar preview"
           >
             ▶️

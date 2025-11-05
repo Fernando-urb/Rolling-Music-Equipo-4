@@ -30,7 +30,6 @@ export const isFavorite = (trackId, userId = null) => {
   return favs.includes(trackId);
 };
 
-// Funciones para playlists por usuario
 export const getPlaylists = (userId = null) => {
   const currentUserId = userId || getCurrentUserId();
   return JSON.parse(localStorage.getItem(`playlists_${currentUserId}`) || "{}");
@@ -52,7 +51,6 @@ export const deletePlaylist = (name, userId = null) => {
   return playlists;
 };
 
-// Función para limpiar datos al cerrar sesión
 export const clearUserData = (userId = null) => {
   const currentUserId = userId || getCurrentUserId();
   localStorage.removeItem(`favorites_${currentUserId}`);
