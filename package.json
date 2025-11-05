@@ -50,12 +50,6 @@
     "vite": "^7.1.7"
   },
   "engines": {
-    "node": "18.18.0",
-    "npm": "9.8.1"
-  },
-  "npmrc": {
-    "legacy-peer-deps": true,
-    "audit": false,
-    "fund": false
+    "node": ">=18.0.0"
   }
 }
