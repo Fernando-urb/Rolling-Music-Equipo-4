@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { getPlaylists, deletePlaylist } from "../../utils/favoritos";
 import { Trash2, FolderUp } from "lucide-react";
+import Swal from "sweetalert2";
 
 export default function PlaylistsModal({ visible, onClose, allTracks }) {
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
@@ -13,15 +14,39 @@ export default function PlaylistsModal({ visible, onClose, allTracks }) {
   }, [visible]);
 
   const handleDeletePlaylist = (playlistName) => {
-    if (confirm(`¿Estás seguro de que quieres eliminar la playlist "${playlistName}"?`)) {
-      const updatedPlaylists = deletePlaylist(playlistName);
-      setPlaylists(updatedPlaylists);
-      if (selectedPlaylist === playlistName) {
-        setSelectedPlaylist(null);
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: `Vas a eliminar la playlist "${playlistName}". Esta acción no se puede deshacer.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#a855f7",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminarla",
+      cancelButtonText: "Cancelar",
+      background: "#0f0f0f",
+      color: "#f3f3f3",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Lógica original de eliminación
+        const updatedPlaylists = deletePlaylist(playlistName);
+        setPlaylists(updatedPlaylists);
+        if (selectedPlaylist === playlistName) {
+          setSelectedPlaylist(null);
+        }
+        // Confirmación visual
+        Swal.fire({
+          title: "¡Playlist eliminada! 🗑️",
+          text: `La playlist "${playlistName}" fue eliminada correctamente.`,
+          icon: "success",
+          confirmButtonColor: "#a855f7",
+          background: "#0f0f0f",
+          color: "#f3f3f3",
+          timer: 2000,
+          showConfirmButton: false,
+        });
       }
-    }
+    });
   };
-
   if (!visible) return null;
 
   const playlistNames = Object.keys(playlists);

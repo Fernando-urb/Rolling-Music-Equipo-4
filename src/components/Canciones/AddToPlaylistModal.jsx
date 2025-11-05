@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPlaylists, savePlaylist } from "../../utils/favoritos";
+import Swal from "sweetalert2";
 
 export default function AddToPlaylistModal({ visible, onClose, trackId, trackName }) {
   const [playlists, setPlaylists] = useState({});
@@ -17,9 +18,25 @@ export default function AddToPlaylistModal({ visible, onClose, trackId, trackNam
     if (!currentTracks.includes(trackId)) {
       const updatedTracks = [...currentTracks, trackId];
       savePlaylist(playlistName, updatedTracks);
-      alert(`Canción agregada a "${playlistName}"`);
+      Swal.fire({
+        icon: "success",
+        title: "¡Tema agregado! 🎶",
+        text: `Tu playlist "${playlistName}" acaba de ganar un nuevo ritmo 🔥`,
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
+      });
     } else {
-      alert(`La canción ya está en "${playlistName}"`);
+      Swal.fire({
+        icon: "error",
+        title: "¡Ups! Esta canción ya suena en tu lista 🎵",
+        text: "Ya está sonando en tu playlist. Probá con otra",
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
+      });
     }
     onClose();
   };

@@ -1,5 +1,6 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { savePlaylist } from "../../utils/favoritos";
+import Swal from "sweetalert2";
 
 export default function CrearPlaylist({ visible, onClose, allTracks }) {
   const [name, setName] = useState("");
@@ -15,11 +16,27 @@ export default function CrearPlaylist({ visible, onClose, allTracks }) {
 
   const handleSave = () => {
     if (!name.trim()) {
-      alert("El nombre de la playlist es requerido");
+      Swal.fire({
+        icon: "warning",
+        title: "Sin nombre, sin ritmo 🎵",
+        text: "Tu playlist necesita identidad antes de sonar.",
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
+      });
       return;
     }
     if (selectedTracks.length === 0) {
-      alert("Selecciona al menos una canción");
+      Swal.fire({
+        icon: "info",
+        title: "Selecciona canciones 🎶",
+        text: "Tu playlist necesita al menos una canción para comenzar a sonar.",
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
+      });
       return;
     }
 
@@ -27,7 +44,15 @@ export default function CrearPlaylist({ visible, onClose, allTracks }) {
     setName("");
     setSelectedTracks([]);
     onClose();
-    alert(`Playlist "${name}" creada exitosamente!`);
+    Swal.fire({
+      icon: "success",
+      title: "¡Playlist creada! 💫",
+      text: `Tu lista "${name}" fue creada exitosamente. ¡A disfrutar de la música! 🎧`,
+      confirmButtonColor: "#a855f7",
+      confirmButtonText: "¡Entendido!",
+      background: "#0f0f0f",
+      color: "#f3f3f3",
+    });
   };
 
   if (!visible) return null;
@@ -45,14 +70,14 @@ export default function CrearPlaylist({ visible, onClose, allTracks }) {
           </label>
           <input
             type="text"
-            placeholder="Ej: Mi música favorita"
+            placeholder="Ej: Mi musica favorita"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        {/* Selección de canciones */}
+        {/* SelecciÃ³n de canciones */}
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Seleccionar Canciones ({selectedTracks.length} seleccionadas)
