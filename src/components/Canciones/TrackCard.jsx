@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { toggleFavorite, isFavorite as checkIsFavorite } from "../../utils/favoritos";
-import { HeartPlus, HeartMinus, CirclePlus } from "lucide-react";
+import { HeartPlus, HeartMinus, CirclePlus, Play } from "lucide-react";
 import { usePlayer } from "../../hook/usePlayer";
+import { toast } from "react-toastify";
 
 export default function TrackCard({ track, onAddToPlaylist }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -13,7 +14,20 @@ export default function TrackCard({ track, onAddToPlaylist }) {
 
   const handleToggleFavorite = () => {
     toggleFavorite(track.id);
-    setIsFavorite(!isFavorite);
+    const newFavoriteState = !isFavorite;
+    setIsFavorite(newFavoriteState);
+
+    if (newFavoriteState) {
+      toast.success(`"${track.name}" agregada a favoritos ❤️`, {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
+    } else {
+      toast.info(`"${track.name}" removida de favoritos`, {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
+    }
   };
 
   return (
@@ -52,11 +66,11 @@ export default function TrackCard({ track, onAddToPlaylist }) {
         </button>
         {track.preview_url && (
           <button
-            className="text-green-500 hover:text-green-700 text-xl transition-all duration-200 hover:scale-110 p-1 rounded-full hover:bg-green-50"
+            className="text-pink-500 hover:text-pink-700 text-xl transition-all duration-200 hover:scale-110 p-1 rounded-full hover:bg-pink-50"
             onClick={() => playTrack(track)}
             title="Escuchar preview"
           >
-            ▶️
+            <Play />
           </button>
         )}
       </div>

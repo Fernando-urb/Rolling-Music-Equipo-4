@@ -1,33 +1,36 @@
 import { useState } from "react";
 import { savePlaylist } from "../../utils/favoritos";
+import Button from "../common/Button";
+import { toast } from "react-toastify";
 
-export default function CrearPlaylist({ visible, onClose, allTracks }) {
+export default function CrearPlaylist({ visible, onClose }) {
   const [name, setName] = useState("");
   const [selectedTracks, setSelectedTracks] = useState([]);
 
-  const toggleTrackSelection = (trackId) => {
-    if (selectedTracks.includes(trackId)) {
-      setSelectedTracks(selectedTracks.filter((id) => id !== trackId));
-    } else {
-      setSelectedTracks([...selectedTracks, trackId]);
-    }
-  };
-
   const handleSave = () => {
     if (!name.trim()) {
-      alert("El nombre de la playlist es requerido");
+      toast.error("El nombre de la playlist es requerido", {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
       return;
     }
     if (selectedTracks.length === 0) {
-      alert("Selecciona al menos una canción");
+      toast.error("Selecciona al menos una canción", {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
       return;
     }
 
     savePlaylist(name.trim(), selectedTracks);
+    toast.success(`🎉 Playlist "${name}" creada exitosamente!`, {
+      position: "bottom-right",
+      autoClose: 3000,
+    });
     setName("");
     setSelectedTracks([]);
     onClose();
-    alert(`Playlist "${name}" creada exitosamente!`);
   };
 
   if (!visible) return null;
@@ -52,63 +55,14 @@ export default function CrearPlaylist({ visible, onClose, allTracks }) {
           />
         </div>
 
-        {/* Selección de canciones */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Seleccionar Canciones ({selectedTracks.length} seleccionadas)
-          </label>
-          <div className="max-h-60 overflow-y-auto border border-gray-200 rounded-lg">
-            {allTracks &&
-              allTracks.map((track) => (
-                <div
-                  key={track.id}
-                  className={`flex items-center p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 ${
-                    selectedTracks.includes(track.id) ? "bg-blue-50" : ""
-                  }`}
-                  onClick={() => toggleTrackSelection(track.id)}
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedTracks.includes(track.id)}
-                    onChange={() => toggleTrackSelection(track.id)}
-                    className="mr-3"
-                  />
-                  <img
-                    src={
-                      track.album?.images?.[2]?.url ||
-                      track.cover ||
-                      "https://via.placeholder.com/40"
-                    }
-                    alt={track.name}
-                    className="w-10 h-10 rounded mr-3"
-                  />
-                  <div className="flex-grow">
-                    <p className="font-medium text-sm">{track.name}</p>
-                    <p className="text-xs text-gray-600">
-                      {track.artists?.map((a) => a.name).join(", ") ||
-                        track.artist ||
-                        "Artista desconocido"}
-                    </p>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-
         {/* Botones */}
         <div className="flex gap-3">
-          <button
-            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
-            onClick={handleSave}
-          >
+          <Button variant="secondary" onClick={handleSave}>
             Crear Playlist
-          </button>
-          <button
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
-            onClick={onClose}
-          >
-            Cancelar
-          </button>
+          </Button>
+          <Button onClick={onClose} variant="danger">
+            Cerrar
+          </Button>
         </div>
       </div>
     </>
