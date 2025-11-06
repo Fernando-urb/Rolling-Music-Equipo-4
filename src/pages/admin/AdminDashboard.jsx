@@ -28,35 +28,33 @@ function AdminDashboard() {
 
   return (
     <AdminLayout title="Dashboard" breadcrumbs={[{ label: "Dashboard" }]}>
-      {/* Tu subtítulo original */}
       <p className="text-lg text-gray-400 mb-6">este es el dasboard de admin</p>
 
-      {/* Grid de Estadísticas */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Usuarios Totales"
-          value={userCount} // Dato real
+          value={userCount}
           icon={<Users size={24} className="text-white" />}
           colorClass="bg-blue-500"
         />
 
         <StatCard
           title="Canciones Populares"
-          value="40+" // Dato ficticio
+          value="40+"
           icon={<Music size={24} className="text-white" />}
           colorClass="bg-purple-500"
         />
 
         <StatCard
           title="Búsquedas (Hoy)"
-          value="1,204" // Dato ficticio
+          value="1,204"
           icon={<BarChart3 size={24} className="text-white" />}
           colorClass="bg-pink-500"
         />
 
         <StatCard
           title="Nuevos Registros"
-          value="5" // Dato ficticio
+          value="5"
           icon={<Users size={24} className="text-white" />}
           colorClass="bg-green-500"
         />

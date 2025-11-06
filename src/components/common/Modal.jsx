@@ -1,6 +1,4 @@
 function Modal({ isOpen, onClose, children }) {
-  // if (!isOpen) return null;
-
   return (
     // 1. CONTENEDOR PRINCIPAL (Overlay)
     <div

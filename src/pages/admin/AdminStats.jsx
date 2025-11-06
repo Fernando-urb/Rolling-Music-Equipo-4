@@ -1,7 +1,6 @@
 import AdminLayout from "../../components/Admin/AdminLayout";
 import { BarChart2 } from "lucide-react";
 
-// Componente ficticio para un gráfico
 const FakeChart = ({ title }) => (
   <div className="bg-gray-800 p-6 rounded-lg shadow-md">
     <h2 className="text-xl font-semibold text-white mb-4">{title}</h2>
@@ -12,7 +11,6 @@ const FakeChart = ({ title }) => (
   </div>
 );
 
-// Componente ficticio para una lista de "Top"
 const TopList = ({ title, items }) => (
   <div className="bg-gray-800 p-6 rounded-lg shadow-md">
     <h2 className="text-xl font-semibold text-white mb-4">{title}</h2>
@@ -39,7 +37,6 @@ function AdminStats() {
 
   return (
     <AdminLayout title="Estadísticas" breadcrumbs={breadcrumbs}>
-      {/* --- INICIO DEL CONTENIDO FICTICIO --- */}
       <div className="text-gray-400 mb-8">
         Análisis detallado del crecimiento de usuarios, términos de búsqueda más populares y
         canciones más escuchadas.
@@ -57,7 +54,6 @@ function AdminStats() {
           <TopList title="Términos Más Buscados" items={topSearches} />
         </div>
       </div>
-      {/* --- FIN DEL CONTENIDO FICTICIO --- */}
     </AdminLayout>
   );
 }

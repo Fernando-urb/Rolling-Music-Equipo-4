@@ -16,7 +16,7 @@ function GenreCard({ genre, onClick }) {
                  w-32 
                  flex-shrink-0
                  
-                 group" // Añadimos 'group' para el efecto hover
+                 group"
     >
       <img
         src={genre.image}
