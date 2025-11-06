@@ -11,7 +11,7 @@ function AlbumCard({ album }) {
 
   return (
     <div
-      className="flex-shrink-0 w-40 sm:w-48 cursor-pointer group"
+      className="shrink-0 w-40 sm:w-48 cursor-pointer group"
       onClick={handleNavigateTo404} // Usa el nuevo nombre de la función
       title={`${album.name} - ${album.artistName}`}
     >

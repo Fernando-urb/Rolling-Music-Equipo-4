@@ -37,7 +37,7 @@ function Header({ onOpenSidebar }) {
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 w-full bg-zinc-100 text-sm py-4 border-b border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-700">
+    <header className="fixed top-0 inset-x-0 z-50 w-full bg-zinc-100 text-sm py-4 border-b border-gray-200/50 dark:border-gray-700/50 bg-gradient-to- from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-700">
       <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
         <div className="w-full flex items-center gap-x-4">
           {/* Logo y Menu Button */}
@@ -83,7 +83,7 @@ function Header({ onOpenSidebar }) {
               <div className="relative">
                 <button
                   onClick={toggleUserMenu}
-                  className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2 rounded-xl sm:rounded-2xl hover:bg-gradient-to-r hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 hover:shadow-lg border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
+                  className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2 rounded-xl sm:rounded-2xl hover:bg-gradient-to- hover:from-pink-50 hover:to-purple-50 dark:hover:from-pink-900/20 dark:hover:to-purple-900/20 transition-all duration-300 hover:shadow-lg border border-transparent hover:border-pink-200/50 dark:hover:border-pink-700/50"
                   aria-expanded={isUserMenuOpen}
                   aria-haspopup="true"
                 >
@@ -91,14 +91,14 @@ function Header({ onOpenSidebar }) {
                     <Avatar
                       src={user?.photoURL}
                       alt="Foto de perfil"
-                      className="w-8 sm:w-10 h-8 sm:w-10"
+                      className="w-8 sm:w-10 h-8 "
                       iconClassName="w-3 sm:w-4 h-3 sm:w-4"
                       isAdmin={isAdmin()}
                     />
-                    <div className="absolute -bottom-1 -right-1 w-3 sm:w-4 h-3 sm:w-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></div>
+                    <div className="absolute -bottom-1 -right-1 w-3  h-3 sm:w-4 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></div>
                   </div>
                   <ChevronDown
-                    className={`w-3 sm:w-4 h-3 sm:w-4 text-gray-600 dark:text-gray-400 transition-all duration-300 ${
+                    className={`w-3  h-3 sm:w-4 text-gray-600 dark:text-gray-400 transition-all duration-300 ${
                       isUserMenuOpen ? "rotate-180 text-pink-600 dark:text-pink-400" : ""
                     }`}
                   />

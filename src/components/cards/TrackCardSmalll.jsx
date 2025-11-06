@@ -29,7 +29,7 @@ function TrackCardSmall({ track }) {
       onClick={() => playTrack(track)}
       title={`${track.name} - ${track.artists[0].name}`}
     >
-      <div className="w-12 h-12 rounded-md mr-4 relative flex-shrink-0">
+      <div className="w-12 h-12 rounded-md mr-4 relative shrink-0">
         <img
           src={imageUrl}
           alt={track.album.name}

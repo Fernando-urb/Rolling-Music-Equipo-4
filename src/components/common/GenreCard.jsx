@@ -14,7 +14,7 @@ function GenreCard({ genre, onClick }) {
                  transition-colors
                  
                  w-32 
-                 flex-shrink-0
+                 shrink-0
                  
                  group"
     >

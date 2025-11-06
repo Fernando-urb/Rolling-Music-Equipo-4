@@ -24,7 +24,7 @@ export default function TrackCard({ track, onAddToPlaylist }) {
           e.target.src = "https://via.placeholder.com/80x80/f0f0f0/999999?text=♪";
         }}
       />
-      <div className="flex-grow">
+      <div className="grow">
         <h3 className="font-bold text-gray-900">{track.name || track.title}</h3>
         <p className="text-sm text-gray-600">
           {track.artists?.map((a) => a.name).join(", ") || track.artist || "Artista desconocido"}

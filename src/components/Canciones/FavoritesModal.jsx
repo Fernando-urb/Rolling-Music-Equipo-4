@@ -23,7 +23,7 @@ export default function FavoritesModal({ visible, onClose, tracks }) {
   return (
     <>
       <div className="fixed inset-0 bg-black/90 bg-opacity-50 z-40" onClick={onClose}></div>
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-500 p-6 rounded-lg shadow-lg z-50 w-96 max-h-[80vh] overflow-y-auto">
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to- from-purple-900 via-blue-900 to-purple-500 p-6 rounded-lg shadow-lg z-50 w-96 max-h-[80vh] overflow-y-auto">
         <div className="text-xl font-bold mb-4 text-gray-950 ">❤️ Tus Favoritos</div>
         {favoriteTracks.length === 0 ? (
           <p className="text-gray-500">No hay canciones favoritas aún.</p>
@@ -38,7 +38,7 @@ export default function FavoritesModal({ visible, onClose, tracks }) {
                 alt={track.name}
                 className="w-12 h-12 rounded mr-3"
               />
-              <div className="flex-grow ">
+              <div className="grow ">
                 <p className="font-semibold">{track.name}</p>
                 <p className="text-sm text-gray-600">
                   {track.artists.map((a) => a.name).join(", ")}

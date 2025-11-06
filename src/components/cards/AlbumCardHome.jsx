@@ -10,7 +10,7 @@ function AlbumCardHomeCarousel({ album }) {
 
   return (
     <div
-      className="flex-shrink-0 w-40 sm:w-48 cursor-pointer group"
+      className="shrink-0 w-40 sm:w-48 cursor-pointer group"
       onClick={handleNavigateToList}
       title={`${album.name} - ${album.artistName}`}
     >

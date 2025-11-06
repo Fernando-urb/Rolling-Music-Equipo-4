@@ -43,7 +43,7 @@ function HomeSection({ title, children }) {
                    scrollbar-width-none"
       >
         {children}
-        <div className="flex-shrink-0 w-1"></div>
+        <div className="shrink-0 w-1"></div>
       </div>
     </div>
   );

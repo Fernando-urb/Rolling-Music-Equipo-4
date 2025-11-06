@@ -42,9 +42,9 @@ function FavoritosModal({ isOpen, onClose }) {
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-4xl max-h-[80vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to- from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl">
+            <div className="p-2 bg-gradient-to- from-pink-500 to-purple-600 rounded-xl">
               <Heart className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -134,7 +134,7 @@ function FavoritosModal({ isOpen, onClose }) {
                           "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop"
                         }
                         alt={song.title}
-                        className="w-12 h-12 rounded-lg object-cover flex-shrink-0"
+                        className="w-12 h-12 rounded-lg object-cover shrink-0"
                         onError={(e) => {
                           e.target.src =
                             "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop";
