@@ -34,7 +34,7 @@ function Modal({ isOpen, onClose, children }) {
         {children}
       </div>
 
-      <div className="grow"></div>
+      <div className="flex-grow"></div>
     </div>
   );
 }

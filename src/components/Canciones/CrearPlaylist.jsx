@@ -35,7 +35,7 @@ export default function CrearPlaylist({ visible, onClose, allTracks }) {
   return (
     <>
       <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={onClose}></div>
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  bg-gradient-to- from-purple-900 via-blue-900 to-purple-500 p-6 rounded-lg shadow-lg z-50 w-[90vw] max-w-2xl max-h-[80vh] overflow-y-auto">
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  bg-gradient-to-br from-purple-900 via-blue-900 to-purple-500 p-6 rounded-lg shadow-lg z-50 w-[90vw] max-w-2xl max-h-[80vh] overflow-y-auto">
         <h2 className="text-xl font-bold mb-4"> Crear Nueva Playlist</h2>
 
         {/* Nombre de la playlist */}
@@ -82,7 +82,7 @@ export default function CrearPlaylist({ visible, onClose, allTracks }) {
                     alt={track.name}
                     className="w-10 h-10 rounded mr-3"
                   />
-                  <div className="grow">
+                  <div className="flex-grow">
                     <p className="font-medium text-sm">{track.name}</p>
                     <p className="text-xs text-gray-600">
                       {track.artists?.map((a) => a.name).join(", ") ||

@@ -66,12 +66,12 @@ function AdminLayout({ children, title, breadcrumbs = [] }) {
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to- from-gray-900 to-gray-800 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-gray-900 to-gray-800 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-6 border-b border-gray-700">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to- from-pink-500 to-purple-600 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl flex items-center justify-center">
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -96,7 +96,7 @@ function AdminLayout({ children, title, breadcrumbs = [] }) {
                 onClick={() => setIsSidebarOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                   item.current
-                    ? "bg-gradient-to- from-pink-500 to-purple-600 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
                     : "text-gray-300 hover:text-white hover:bg-gray-700/50"
                 }`}
               >

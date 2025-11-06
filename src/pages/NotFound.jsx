@@ -13,7 +13,7 @@ function NotFound() {
 
       {/* Contenido */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center text-center text-gray-800 dark:text-gray-100 px-4">
-        <h1 className="text-[6rem] sm:text-[8rem] md:text-[10rem] font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to- from-fuchsia-400 to-fuchsia-700 drop-shadow-[0_0_25px_rgba(139,92,246,0.8)]">
+        <h1 className="text-[6rem] sm:text-[8rem] md:text-[10rem] font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-fuchsia-400 to-fuchsia-700 drop-shadow-[0_0_25px_rgba(139,92,246,0.8)]">
           404
         </h1>
 
@@ -25,7 +25,7 @@ function NotFound() {
 
         <Link
           to="/home"
-          className="px-4 py-3 text-center uppercase text-white rounded-lg shadow-lg block bg-gradient-to- from-purple-600 via-purple-700 to-purple-800 hover:from-purple-700 hover:via-purple-800 hover:to-purple-900 transition duration-500 ease-in-out"
+          className="px-4 py-3 text-center uppercase text-white rounded-lg shadow-lg block bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 hover:from-purple-700 hover:via-purple-800 hover:to-purple-900 transition duration-500 ease-in-out"
         >
           Volver al inicio
         </Link>

@@ -31,7 +31,7 @@ export default function PlaylistsModal({ visible, onClose, allTracks }) {
   return (
     <>
       <div className="fixed inset-0 bg-black/90 bg-opacity-50 z-40" onClick={onClose}></div>
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to- from-purple-900 via-blue-900 to-purple-500 p-6 rounded-lg shadow-lg z-50 w-[90vw] max-w-xl max-h-[80vh] overflow-y-auto">
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-500 p-6 rounded-lg shadow-lg z-50 w-[90vw] max-w-xl max-h-[80vh] overflow-y-auto">
         <h2 className="text-xl font-bold mb-4 text-gray-100"> Tus Playlists</h2>
 
         {playlistNames.length === 0 ? (
@@ -50,7 +50,7 @@ export default function PlaylistsModal({ visible, onClose, allTracks }) {
                     : "bg-gray-50 border-gray-200 hover:bg-gray-100"
                 }`}
               >
-                <button className="grow text-left" onClick={() => setSelectedPlaylist(name)}>
+                <button className="flex-grow text-left" onClick={() => setSelectedPlaylist(name)}>
                   <span className="flex items-center text-gray-800">
                     <FolderUp className="text-yellow-400" /> {name}
                     <span className="ml-2 text-sm text-gray-500">
@@ -91,7 +91,7 @@ export default function PlaylistsModal({ visible, onClose, allTracks }) {
                       alt={track.name}
                       className="w-10 h-10 rounded mr-3"
                     />
-                    <div className="grow">
+                    <div className="flex-grow">
                       <p className="font-medium text-sm">{track.name}</p>
                       <p className="text-xs text-gray-600">
                         {track.artists?.map((a) => a.name).join(", ") ||

@@ -37,8 +37,8 @@ function Dropdown({ closeUserMenu }) {
     <>
       <div className="fixed inset-0 z-40" onClick={closeUserMenu}></div>
 
-      <div className="absolute right-0 mt-3 w-64 sm:w-72 bg-gradient-to- from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl shadow-2xl backdrop-blur-xl z-50 overflow-hidden">
-        <div className="p-4 sm:p-6 bg-gradient-to- from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 border-b border-gray-200/50 dark:border-gray-700/50">
+      <div className="absolute right-0 mt-3 w-64 sm:w-72 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl shadow-2xl backdrop-blur-xl z-50 overflow-hidden">
+        <div className="p-4 sm:p-6 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 border-b border-gray-200/50 dark:border-gray-700/50">
           <div className="flex items-center gap-3 sm:gap-4">
             <div className="relative">
               <Avatar
@@ -75,7 +75,7 @@ function Dropdown({ closeUserMenu }) {
               onClick={() => handleThemeChange("light")}
               className={`flex-1 flex items-center justify-center gap-1 sm:gap-2 py-2 sm:py-3 px-2 sm:px-4 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 ${
                 theme === "light"
-                  ? "bg-gradient-to- from-pink-500 to-purple-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
                   : "text-gray-600 dark:text-gray-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 dark:hover:text-pink-400"
               }`}
               title="Modo claro"
@@ -87,7 +87,7 @@ function Dropdown({ closeUserMenu }) {
               onClick={() => handleThemeChange("dark")}
               className={`flex-1 flex items-center justify-center gap-1 sm:gap-2 py-2 sm:py-3 px-2 sm:px-4 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 ${
                 theme === "dark"
-                  ? "bg-gradient-to- from-pink-500 to-purple-600 text-white shadow-lg"
+                  ? "bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg"
                   : "text-gray-600 dark:text-gray-400 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 dark:hover:text-pink-400"
               }`}
               title="Modo oscuro"
@@ -102,7 +102,7 @@ function Dropdown({ closeUserMenu }) {
           <div className="my-2 border-t border-gray-200/50 dark:border-gray-700/50"></div>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 hover:bg-gradient-to- hover:from-red-50 hover:to-pink-50 dark:hover:from-red-900/20 dark:hover:to-pink-900/20 hover:text-red-700 dark:hover:text-red-300 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-red-200/50 dark:hover:border-red-700/50"
+            className="w-full flex items-center gap-2 sm:gap-3 py-2 sm:py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-medium text-red-600 dark:text-red-400 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 dark:hover:from-red-900/20 dark:hover:to-pink-900/20 hover:text-red-700 dark:hover:text-red-300 transition-all duration-300 hover:scale-[1.02] border border-transparent hover:border-red-200/50 dark:hover:border-red-700/50"
           >
             <LogOut className="w-4 sm:w-5 h-4 sm:h-5" />
             <span>{CERRAR_SESION}</span>
