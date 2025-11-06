@@ -7,8 +7,8 @@ import { ChevronDown } from "lucide-react";
 import { LOGO_VMUSIC } from "../../constants/imagenes";
 import Dropdown from "./Dropdown";
 import Avatar from "../common/Avatar";
-
 import { useSearch } from "../../hook/useAuth";
+import { useNavigate } from "react-router-dom"; // <-- AGREGADO
 
 const logo = LOGO_VMUSIC[0];
 const INICIO_SESION = "Iniciar Sesión";
@@ -17,9 +17,8 @@ const REGISTRARSE = "Registrarse";
 function Header({ onOpenSidebar }) {
   const { openLogin, openRegister } = useModals();
   const { isAuthenticated, user, isAdmin } = useAuth();
-
-  // 2. OBTENER LA FUNCIÓN DE BÚSQUEDA DEL CONTEXTO
   const { handleSearch } = useSearch();
+  const navigate = useNavigate(); // <-- AGREGADO
 
   // Estados locales
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -32,8 +31,13 @@ function Header({ onOpenSidebar }) {
     setIsUserMenuOpen(false);
   };
 
+  const onHandleSearchAndNavigate = (query) => {
+    handleSearch(query);
+    navigate("/home");
+  };
+
   return (
-    <header className="fixed top-0 inset-x-0 z-50 w-full text-sm py-4 bg-black/60">
+    <header className="fixed top-0 inset-x-0 z-50 w-full bg-zinc-100 text-sm py-4 border-b border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-700">
       <nav className="px-4 sm:px-6 flex basis-full items-center w-full mx-auto">
         <div className="w-full flex items-center gap-x-4">
           {/* Logo y Menu Button */}
@@ -54,10 +58,8 @@ function Header({ onOpenSidebar }) {
 
           {isAuthenticated && (
             <div className="flex-1 max-w-xs sm:max-w-md md:max-w-2xl">
-              {/* 3. CONECTAR LA FUNCIÓN AL BUSCADOR 
-                  (Asumo que tu componente Buscador usa la prop 'onSearch')
-              */}
-              <Buscador onSearch={handleSearch} />
+              {/* Conectar la nueva función al Buscador */}
+              <Buscador onSearch={onHandleSearchAndNavigate} />
             </div>
           )}
 

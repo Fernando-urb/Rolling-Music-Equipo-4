@@ -31,6 +31,24 @@ function AdminLayout({ children, title, breadcrumbs = [] }) {
       icon: Users,
       current: location.pathname === "/admin/users",
     },
+    {
+      name: "Contenido",
+      href: "/admin/content",
+      icon: Music,
+      current: location.pathname === "/admin/content",
+    },
+    {
+      name: "Estadísticas",
+      href: "/admin/stats",
+      icon: BarChart3,
+      current: location.pathname === "/admin/stats",
+    },
+    {
+      name: "Configuración",
+      href: "/admin/settings",
+      icon: Settings,
+      current: location.pathname === "/admin/settings",
+    },
   ];
 
   const handleLogout = () => {

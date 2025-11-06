@@ -24,7 +24,7 @@ function NotFound() {
         </p>
 
         <Link
-          to="/"
+          to="/home"
           className="px-4 py-3 text-center uppercase text-white rounded-lg shadow-lg block bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 hover:from-purple-700 hover:via-purple-800 hover:to-purple-900 transition duration-500 ease-in-out"
         >
           Volver al inicio

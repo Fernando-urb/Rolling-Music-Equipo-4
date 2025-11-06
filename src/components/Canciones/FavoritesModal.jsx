@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { getFavorites, toggleFavorite } from "../../utils/favoritos";
-import { Trash2 } from "lucide-react";
+import { Trash2, Heart } from "lucide-react";
+import Button from "../common/Button";
+import { toast } from "react-toastify";
 
 export default function FavoritesModal({ visible, onClose, tracks }) {
   const [favorites, setFavorites] = useState([]);
@@ -16,15 +18,24 @@ export default function FavoritesModal({ visible, onClose, tracks }) {
   const favoriteTracks = tracks.filter((track) => favorites.includes(track.id));
 
   const handleToggleFavorite = (trackId) => {
+    const track = tracks.find((t) => t.id === trackId);
     const newFavorites = toggleFavorite(trackId);
     setFavorites(newFavorites);
+
+    toast.info(`"${track?.name}" removida de favoritos`, {
+      position: "bottom-right",
+      autoClose: 2000,
+    });
   };
 
   return (
     <>
       <div className="fixed inset-0 bg-black/90 bg-opacity-50 z-40" onClick={onClose}></div>
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-purple-900 via-blue-900 to-purple-500 p-6 rounded-lg shadow-lg z-50 w-96 max-h-[80vh] overflow-y-auto">
-        <div className="text-xl font-bold mb-4 text-gray-950 ">❤️ Tus Favoritos</div>
+        <div className="text-xl font-bold mb-4 text-gray-550 flex gap-2 ">
+          <Heart className="text-red-500" /> Tus Favoritos
+        </div>
+        <div className="border border-gray-500 my-2"></div>
         {favoriteTracks.length === 0 ? (
           <p className="text-gray-500">No hay canciones favoritas aún.</p>
         ) : (
@@ -53,9 +64,10 @@ export default function FavoritesModal({ visible, onClose, tracks }) {
             </div>
           ))
         )}
-        <button className="mt-4 text-blue-500" onClick={onClose}>
+        <div className="border border-gray-500"></div>
+        <Button onClick={onClose} variant="danger" className="my-3">
           Cerrar
-        </button>
+        </Button>
       </div>
     </>
   );

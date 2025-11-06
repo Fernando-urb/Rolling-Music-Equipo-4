@@ -1,4 +1,4 @@
-import { Play, Pause, ChevronDown } from "lucide-react"; // Iconos
+import { Play, Pause, ChevronDown, Volume2, Volume1, VolumeX } from "lucide-react";
 import { usePlayer } from "../../hook/usePlayer";
 
 const MusicPlayer = () => {
@@ -11,9 +11,10 @@ const MusicPlayer = () => {
     seekTo,
     isPlayerVisible,
     closePlayer,
+    volume,
+    setVolume,
   } = usePlayer();
 
-  // Si no hay canción O no es visible, no se muestra el reproductor
   if (!isPlayerVisible || !currentTrack) {
     return null;
   }
@@ -26,9 +27,24 @@ const MusicPlayer = () => {
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
+  // Componente que renderiza el icono de volumen (silenciado, bajo, alto)
+  const VolumeIcon = ({ size, className }) => {
+    let Icon;
+    if (volume === 0) Icon = VolumeX;
+    else if (volume < 50) Icon = Volume1;
+    else Icon = Volume2;
+
+    return <Icon size={size} className={className} />;
+  };
+
+  // Manejador del slider de volumen
+  const handleVolumeChange = (e) => {
+    setVolume(parseFloat(e.target.value));
+  };
+
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-neutral-900 border-t border-neutral-700 p-3 sm:p-4 flex items-center justify-between text-white shadow-lg">
-      {/* Sección Izquierda: Info (Sin cambios) */}
+      {/* Sección Izquierda: Info */}
       <div className="flex items-center gap-3 w-1/3">
         {currentTrack.album && currentTrack.album.images[2] && (
           <img
@@ -45,6 +61,7 @@ const MusicPlayer = () => {
         </div>
       </div>
 
+      {/* Sección Central: Controles de Reproducción y Progreso */}
       <div className="flex flex-col items-center justify-center w-1/3">
         <div className="flex items-center gap-4 mb-1">
           <button
@@ -73,7 +90,23 @@ const MusicPlayer = () => {
         </div>
       </div>
 
+      {/* Sección Derecha: Slider de Volumen y Cerrar Reproductor  */}
       <div className="w-1/3 flex justify-end items-center gap-4">
+        {/* Slider de Volumen  */}
+        <div className="flex items-center gap-2">
+          <VolumeIcon size={20} className="text-gray-400" />
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={volume}
+            onChange={handleVolumeChange}
+            // Ajustado el ancho para mejor estética si es necesario
+            className="w-24 h-1 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
+          />
+        </div>
+
+        {/* Botón Cerrar Reproductor */}
         <button
           onClick={closePlayer}
           className="text-gray-400 hover:text-white transition-colors p-2 rounded-full hover:bg-neutral-700"

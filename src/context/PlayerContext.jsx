@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { PlayerContext } from "../hook/usePlayer";
+import { useVolume } from "../hook/useVolume";
 
 export const PlayerProvider = ({ children }) => {
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -9,7 +10,18 @@ export const PlayerProvider = ({ children }) => {
   const [isPlayerVisible, setIsPlayerVisible] = useState(false);
   const audioRef = useRef(new Audio());
 
-  // Este useEffect maneja los eventos de 'carga' y 'final'
+  // Consumir el hook de volumen
+  const { volume, increaseVolume, decreaseVolume, setVolume } = useVolume();
+
+  // Este efecto ajusta el volumen en el elemento de audio real
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    if (audio) {
+      audio.volume = volume / 100;
+    }
+  }, [volume]);
+
   useEffect(() => {
     const audio = audioRef.current;
     const setAudioDuration = () => setDuration(audio.duration);
@@ -27,41 +39,33 @@ export const PlayerProvider = ({ children }) => {
     };
   }, []);
 
-  // --- ¡AQUÍ ESTÁ LA MAGIA! ---
-  // Este useEffect maneja el progreso FLUIDO
   useEffect(() => {
     const audio = audioRef.current;
     let timerId = null;
 
     if (isPlaying) {
-      // Si está sonando, inicia un bucle para actualizar el progreso
       timerId = setInterval(() => {
-        // Asegúrate de no dividir por cero
         if (audio.duration > 0) {
-          // Calcula el progreso como un porcentaje
           const percentage = (audio.currentTime / audio.duration) * 100;
           setProgress(percentage);
         }
-      }, 250); // Actualiza 4 veces por segundo (muy fluido)
+      }, 250);
     } else {
-      // Si se pausa, limpia el bucle
       clearInterval(timerId);
     }
 
-    // Limpieza al desmontar o si 'isPlaying' cambia
     return () => {
       clearInterval(timerId);
     };
-  }, [isPlaying]); // Este efecto solo depende de si está sonando o no
+  }, [isPlaying]);
 
-  // Este useEffect maneja el CAMBIO de canción
   useEffect(() => {
     const audio = audioRef.current;
     if (currentTrack && currentTrack.preview_url) {
       audio.src = currentTrack.preview_url;
       audio.play().catch((e) => console.error("Error al reproducir el audio:", e));
       setIsPlaying(true);
-      setProgress(0); // Resetea el progreso al cambiar de canción
+      setProgress(0);
     } else {
       audio.pause();
       setIsPlaying(false);
@@ -69,7 +73,6 @@ export const PlayerProvider = ({ children }) => {
     }
   }, [currentTrack]);
 
-  // --- LÓGICA DE 'playTrack' SIMPLIFICADA ---
   const playTrack = (track) => {
     console.log("Objeto 'track' recibido:", track);
     if (currentTrack?.id === track.id) {
@@ -122,6 +125,11 @@ export const PlayerProvider = ({ children }) => {
     togglePlayPause,
     seekTo,
     closePlayer,
+
+    volume,
+    increaseVolume,
+    decreaseVolume,
+    setVolume,
   };
 
   return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>;

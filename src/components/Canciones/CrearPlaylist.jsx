@@ -1,18 +1,12 @@
 ﻿import { useState } from "react";
 import { savePlaylist } from "../../utils/favoritos";
 import Swal from "sweetalert2";
+import Button from "../common/Button";
+import { toast } from "react-toastify";
 
-export default function CrearPlaylist({ visible, onClose, allTracks }) {
+export default function CrearPlaylist({ visible, onClose }) {
   const [name, setName] = useState("");
   const [selectedTracks, setSelectedTracks] = useState([]);
-
-  const toggleTrackSelection = (trackId) => {
-    if (selectedTracks.includes(trackId)) {
-      setSelectedTracks(selectedTracks.filter((id) => id !== trackId));
-    } else {
-      setSelectedTracks([...selectedTracks, trackId]);
-    }
-  };
 
   const handleSave = () => {
     if (!name.trim()) {
@@ -41,6 +35,10 @@ export default function CrearPlaylist({ visible, onClose, allTracks }) {
     }
 
     savePlaylist(name.trim(), selectedTracks);
+    toast.success(`🎉 Playlist "${name}" creada exitosamente!`, {
+      position: "bottom-right",
+      autoClose: 3000,
+    });
     setName("");
     setSelectedTracks([]);
     onClose();
@@ -122,18 +120,12 @@ export default function CrearPlaylist({ visible, onClose, allTracks }) {
 
         {/* Botones */}
         <div className="flex gap-3">
-          <button
-            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
-            onClick={handleSave}
-          >
+          <Button variant="secondary" onClick={handleSave}>
             Crear Playlist
-          </button>
-          <button
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
-            onClick={onClose}
-          >
-            Cancelar
-          </button>
+          </Button>
+          <Button onClick={onClose} variant="danger">
+            Cerrar
+          </Button>
         </div>
       </div>
     </>
