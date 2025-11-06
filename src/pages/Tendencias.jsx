@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { getPopularTracks } from "../services/deezerApi";
-import { usePlayer } from "../hook/usePlayer";
-import SongCard from "../components/common/SongCard";
+import TrackCardSmalll from "../components/cards/TrackCardSmalll";
+import PageHeader from "../components/Ui/PageSection";
 
 function Tendencias() {
   const [popularTracks, setPopularTracks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { playTrack } = usePlayer();
 
   useEffect(() => {
     const fetchTracks = async () => {
@@ -18,24 +17,17 @@ function Tendencias() {
     fetchTracks();
   }, []);
 
-  // La función que llama el SongCard
-  const handlePlay = (track) => {
-    playTrack(track);
-  };
-
   return (
     <div className="p-4 sm:p-6">
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">Tendencias</h1>
+      <PageHeader title="Tendencias" />
 
       {isLoading ? (
         <p className="text-gray-400">Cargando tendencias...</p>
       ) : (
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {/* AÑADE UN '?' ANTES DE .map */}
           {popularTracks?.map((track) => (
-            <li key={track.id}>
-              {/* Usamos el SongCard reutilizable */}
-              <SongCard track={track} onPlay={handlePlay} />
+            <li key={track.id} className="flex justify-center">
+              <TrackCardSmalll track={track} />
             </li>
           ))}
         </ul>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getAlbumById, getAlbumTracksRobust } from "../services/deezerApi";
 import { usePlayer } from "../hook/usePlayer";
-import SongCard from "../components/common/SongCard";
+import SongCard from "../components/Ui/SongCard";
 
 function AlbumDetail() {
   const { id } = useParams();

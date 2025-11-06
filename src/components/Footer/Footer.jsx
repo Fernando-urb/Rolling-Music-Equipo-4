@@ -1,6 +1,36 @@
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, Twitter, Twitch, Youtube } from "lucide-react";
+import SocialIcon from "../Ui/SocialIcon";
+
 function Footer() {
+  const socialLinks = [
+    {
+      href: "https://twitter.com",
+      bgColor: "bg-blue-600 hover:bg-blue-700",
+      icon: <Twitter size={20} />,
+    },
+    {
+      href: "https://www.instagram.com",
+      bgColor: "bg-purple-600 hover:bg-pink-700",
+      icon: <Instagram size={20} />,
+    },
+    {
+      href: "https://www.twitch.com",
+      bgColor: "bg-purple-400 hover:bg-purple-600",
+      icon: <Twitch size={20} />,
+    },
+    {
+      href: "https://www.youtube.com",
+      bgColor: "bg-red-600 hover:bg-red-700",
+      icon: <Youtube size={20} />,
+    },
+    {
+      href: "https://www.facebook.com",
+      bgColor: "bg-blue-600 hover:bg-blue-700",
+      icon: <Facebook size={20} />,
+    },
+  ];
+
   return (
     <footer className="border-b border-gray-200/50 dark: bg-transparent  text-gray-200 overflow-hidden">
       {/* Contenido */}
@@ -18,48 +48,12 @@ function Footer() {
           Sobre Nosotros
         </Link>
 
-        {/* Redes sociales */}
         <div className="flex space-x-5">
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noreferrer"
-            className="w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-colors duration-300"
-          >
-            <Twitter size={20} />
-          </a>
-          <a
-            href="https://www.instagram.com"
-            target="_blank"
-            rel="noreferrer"
-            className="w-10 h-10 bg-purple-600 hover:bg-pink-700 text-white rounded-full flex items-center justify-center transition-colors duration-300"
-          >
-            <Instagram size={20} />
-          </a>
-          <a
-            href="https://www.twitch.com"
-            target="_blank"
-            rel="noreferrer"
-            className="w-10 h-10 bg-purple-400 hover:bg-purple-600 text-white rounded-full flex items-center justify-center transition-colors duration-300"
-          >
-            <Twitch size={20} />
-          </a>
-          <a
-            href="https://www.youtube.com"
-            target="_blank"
-            rel="noreferrer"
-            className="w-10 h-10 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-colors duration-300"
-          >
-            <Youtube size={20} />
-          </a>
-          <a
-            href="https://www.facebook.com"
-            target="_blank"
-            rel="noreferrer"
-            className="w-10 h-10 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-colors duration-300"
-          >
-            <Facebook size={20} />
-          </a>
+          {socialLinks.map(({ href, bgColor, icon }, index) => (
+            <SocialIcon key={index} href={href} bgColor={bgColor}>
+              {icon}
+            </SocialIcon>
+          ))}
         </div>
       </div>
     </footer>

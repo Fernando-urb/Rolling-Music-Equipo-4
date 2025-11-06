@@ -17,40 +17,38 @@ export default function TrackCard({ track, onAddToPlaylist }) {
     const newFavoriteState = !isFavorite;
     setIsFavorite(newFavoriteState);
 
-    if (newFavoriteState) {
-      toast.success(`"${track.name}" agregada a favoritos ❤️`, {
-        position: "bottom-right",
-        autoClose: 2000,
-      });
-    } else {
-      toast.info(`"${track.name}" removida de favoritos`, {
-        position: "bottom-right",
-        autoClose: 2000,
-      });
-    }
+    toast[newFavoriteState ? "success" : "info"](
+      `"${track.name}" ${newFavoriteState ? "agregada a favoritos ❤️" : "removida de favoritos"}`,
+      { position: "bottom-right", autoClose: 2000 }
+    );
   };
 
   return (
-    <div className="flex items-center  bg-black/70 rounded-lg shadow-md hover:shadow-lg transition-shadow p-2 mb-4 border border-gray-700 ">
+    <div className="bg-black/50 rounded-xl shadow-lg p-4 w-full h-[220px] lg:w-[200px] lg:h-[220px] flex flex-col justify-between text-white">
+      {/* Imagen */}
       <img
-        src={track.album?.images?.[0]?.url || track.cover || "https://via.placeholder.com/80"}
-        alt={track.name || track.title}
-        className="w-15 h-15 rounded-lg mr-4 object-cover"
+        src={track.album?.images?.[0]?.url || track.cover || "https://via.placeholder.com/270"}
+        alt={track.name || "Track"}
+        className="rounded-xl w-full h-24 object-cover mb-2"
         onError={(e) => {
-          e.target.src = "https://via.placeholder.com/80x80/f0f0f0/999999?text=♪";
+          e.target.src = "https://via.placeholder.com/270x270/f0f0f0/999999?text=♪";
         }}
       />
-      <div className="flex-grow">
-        <h3 className="font-bold text-gray-900">{track.name || track.title}</h3>
-        <p className="text-sm text-gray-600">
+
+      {/* Contenido */}
+      <div className="text-center mb-2 flex-grow overflow-hidden">
+        <h4 className="text-sm font-bold truncate">{track.name || track.title}</h4>
+        <p className="text-xs text-gray-200 truncate">
           {track.artists?.map((a) => a.name).join(", ") || track.artist || "Artista desconocido"}
         </p>
-        {track.album?.name && <p className="text-xs text-gray-500 mt-1">{track.album.name}</p>}
+        {track.album?.name && <p className="text-xs text-gray-300 truncate">{track.album.name}</p>}
       </div>
-      <div className="flex gap-3 items-center">
+
+      {/* Botones */}
+      <div className="flex gap-3 justify-center">
         <button
-          className={`text-2xl transition-all duration-200 hover:scale-110 ${
-            isFavorite ? "text-red-500" : "text-gray-400 hover:text-red-500"
+          className={`text-xl transition-all duration-200 hover:scale-110 ${
+            isFavorite ? "text-red-500" : "text-gray-300 hover:text-red-500"
           }`}
           onClick={handleToggleFavorite}
           title={isFavorite ? "Quitar de favoritos" : "Agregar a favoritos"}
@@ -58,7 +56,7 @@ export default function TrackCard({ track, onAddToPlaylist }) {
           {isFavorite ? <HeartMinus /> : <HeartPlus />}
         </button>
         <button
-          className="text-blue-500 hover:text-blue-700 text-xl transition-all duration-200 hover:scale-110 p-1 rounded-full hover:bg-blue-50"
+          className="text-blue-300 hover:text-blue-500 text-xl transition-all duration-200 hover:scale-110"
           onClick={() => onAddToPlaylist && onAddToPlaylist(track.id)}
           title="Agregar a playlist"
         >
@@ -66,7 +64,7 @@ export default function TrackCard({ track, onAddToPlaylist }) {
         </button>
         {track.preview_url && (
           <button
-            className="text-pink-500 hover:text-pink-700 text-xl transition-all duration-200 hover:scale-110 p-1 rounded-full hover:bg-pink-50"
+            className="text-pink-300 hover:text-pink-500 text-xl transition-all duration-200 hover:scale-110"
             onClick={() => playTrack(track)}
             title="Escuchar preview"
           >

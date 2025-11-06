@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getPlaylists, deletePlaylist } from "../../utils/favoritos";
 import { Trash2, FolderUp, ListMusic } from "lucide-react";
-import Button from "../common/Button";
+import Button from "../Ui/Button";
 import Swal from "sweetalert2";
 
 export default function PlaylistsModal({ visible, onClose, allTracks }) {
@@ -137,7 +137,7 @@ export default function PlaylistsModal({ visible, onClose, allTracks }) {
           </div>
         )}
 
-        <Button onClick={onClose} variant="danger">
+        <Button onClick={onClose} variant="danger" className="mt-3 ">
           Cerrar
         </Button>
       </div>

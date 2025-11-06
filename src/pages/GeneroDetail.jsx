@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getAlbumsByGenre, getGenreById } from "../services/deezerApi";
-import AlbumCard from "../components/common/AlbumCard";
+import AlbumCard from "../components/Ui/AlbumCard";
 
 function GeneroDetail() {
   const { id } = useParams();

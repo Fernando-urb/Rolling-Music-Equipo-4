@@ -3,7 +3,7 @@ import { Play } from "lucide-react";
 import { LOGO_VMUSIC } from "../constants/imagenes";
 import { featuresAbout } from "../context/LandingCards.jsx";
 import { stats } from "../constants/nosotros.js";
-import TeamSection from "../components/common/TeamSection.jsx";
+import TeamSection from "../components/Ui/TeamSection.jsx";
 
 const logo = LOGO_VMUSIC[0];
 const PARRAFO_UNO =

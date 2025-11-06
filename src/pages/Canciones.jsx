@@ -7,7 +7,8 @@ import FavoritesModal from "../components/Canciones/FavoritesModal";
 import AddToPlaylistModal from "../components/Canciones/AddToPlaylistModal";
 import { useModalFav } from "../hook/usemodalFav";
 import { migrateOldData } from "../utils/favoritos";
-import Button from "../components/common/Button";
+import Button from "../components/Ui/Button";
+import PageHeader from "../components/Ui/PageSection";
 
 function Canciones() {
   const [tracks, setTracks] = useState([]);
@@ -56,7 +57,7 @@ function Canciones() {
 
   return (
     <div className="p-6 bg-transparent min-h-screen">
-      <h1 className="text-2xl font-bold text-center mb-6">Sound-Music Top 20</h1>
+      <PageHeader title="Sound-Music Top 20" />
       <div className="text-center my-4 space-x-4 ">
         <Button onClick={showFavoritos}>Mis Favoritos</Button>
         <Button onClick={showCrearPlaylist}>Crear Playlist</Button>
@@ -74,7 +75,7 @@ function Canciones() {
         trackName={addToPlaylistModal.trackName}
       />
 
-      <div className="flex  flex-col ">
+      <div className="flex  flex-wrap gap-3 justify-center ">
         {tracks.map((track) => (
           <TrackCard key={track.id} track={track} onAddToPlaylist={handleAddToPlaylist} />
         ))}

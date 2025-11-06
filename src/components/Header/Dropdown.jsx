@@ -1,7 +1,7 @@
 import { User, Settings, LogOut, Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "../../hook/useAuth";
-import Avatar from "../common/Avatar";
+import Avatar from "../Ui/Avatar";
 
 const CERRAR_SESION = "Cerrar Sesión";
 

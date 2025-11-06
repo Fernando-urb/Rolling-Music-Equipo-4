@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import GoogleLoginButton from "./GoogleLoginButton";
 import { useModals } from "../../hook/useAuth";
-import Modal from "../common/Modal";
+import Modal from "../Ui/Modal";
 
 function LoginModal() {
   const navigate = useNavigate();

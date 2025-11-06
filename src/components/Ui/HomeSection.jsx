@@ -20,14 +20,14 @@ function HomeSection({ title, children }) {
         <div className="flex gap-2">
           <button
             onClick={() => scroll(-300)}
-            className="bg-neutral-800 p-1 rounded-full text-gray-400 hover:text-white transition-colors"
+            className="bg-pink-700 p-1 rounded-full text-gray-100 hover:text-white transition-colors"
             aria-label="Scroll left"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={() => scroll(300)}
-            className="bg-neutral-800 p-1 rounded-full text-gray-400 hover:text-white transition-colors"
+            className="bg-pink-700 p-1 rounded-full text-gray-100 hover:text-white transition-colors"
             aria-label="Scroll right"
           >
             <ChevronRight size={20} />
