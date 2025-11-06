@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { savePlaylist } from "../../utils/favoritos";
 import Button from "../common/Button";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export default function CrearPlaylist({ visible, onClose }) {
   const [name, setName] = useState("");
@@ -9,24 +9,39 @@ export default function CrearPlaylist({ visible, onClose }) {
 
   const handleSave = () => {
     if (!name.trim()) {
-      toast.error("El nombre de la playlist es requerido", {
-        position: "bottom-right",
-        autoClose: 2000,
+      Swal.fire({
+        icon: "warning",
+        title: "Sin nombre, sin ritmo 🎵",
+        text: "Tu playlist necesita identidad antes de sonar.",
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
       });
       return;
     }
     if (selectedTracks.length === 0) {
-      toast.error("Selecciona al menos una canción", {
-        position: "bottom-right",
-        autoClose: 2000,
+      Swal.fire({
+        icon: "info",
+        title: "Selecciona canciones 🎶",
+        text: "Tu playlist necesita al menos una canción para comenzar a sonar.",
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
       });
       return;
     }
 
     savePlaylist(name.trim(), selectedTracks);
-    toast.success(`🎉 Playlist "${name}" creada exitosamente!`, {
-      position: "bottom-right",
-      autoClose: 3000,
+    Swal.fire({
+      icon: "success",
+      title: "¡Playlist creada! 💫",
+      text: `Tu lista "${name}" fue creada exitosamente. ¡A disfrutar de la música! 🎧`,
+      confirmButtonColor: "#a855f7",
+      confirmButtonText: "¡Entendido!",
+      background: "#0f0f0f",
+      color: "#f3f3f3",
     });
     setName("");
     setSelectedTracks([]);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPlaylists, savePlaylist } from "../../utils/favoritos";
-import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export default function AddToPlaylistModal({ visible, onClose, trackId, trackName }) {
   const [playlists, setPlaylists] = useState({});
@@ -18,14 +18,24 @@ export default function AddToPlaylistModal({ visible, onClose, trackId, trackNam
     if (!currentTracks.includes(trackId)) {
       const updatedTracks = [...currentTracks, trackId];
       savePlaylist(playlistName, updatedTracks);
-      toast.success(`🎵 "${trackName}" agregada a "${playlistName}"`, {
-        position: "bottom-right",
-        autoClose: 3000,
+      Swal.fire({
+        icon: "success",
+        title: "¡Tema agregado! 🎶",
+        text: `Tu playlist "${playlistName}" acaba de ganar un nuevo ritmo 🔥`,
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
       });
     } else {
-      toast.warning(`"${trackName}" ya está en "${playlistName}"`, {
-        position: "bottom-right",
-        autoClose: 2000,
+      Swal.fire({
+        icon: "error",
+        title: "¡Ups! Esta canción ya suena en tu lista 🎵",
+        text: "Ya está sonando en tu playlist. Probá con otra",
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
       });
     }
     onClose();
@@ -33,25 +43,40 @@ export default function AddToPlaylistModal({ visible, onClose, trackId, trackNam
 
   const createNewPlaylist = () => {
     if (!newPlaylistName.trim()) {
-      toast.error("El nombre de la playlist es requerido", {
-        position: "bottom-right",
-        autoClose: 2000,
+      Swal.fire({
+        icon: "warning",
+        title: "Sin nombre, sin ritmo 🎵",
+        text: "Tu playlist necesita identidad antes de sonar.",
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
       });
       return;
     }
 
     if (playlists[newPlaylistName.trim()]) {
-      toast.error("Ya existe una playlist con ese nombre", {
-        position: "bottom-right",
-        autoClose: 2000,
+      Swal.fire({
+        icon: "error",
+        title: "Nombre duplicado ❌",
+        text: "Ya existe una playlist con ese nombre. Probá con otro título 🎶",
+        confirmButtonColor: "#a855f7",
+        confirmButtonText: "¡Entendido!",
+        background: "#0f0f0f",
+        color: "#f3f3f3",
       });
       return;
     }
 
     savePlaylist(newPlaylistName.trim(), [trackId]);
-    toast.success(`🎉 Playlist "${newPlaylistName}" creada con "${trackName}"`, {
-      position: "bottom-right",
-      autoClose: 3000,
+    Swal.fire({
+      icon: "success",
+      title: "¡Playlist creada! 💫",
+      text: `Tu lista "${name}" fue creada exitosamente. ¡A disfrutar de la música! 🎧`,
+      confirmButtonColor: "#a855f7",
+      confirmButtonText: "¡Entendido!",
+      background: "#0f0f0f",
+      color: "#f3f3f3",
     });
     setNewPlaylistName("");
     setShowNewPlaylist(false);
