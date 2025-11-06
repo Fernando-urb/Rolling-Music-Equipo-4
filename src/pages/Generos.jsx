@@ -18,9 +18,10 @@ function Generos() {
     fetchGenres();
   }, []);
 
+  // MODIFICADO: Ahora navega directamente a la página 404
   const handleGenreClick = (genreId) => {
-    console.log("📍 Navegando a género ID:", genreId);
-    navigate(`/genero/${genreId}`);
+    console.log("📍 Redirigiendo a 404 por género ID:", genreId);
+    navigate(`/404`); // <--- CAMBIO AQUÍ
   };
 
   return (

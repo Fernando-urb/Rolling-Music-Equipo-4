@@ -1,7 +1,6 @@
 import AdminLayout from "../../components/Admin/AdminLayout";
 import { ListMusic, Star, Ban } from "lucide-react";
 
-// Tarjeta ficticia para simular un item de contenido
 const ContentItem = ({ title, description, image, status }) => (
   <div className="bg-gray-700/50 rounded-lg shadow-lg flex items-center gap-4 p-4 border border-gray-700">
     <img src={image} alt={title} className="w-20 h-20 rounded-md object-cover" />
@@ -34,7 +33,6 @@ function AdminContent() {
 
   return (
     <AdminLayout title="Gestión de Contenido" breadcrumbs={breadcrumbs}>
-      {/* --- INICIO DEL CONTENIDO FICTICIO --- */}
       <div className="text-gray-400 mb-8">
         Aquí es donde podrías gestionar las playlists destacadas, promocionar álbumes o editar los
         géneros que aparecen en la página principal.
@@ -69,7 +67,6 @@ function AdminContent() {
           </div>
         </div>
       </div>
-      {/* --- FIN DEL CONTENIDO FICTICIO --- */}
     </AdminLayout>
   );
 }

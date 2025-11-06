@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // <-- Añade useNavigate
+import { useNavigate } from "react-router-dom";
 import { getPopularAlbums } from "../services/deezerApi";
-import AlbumCard from "../components/common/AlbumCard";
+import AlbumCard from "../components/cards/AlbumCards";
 
 function Albunes() {
   const [albums, setAlbums] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate(); // <-- Añade navigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAlbums = async () => {

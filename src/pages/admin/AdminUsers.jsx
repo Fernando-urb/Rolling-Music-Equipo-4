@@ -30,7 +30,7 @@ function AdminUsers() {
       // Aseguramos que CADA usuario tenga un ID, ROL y ESTADO
       const sanitizedUsers = usersInStorage.map((u) => ({
         ...u,
-        id: u.id || u.email, // Asigna el email como ID si no existe
+        id: u.id || u.email,
         role: u.role || "user",
         status: u.status || "active",
       }));
