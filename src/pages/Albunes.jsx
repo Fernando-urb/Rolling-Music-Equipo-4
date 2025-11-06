@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPopularAlbums } from "../services/deezerApi";
 import AlbumCard from "../components/cards/AlbumCards";
+import PageHeader from "../components/Ui/PageSection";
 
 function Albunes() {
   const [albums, setAlbums] = useState([]);
@@ -25,7 +26,7 @@ function Albunes() {
 
   return (
     <div className="p-4 sm:p-6">
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">Álbumes Populares</h1>
+      <PageHeader title="Álbumes Populares" />
 
       {isLoading ? (
         <p className="text-gray-400">Cargando álbumes...</p>

@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPopularTracks, getPopularAlbums, getGenres } from "../services/deezerApi";
 import { useSearch } from "../hook/useAuth";
-import HomeSection from "../components/common/HomeSection";
-import GenreCard from "../components/common/GenreCard";
+import HomeSection from "../components/Ui/HomeSection";
+import GenreCard from "../components/Ui/GenreCard";
 import AlbumCardHome from "../components/cards/AlbumCardHome";
 import TrackCardSmalll from "../components/cards/TrackCardSmalll";
+import { gradientStyles } from "../constants/NavLinkConst";
+import PageHeader from "../components/Ui/PageSection";
 
 function Home() {
   const { searchResults, isLoading, hasSearched } = useSearch();
@@ -26,9 +28,14 @@ function Home() {
             getGenres(),
           ]);
 
+          const styledGenres = genresData.map((genre, index) => ({
+            ...genre,
+            linear: gradientStyles[index % gradientStyles.length],
+          }));
+
           setPopularTracks(tracksData);
           setPopularAlbums(albumsData);
-          setGenres(genresData);
+          setGenres(styledGenres);
         } catch (error) {
           console.error("Error al cargar datos del Home:", error);
         } finally {
@@ -51,7 +58,6 @@ function Home() {
   );
 
   return (
-    // <MainLayout>
     <div className="pt-4 sm:pt-6">
       {/* --- SECCIÓN DE BÚSQUEDA --- */}
       {isLoading && <p className="text-gray-600 dark:text-gray-400 px-4 sm:px-6">Buscando...</p>}
@@ -76,26 +82,29 @@ function Home() {
           ) : (
             <div>
               {/* Carrusel de Géneros - Sin cambios */}
-              <HomeSection title="Explorar Géneros" href="/generos">
+              <PageHeader title="Explora por género" />
+              <HomeSection title="" href="/generos">
                 {genres.map((genre) => (
                   <GenreCard
                     key={genre.id}
                     genre={genre}
-                    // Ahora navega a la página de lista de géneros.
-                    onClick={() => navigate("/generos")}
+                    onClick={() => navigate(`/generos/${genre.id}`)}
                   />
                 ))}
               </HomeSection>
+              <PageHeader title="Populares del momento" />
 
               {/* Carrusel de Populares del momento - Sin cambios */}
-              <HomeSection title="Populares del momento">
+              <HomeSection title="">
                 {popularTracks.map((track) => (
                   <TrackCardSmalll key={track.id} track={track} />
                 ))}
               </HomeSection>
 
               {/* Carrusel de Álbumes Populares - USANDO AlbumCardHome */}
-              <HomeSection title="Álbumes Populares" href="/albumes">
+              <PageHeader title="Álbumes Populares" />
+
+              <HomeSection title="" href="/albumes">
                 {popularAlbums.map((album) => (
                   <AlbumCardHome // <--- USAMOS AlbumCardHome
                     key={album.id}

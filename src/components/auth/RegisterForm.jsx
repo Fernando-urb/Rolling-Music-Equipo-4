@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "../../utils/validationSchema";
 import { toast } from "react-toastify";
-import Input from "../common/Input";
+import Input from "../Ui/Input";
 import bcrypt from "bcryptjs";
-import Button from "../common/Button";
+import Button from "../Ui/Button";
 
 function RegisterForm({ onRegister }) {
   const {

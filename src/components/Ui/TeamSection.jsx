@@ -2,22 +2,22 @@ import TeamMemberCard from "./TeamMemberCard";
 
 const teamMembers = [
   {
-    name: "Fernando",
+    name: "Fernando Urbano",
     role: "Scrum Master & Developer",
     description:
       "Acompaña al equipo con pasión y liderazgo, creando experiencias visuales  que conectan con cada usuario.",
     image: "/nosotros/fernando.jpg",
     git: "https://github.com/Fernando-urb",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/ufer2025/",
   },
   {
-    name: "Daniel",
+    name: "Daniel Antequera",
     role: "Developer",
     description:
       "Diseña interfaces claras y funcionales, pensando siempre en que cada interacción sea intuitiva y agradable.",
     image: "/nosotros/daniel.jpg",
     git: "https://github.com/Cdantequera",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/cdantequera775/",
   },
   {
     name: "Santiago",

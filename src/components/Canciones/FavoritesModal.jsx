@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getFavorites, toggleFavorite } from "../../utils/favoritos";
 import { Trash2, Heart } from "lucide-react";
-import Button from "../common/Button";
+import Button from "../Ui/Button";
 import { toast } from "react-toastify";
 
 export default function FavoritesModal({ visible, onClose, tracks }) {

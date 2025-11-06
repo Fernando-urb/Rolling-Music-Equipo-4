@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getGenres } from "../services/deezerApi";
-import GenreCard from "../components/common/GenreCard";
+import GenreCard from "../components/Ui/GenreCard";
+import { gradientStyles } from "../constants/NavLinkConst";
+import PageHeader from "../components/Ui/PageSection";
 
 function Generos() {
   const [genres, setGenres] = useState([]);
@@ -12,7 +14,12 @@ function Generos() {
     const fetchGenres = async () => {
       setIsLoading(true);
       const genreData = await getGenres();
-      setGenres(genreData);
+      const styledGenres = genreData.map((genre, index) => ({
+        ...genre,
+        linear: gradientStyles[index % gradientStyles.length],
+      }));
+
+      setGenres(styledGenres); // ✅ Usamos los géneros con estilos
       setIsLoading(false);
     };
     fetchGenres();
@@ -26,7 +33,7 @@ function Generos() {
 
   return (
     <div className="p-4 sm:p-6">
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">Géneros</h1>
+      <PageHeader title="Géneros" />
 
       {isLoading ? (
         <p className="text-gray-400">Cargando géneros...</p>
@@ -34,7 +41,11 @@ function Generos() {
         <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {genres.map((genre) => (
             <li key={genre.id}>
-              <GenreCard genre={genre} onClick={handleGenreClick} />
+              <GenreCard
+                genre={genre}
+                onClick={handleGenreClick}
+                className={`bg-gradient-to-br ${genre.linear}`}
+              />
             </li>
           ))}
         </ul>

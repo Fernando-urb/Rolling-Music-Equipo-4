@@ -5,11 +5,12 @@ import { useModals, useAuth } from "../hook/useAuth";
 import { LOGO_VMUSIC } from "../constants/imagenes";
 import { featuresAbout } from "../context/LandingCards.jsx";
 import { genres } from "../constants/NavLinkConst.js";
-import Background from "../components/common/Background.jsx";
+import Background from "../components/Ui/Background.jsx";
+import GenreSection from "../components/Ui/GenreSection.jsx";
 
 const logo = LOGO_VMUSIC[0];
 
-function Home() {
+function Landing() {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const { openLogin, openRegister } = useModals();
@@ -29,7 +30,6 @@ function Home() {
 
   return (
     <div className=" ">
-      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 py-20">
         {/* Animated Background Elements */}
         <Background />
@@ -106,31 +106,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="relative py-20 px-4 bg-black/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Explora por género</h2>
-            <p className="text-xl text-gray-400">Encuentra tu estilo musical favorito</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {genres.map((genre, index) => (
-              <div
-                key={index}
-                className={`group relative h-32 rounded-xl bg-linear-to-br ${genre.linear} overflow-hidden hover:scale-105 transition-transform shadow-xl`}
-              >
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
-                <div className="relative h-full flex items-center justify-center">
-                  <h3 className="text-xl font-bold">{genre.name}</h3>
-                </div>
-                <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Music size={24} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <GenreSection genres={genres} />
 
       <section className="relative py-32 px-4">
         <div className="max-w-4xl mx-auto text-center">
@@ -158,4 +134,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Landing;

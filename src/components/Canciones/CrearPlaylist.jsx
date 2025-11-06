@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { savePlaylist } from "../../utils/favoritos";
-import Button from "../common/Button";
+import Button from "../Ui/Button";
 import Swal from "sweetalert2";
 
 export default function CrearPlaylist({ visible, onClose }) {
@@ -13,18 +13,6 @@ export default function CrearPlaylist({ visible, onClose }) {
         icon: "warning",
         title: "Sin nombre, sin ritmo 🎵",
         text: "Tu playlist necesita identidad antes de sonar.",
-        confirmButtonColor: "#a855f7",
-        confirmButtonText: "¡Entendido!",
-        background: "#0f0f0f",
-        color: "#f3f3f3",
-      });
-      return;
-    }
-    if (selectedTracks.length === 0) {
-      Swal.fire({
-        icon: "info",
-        title: "Selecciona canciones 🎶",
-        text: "Tu playlist necesita al menos una canción para comenzar a sonar.",
         confirmButtonColor: "#a855f7",
         confirmButtonText: "¡Entendido!",
         background: "#0f0f0f",
@@ -52,7 +40,7 @@ export default function CrearPlaylist({ visible, onClose }) {
 
   return (
     <>
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={onClose}></div>
+      <div className="fixed inset-0 bg-black/90 bg-opacity-50 z-40" onClick={onClose}></div>
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  bg-gradient-to-br from-purple-900 via-blue-900 to-purple-500 p-6 rounded-lg shadow-lg z-50 w-[90vw] max-w-2xl max-h-[80vh] overflow-y-auto">
         <h2 className="text-xl font-bold mb-4"> Crear Nueva Playlist</h2>
 
@@ -75,7 +63,7 @@ export default function CrearPlaylist({ visible, onClose }) {
           <Button variant="secondary" onClick={handleSave}>
             Crear Playlist
           </Button>
-          <Button onClick={onClose} variant="danger">
+          <Button onClick={onClose} variant="danger" className="mt-3 ">
             Cerrar
           </Button>
         </div>

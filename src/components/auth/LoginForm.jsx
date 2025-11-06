@@ -3,10 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../utils/validationSchema";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import Input from "../common/Input";
+import Input from "../Ui/Input";
 import bcrypt from "bcryptjs";
 import { useAuth } from "../../hook/useAuth";
-import Button from "../common/Button";
+import Button from "../Ui/Button";
 
 function LoginForm({ onLogin }) {
   const { login } = useAuth();

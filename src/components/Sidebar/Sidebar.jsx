@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Button from "../common/Button";
+import Button from "../Ui/Button";
 import {
   PAGES_NAVIGATE,
   PAGES_MUSICA,
